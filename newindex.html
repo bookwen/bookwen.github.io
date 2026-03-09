@@ -1,11 +1,2310 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>测试页</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>段训栋 - 软件测试工程师 | 个人简历</title>
+  <style>
+    :root {
+      --bg-base: #f0f2f5;
+      --bg-glass: rgba(255, 255, 255, 0.65);
+      --bg-glass-strong: rgba(255, 255, 255, 0.85);
+      --text-primary: #1a1a1f;
+      --text-secondary: #4a4a55;
+      --text-muted: #6b7280;
+      --accent: #0891b2;
+      --accent-dim: rgba(8, 145, 178, 0.12);
+      --border: rgba(0, 0, 0, 0.06);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --blur-sm: 16px;
+      --card-glass: rgba(255, 255, 255, 0.45);
+      --card-glass-border: rgba(255, 255, 255, 0.6);
+      --nav-accent: #4a90e2;
+      --scrollbar-track: rgba(8, 145, 178, 0.06);
+      --scrollbar-thumb: rgba(8, 145, 178, 0.32);
+      --scrollbar-thumb-hover: rgba(8, 145, 178, 0.5);
+    }
+    [data-theme="dark"] {
+      --bg-base: #0f0f12;
+      --bg-glass: rgba(30, 30, 35, 0.7);
+      --bg-glass-strong: rgba(40, 40, 48, 0.85);
+      --text-primary: #e8e8ec;
+      --text-secondary: #b0b0b8;
+      --text-muted: #80808c;
+      --accent: #22b8cf;
+      --accent-dim: rgba(34, 184, 207, 0.2);
+      --border: rgba(255, 255, 255, 0.08);
+      --card-glass: rgba(255, 255, 255, 0.08);
+      --card-glass-border: rgba(255, 255, 255, 0.12);
+      --nav-accent: #5ba3e8;
+      --scrollbar-track: rgba(34, 184, 207, 0.08);
+      --scrollbar-thumb: rgba(34, 184, 207, 0.28);
+      --scrollbar-thumb-hover: rgba(34, 184, 207, 0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 112.5%;
+      transition: background-color 0.6s ease-out, color 0.6s ease-out;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+    html::-webkit-scrollbar { width: 10px; }
+    html::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 5px; }
+    html::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 5px; }
+    html::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+
+    body {
+      font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      padding-left: 10%;
+      padding-right: 10%;
+      transition: background-color 0.6s ease-out, color 0.6s ease-out;
+    }
+    html.theme-switching,
+    html.theme-switching *,
+    html.theme-switching *::before,
+    html.theme-switching *::after {
+      transition: background-color 0.6s ease-out, color 0.6s ease-out, border-color 0.6s ease-out !important;
+    }
+
+    /* 整页背景：浅色渐变，毛玻璃透出 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse 100% 80% at 50% -10%, rgba(8, 145, 178, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 50% at 90% 70%, rgba(8, 145, 178, 0.04) 0%, transparent 45%),
+        var(--bg-base);
+      pointer-events: none;
+    }
+    [data-theme="dark"] body::before {
+      background:
+        radial-gradient(ellipse 100% 80% at 50% -10%, rgba(34, 184, 207, 0.08) 0%, transparent 50%),
+        var(--bg-base);
+    }
+
+    /* 夜间模式：圆形渐变扩散，半透明叠加，全程内容可见，无全黑/闪屏 */
+    .theme-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 50%));
+      will-change: clip-path;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+    .theme-overlay.theme-spread-dark {
+      background: radial-gradient(circle at var(--theme-x) var(--theme-y), rgba(15, 15, 18, 0.55) 0%, rgba(15, 15, 18, 0.2) 40%, transparent 70%);
+      animation: theme-spread 0.6s ease-out forwards;
+    }
+    .theme-overlay.theme-spread-light {
+      background: radial-gradient(circle at var(--theme-x) var(--theme-y), rgba(240, 242, 245, 0.55) 0%, rgba(240, 242, 245, 0.2) 40%, transparent 70%);
+      animation: theme-spread 0.6s ease-out forwards;
+    }
+    @keyframes theme-spread {
+      0% {
+        clip-path: circle(0 at var(--theme-x) var(--theme-y));
+      }
+      100% {
+        clip-path: circle(180vmax at var(--theme-x) var(--theme-y));
+      }
+    }
+
+    /* 导航栏：简约半透明磨砂、滚动缩小 */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 2rem;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: height 0.25s ease-out, background 0.25s ease-out, border-color 0.25s ease-out, padding 0.25s ease-out;
+      overflow: hidden;
+    }
+    .top-nav.scrolled {
+      height: 50px;
+      background: rgba(255, 255, 255, 0.85);
+      border-bottom-color: var(--border);
+    }
+    [data-theme="dark"] .top-nav {
+      background: rgba(20, 20, 24, 0.72);
+      border-bottom-color: transparent;
+    }
+    [data-theme="dark"] .top-nav.scrolled {
+      background: rgba(20, 20, 24, 0.9);
+      border-bottom-color: var(--border);
+    }
+
+    .top-nav .name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .top-nav .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .top-nav .nav-links a {
+      position: relative;
+      padding: 0.5rem 0;
+      font-size: 16px;
+      color: #8b92a0;
+      text-decoration: none;
+      transition: color 0.2s ease-out, transform 0.2s ease-out;
+      -webkit-font-smoothing: antialiased;
+    }
+    .top-nav .nav-links a:hover {
+      color: var(--nav-accent);
+      transform: translateY(-2px);
+    }
+    .top-nav .nav-links a.active {
+      color: var(--nav-accent);
+    }
+    .top-nav .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nav-accent);
+      transform: scaleX(1);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .top-nav .nav-links a:not(.active)::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+    .top-nav .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* 导航右侧：图标按钮 */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-btn-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-glass-strong);
+      backdrop-filter: blur(var(--blur-sm));
+      -webkit-backdrop-filter: blur(var(--blur-sm));
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .nav-btn-icon:hover {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .nav-btn-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* 导航点击发散涟漪 */
+    .nav-ripple {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      margin-left: -30px;
+      margin-top: -30px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid rgba(8, 145, 178, 0.2);
+      pointer-events: none;
+      z-index: 1;
+      transform: scale(0);
+      opacity: 1;
+      animation: nav-ripple 0.5s ease-out forwards;
+    }
+    [data-theme="dark"] .nav-ripple {
+      border-color: rgba(34, 184, 207, 0.25);
+    }
+    @keyframes nav-ripple {
+      to {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    .menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-glass-strong);
+      backdrop-filter: blur(var(--blur-sm));
+      border: none;
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    /* Hero：居中 + 毛玻璃光晕 */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 0;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 70%;
+      background: radial-gradient(ellipse 70% 50% at 50% 10%, rgba(8, 145, 178, 0.1) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero .hero-name {
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+      line-height: 1.1;
+      position: relative;
+      color: var(--text-primary);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    }
+    .hero .hero-greeting {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.15rem;
+      line-height: 1.35;
+      position: relative;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    }
+    .hero.visible .hero-greeting {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero.visible .hero-name {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero .hero-title {
+      font-size: 1.35rem;
+      color: var(--accent);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      line-height: 1.35;
+      position: relative;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease-out-expo) 0.1s, transform 0.9s var(--ease-out-expo) 0.1s;
+    }
+
+    .hero.visible .hero-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      position: relative;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease-out-expo) 0.2s, transform 0.9s var(--ease-out-expo) 0.2s;
+    }
+
+    /* Hero 邮箱：按示例弹性交互，圆形⇄圆角矩形，width/height/border-radius 0.4s 回弹曲线 */
+    .hero .hero-email-link {
+      --hero-email-size: 56px;
+      --hero-email-pill-radius: calc(var(--hero-email-size) / 1.5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      gap: 8px;
+      width: var(--hero-email-size);
+      height: var(--hero-email-size);
+      padding: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      box-shadow: 0 4px 14px rgba(8, 145, 178, 0.3), 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition:
+        width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-radius 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.3s ease;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .hero .hero-email-link:hover {
+      width: 160px;
+      height: var(--hero-email-size);
+      border-radius: var(--hero-email-pill-radius);
+      background: var(--nav-accent);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="dark"] .hero .hero-email-link {
+      box-shadow: 0 4px 14px rgba(34, 184, 207, 0.22), 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    [data-theme="dark"] .hero .hero-email-link:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .hero .hero-email-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: opacity 0.3s ease;
+    }
+    .hero .hero-email-link:hover .hero-email-icon {
+      opacity: 0.8;
+    }
+    .hero .hero-email-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+    .hero .hero-email-text {
+      white-space: nowrap;
+      overflow: hidden;
+      opacity: 0;
+      margin: 0;
+      margin-left: 0;
+      transition: opacity 0.3s ease;
+    }
+    .hero .hero-email-link:not(:hover) .hero-email-text {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+    .hero .hero-email-link:hover .hero-email-text {
+      position: static;
+      opacity: 1;
+    }
+
+    .hero .hero-scroll-down {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+      color: var(--text-primary);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease-out-expo) 0.25s, transform 0.9s var(--ease-out-expo) 0.25s, color 0.2s ease;
+      text-decoration: none;
+    }
+    .hero .hero-scroll-down:hover {
+      color: var(--accent);
+    }
+    .hero .hero-scroll-down svg {
+      width: 28px;
+      height: 28px;
+    }
+    .hero.visible .hero-scroll-down {
+      opacity: 0.7;
+      transform: translateY(0);
+    }
+
+    .hero.visible .hero-contact {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 主内容：模块撑满、可左右滑动 */
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 0 0 4rem;
+      width: 100%;
+    }
+
+    .section {
+      width: 100%;
+      margin: 0 0 3rem;
+      padding: 4rem 2rem;
+      background: transparent;
+      border-radius: 0;
+      border: none;
+      border-top: 1px solid var(--border);
+      position: relative;
+      scroll-margin-top: 5rem;
+    }
+    .section:last-of-type {
+      margin-bottom: 0;
+    }
+    #projects {
+      padding-right: 0;
+      margin-right: -10vw;
+      width: calc(100% + 10vw);
+      box-sizing: border-box;
+    }
+    #projects .section-title,
+    #projects .section-subtitle {
+      padding-right: 2rem;
+    }
+    #experience {
+      scroll-snap-type: none;
+      overflow: hidden;
+    }
+    #experience .experience-slider {
+      scroll-snap-type: none;
+    }
+
+    /* 模块内可横向滚动容器 */
+    .section-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.5rem;
+      margin: 0 -0.5rem;
+    }
+
+    .section-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .section-scroll::-webkit-scrollbar-track {
+      background: var(--bg-glass);
+      border-radius: 4px;
+    }
+
+    .section-scroll::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+    [data-theme="dark"] .section-scroll::-webkit-scrollbar-track {
+      background: var(--bg-glass);
+    }
+
+    /* 模块标题：大字号、无框线、下滑出现 */
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text-primary);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+
+    .section-title + .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: -2rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .section.visible .section-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 下滑时子元素渐入（错峰） */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(44px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+
+    .reveal-item.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 模块内阅读区域（教育、自我评价）可设最大宽度，非全宽内容 */
+    .section-inner {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .edu-item {
+      background: var(--bg-glass-strong);
+      backdrop-filter: blur(var(--blur-sm));
+      -webkit-backdrop-filter: blur(var(--blur-sm));
+      padding: 2rem 2.5rem;
+      border-radius: 20px;
+    }
+
+    .edu-item .school {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-item .meta {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* 工作经历卡片：放大、居中、支持滚动淡出 */
+    .work-item {
+      position: relative;
+      background: var(--card-glass);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--card-glass-border);
+      border-radius: 24px;
+      padding: 2.5rem 3rem;
+      margin-bottom: 0;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.5s ease;
+      opacity: 1;
+    }
+    .work-item.fade-out,
+    .work-item.fade-below {
+      opacity: 0.92;
+    }
+    .work-item.fade-out {
+      pointer-events: none;
+    }
+    .work-item.fade-out::after,
+    .work-item.fade-below::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: linear-gradient(to bottom, var(--bg-base) 0%, var(--bg-base) 15%, transparent 45%, transparent 55%, var(--bg-base) 85%, var(--bg-base) 100%);
+      pointer-events: none;
+    }
+    [data-theme="dark"] .work-item {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+    .work-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="dark"] .work-item:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .work-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .experience-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+    }
+    .experience-slider-wrap {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* 工作经历-公司模块：复刻示例效果，DOM 重排保证中间置顶，仅透明度+缩放过渡，手动+自动轮播 */
+    .work-exp-viewport {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 20px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: default;
+    }
+    .work-exp-viewport::-webkit-scrollbar { display: none; }
+    .work-exp-panel {
+      flex-shrink: 0;
+      width: 100%;
+      max-height: 22vh;
+      overflow: hidden;
+      border-radius: 24px;
+      padding: 0;
+      box-sizing: border-box;
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0.5;
+      transform: scale(0.94);
+      z-index: 1;
+      position: relative;
+    }
+    .work-exp-panel.module-middle {
+      max-height: none;
+      min-height: 64vh;
+      overflow: visible;
+      padding: 40px 35px;
+      opacity: 1;
+      transform: scale(1.08);
+      z-index: 3;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    }
+    /* 中间卡片「离开」：淡出并略缩小，用于切换前 */
+    .work-exp-panel.module-middle.module-middle-leaving {
+      opacity: 0;
+      transform: scale(0.98);
+      pointer-events: none;
+    }
+    /* 中间卡片离开 + 向下切换：向上滑出 */
+    .work-exp-viewport--switching-next .work-exp-panel.module-middle.module-middle-leaving {
+      transform: scale(0.98) translateY(-32px);
+    }
+    /* 中间卡片离开 + 向上切换：向下滑出 */
+    .work-exp-viewport--switching-prev .work-exp-panel.module-middle.module-middle-leaving {
+      transform: scale(0.98) translateY(32px);
+    }
+    /* 中间卡片「进入」：从淡、小过渡到当前样式（由 JS 移除此类触发过渡） */
+    .work-exp-panel.module-middle.module-middle-entering {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    /* 新中间卡片从下方滑入（原为下方卡片） */
+    .work-exp-viewport--entering-from-bottom .work-exp-panel.module-middle.module-middle-entering {
+      transform: scale(0.98) translateY(36px);
+    }
+    /* 新中间卡片从上方滑入（原为上方卡片） */
+    .work-exp-viewport--entering-from-top .work-exp-panel.module-middle.module-middle-entering {
+      transform: scale(0.98) translateY(-36px);
+    }
+    /* 上方卡片：只显示底部一截，半透明+上边缘渐变淡化，不缩小；回弹过渡 */
+    .work-exp-panel.module-top {
+      height: 26vh;
+      max-height: 26vh;
+      opacity: 0.5;
+      transform: none;
+      z-index: 2;
+      transition: opacity 0.9s cubic-bezier(0.25, 0, 0.08, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 25%, black 45%);
+      mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 25%, black 45%);
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+    }
+    .work-exp-panel.module-top .work-exp-panel-inner {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 35px;
+      overflow: visible;
+    }
+    /* 下方卡片：只显示顶部一截，半透明+下边缘渐变淡化，不缩小；回弹过渡 */
+    .work-exp-panel.module-bottom {
+      height: 26vh;
+      max-height: 26vh;
+      opacity: 0.5;
+      transform: none;
+      z-index: 2;
+      transition: opacity 1.35s cubic-bezier(0.25, 0, 0.08, 1), transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.4) 25%, black 45%);
+      mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,0.4) 25%, black 45%);
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+    }
+    /* 切换时整条滚动：向上滑(下一张)时三张一起向上移，向下滑(上一张)时一起向下移 */
+    .work-exp-viewport--switching-next .work-exp-panel.module-top {
+      opacity: 0.4;
+      transform: translateY(-28px);
+    }
+    .work-exp-viewport--switching-next .work-exp-panel.module-bottom {
+      opacity: 0.4;
+      transform: translateY(-28px);
+    }
+    .work-exp-viewport--switching-prev .work-exp-panel.module-top {
+      opacity: 0.4;
+      transform: translateY(28px);
+    }
+    .work-exp-viewport--switching-prev .work-exp-panel.module-bottom {
+      opacity: 0.4;
+      transform: translateY(28px);
+    }
+    .work-exp-panel.module-bottom .work-exp-panel-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 35px;
+      overflow: visible;
+    }
+    /* 切换阶段：三张卡片统一过渡时长，同步滚动 */
+    .work-exp-viewport--switching .work-exp-panel {
+      transition: opacity 0.5s cubic-bezier(0.25, 0, 0.08, 1), transform 0.55s cubic-bezier(0.25, 0, 0.08, 1);
+    }
+    [data-theme="dark"] .work-exp-panel.module-middle {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+    }
+    .work-exp-panel-inner {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .work-exp-panel.module-middle .work-exp-panel-inner {
+      padding: 0;
+    }
+    [data-theme="dark"] .work-exp-panel {
+      background: var(--bg-glass-strong);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    .work-exp-viewport .work-item {
+      margin-bottom: 0;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    /* 仅中间卡片需限制描述区；上下卡片为整块裁剪，描述区不设 max-height */
+    .work-exp-panel.module-middle .work-desc {
+      max-height: none;
+      overflow: visible;
+    }
+    .work-exp-viewport .work-desc ul {
+      margin: 0.25em 0 0;
+      padding-left: 1.1em;
+    }
+
+    .experience-slider {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      overflow: visible;
+      padding: 0.5rem 0 2rem;
+    }
+
+    /* 工作经历：三块并列展示，模块更大；上下两块用渐变 */
+    .experience-slider .work-item {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 640px;
+      min-width: 0;
+      margin-bottom: 0;
+      padding: 3rem 3.25rem;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      overflow-x: hidden;
+      overflow-y: visible;
+    }
+    .experience-slider .work-item:first-child::after,
+    .experience-slider .work-item:last-child::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .experience-slider .work-item:first-child::after {
+      background: linear-gradient(to bottom, var(--bg-base) 0%, transparent 35%, transparent 65%, var(--bg-base) 100%);
+    }
+    .experience-slider .work-item:last-child::after {
+      background: linear-gradient(to bottom, var(--bg-base) 0%, transparent 35%, transparent 65%, var(--bg-base) 100%);
+    }
+
+    /* 滑动按钮：仅项目经历保留，放在右侧；不能左滑时左键置灰，不能右滑时右键置灰 */
+    .projects-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+      margin-right: 1.5rem;
+    }
+    .projects-nav .arrow:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+      background: var(--bg-glass) !important;
+      color: var(--text-muted) !important;
+      transform: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .projects-nav .arrow:disabled:hover,
+    .projects-nav .arrow:disabled:focus {
+      background: var(--bg-glass) !important;
+      color: var(--text-muted) !important;
+      transform: none;
+      outline: none;
+      box-shadow: none;
+    }
+    [data-theme="dark"] .projects-nav .arrow:disabled {
+      background: rgba(255,255,255,0.06) !important;
+      color: var(--text-muted) !important;
+    }
+
+    .experience-nav .arrow,
+    .projects-nav .arrow {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-glass-border);
+      border-radius: 50%;
+      color: var(--text-primary);
+      font-size: 1.25rem;
+      font-weight: 300;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+    }
+    .experience-nav .arrow:hover,
+    .projects-nav .arrow:hover {
+      background: var(--accent-dim);
+      color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    /* 突出数据：大号数字（华为页风格） */
+    .stat {
+      display: inline-block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      margin: 0 0.15em;
+    }
+
+    .work-highlight .stat,
+    .project-result .stat {
+      font-size: 1.35rem;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .stat-item .stat {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .stat-item .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .work-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .work-company {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .work-date {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .work-role {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .work-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .work-desc ul {
+      padding-left: 1.25rem;
+    }
+
+    .work-desc li {
+      margin-bottom: 0.4rem;
+    }
+
+    .work-highlight {
+      font-size: 0.85rem;
+      color: var(--accent);
+      padding: 0.6rem 0;
+      margin-top: 0.75rem;
+    }
+
+    /* 项目经历：横向滑动，无渐变 */
+    .projects-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+    .projects-slider-wrap {
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .projects-slider {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 0.5rem 0 1.5rem;
+      padding-left: 1rem;
+      padding-right: 2rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .projects-slider::-webkit-scrollbar {
+      height: 0;
+      display: none;
+    }
+    .projects-slider {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .projects-slider::-webkit-scrollbar-track,
+    .projects-slider::-webkit-scrollbar-thumb {
+      display: none;
+    }
+
+    .projects-slider .project-item {
+      flex: 0 0 min(88%, 460px);
+      min-width: 320px;
+      scroll-snap-align: start;
+      margin-bottom: 0;
+    }
+
+    /* 项目经历：Liquid Glass 卡片，与工作经历统一 */
+    .project-item {
+      background: var(--card-glass);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--card-glass-border);
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    [data-theme="dark"] .project-item {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+    .project-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="dark"] .project-item:hover {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .project-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    .project-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .project-subtitle {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .project-block {
+      margin-bottom: 1rem;
+    }
+
+    .project-block h4 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-block ul {
+      padding-left: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .project-block li {
+      margin-bottom: 0.4rem;
+    }
+
+    .project-result {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 1rem;
+    }
+    .project-result .stat {
+      color: var(--accent);
+    }
+
+    /* 技术能力：全屏铺开 */
+    #skills {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding-left: 0;
+      padding-right: 0;
+      box-sizing: border-box;
+    }
+    .skills-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .skills-header .skills-subtitle {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.35rem;
+    }
+    .skills-header .section-title {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .skills-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* 单行容器：隐藏溢出 + 左右渐变遮罩，两边不留白 */
+    .skill-row-wrap {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding: 0;
+    }
+    .skill-row-wrap::before,
+    .skill-row-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .skill-row-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg-glass) 0%, transparent 100%);
+    }
+    .skill-row-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-glass) 0%, transparent 100%);
+    }
+    [data-theme="dark"] .skill-row-wrap::before {
+      background: linear-gradient(to right, var(--bg-glass) 0%, transparent 100%);
+    }
+    [data-theme="dark"] .skill-row-wrap::after {
+      background: linear-gradient(to left, var(--bg-glass) 0%, transparent 100%);
+    }
+
+    .skill-row {
+      display: flex;
+      width: max-content;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      animation: skill-marquee 30s linear infinite;
+      will-change: transform;
+    }
+    .skill-row-copy {
+      display: flex;
+      width: max-content;
+      flex-shrink: 0;
+      gap: 0 12px;
+      margin: 0;
+      padding: 0;
+    }
+    .skill-row-wrap:hover .skill-row {
+      animation-play-state: paused;
+    }
+    /* 悬浮到某个技能时整行暂停并高亮该技能 */
+    .skill-row-wrap:has(.skill-pill:hover) .skill-row {
+      animation-play-state: paused;
+    }
+    .skill-pill:hover {
+      color: var(--accent);
+      background: var(--accent-dim) !important;
+      border-color: var(--accent);
+    }
+
+    /* Pill 标签：浅底、细边、圆角 */
+    .skill-pill {
+      flex-shrink: 0;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 999px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .skill-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes skill-marquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-33.333%, 0, 0); }
+    }
+
+    /* 兼容：保留原 .skill-tag 在跑马灯内的样式（若别处引用） */
+    .skill-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-group h4 {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      background: var(--bg-glass-strong);
+      backdrop-filter: blur(var(--blur-sm));
+      border: none;
+      border-radius: 999px;
+      color: var(--text-secondary);
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .skill-tag.core {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .skill-tag.proficient {
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .skill-tag.familiar {
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    /* 技能跑马灯（旧单行，保留类名以防 JS 引用） */
+    .skills-marquee-wrap {
+      overflow: hidden;
+      padding: 1.25rem 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    .skills-marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee-pingpong 28s ease-in-out infinite;
+    }
+
+    .skills-marquee .skill-tag {
+      flex-shrink: 0;
+      margin-right: 0.75rem;
+    }
+
+    .skills-marquee-inner {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 0 0.75rem;
+    }
+
+    .skills-marquee-inner .skill-tag {
+      margin-right: 0;
+    }
+
+    @keyframes marquee-pingpong {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-50%); }
+    }
+
+    /* 自我评价：毛玻璃、无边框、大气排版 */
+    .self-intro {
+      background: var(--bg-glass-strong);
+      backdrop-filter: blur(var(--blur-sm));
+      -webkit-backdrop-filter: blur(var(--blur-sm));
+      padding: 2rem 2.5rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .self-intro ul {
+      padding-left: 1.5rem;
+    }
+
+    .self-intro li {
+      margin-bottom: 0.75rem;
+    }
+
+    /* 移动端 */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: flex;
+      }
+
+      .top-nav .nav-links {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(280px, 85vw);
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 4rem 1.5rem 2rem;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-left: 1px solid var(--border);
+        box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        overflow-y: auto;
+      }
+      [data-theme="dark"] .top-nav .nav-links {
+        background: rgba(20, 20, 24, 0.96);
+        box-shadow: -4px 0 24px rgba(0,0,0,0.3);
+      }
+      .top-nav .nav-links.open {
+        transform: translateX(0);
+      }
+      .top-nav .nav-links a {
+        font-size: 14px;
+        padding: 0.6rem 0;
+      }
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 998;
+        background: rgba(0,0,0,0.25);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .nav-overlay.open {
+        display: block;
+        opacity: 1;
+      }
+      .menu-btn {
+        display: none;
+      }
+      .hero {
+        padding: 3rem 1.5rem;
+        margin-bottom: 3rem;
+        min-height: auto;
+      }
+      .content {
+        padding: 0 1rem 3rem;
+      }
+
+      body {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+      #projects {
+        margin-right: -5vw;
+        width: calc(100% + 5vw);
+      }
+      #projects .section-title,
+      #projects .section-subtitle {
+        padding-right: 1rem;
+      }
+      #skills {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>GitHub Pages 测试</h1>
-    <p>如果能看到这个，说明部署成功了！</p>
+  <!-- 顶部导航 -->
+  <header class="top-nav" id="topNav">
+    <span class="name">段训栋</span>
+    <nav class="nav-links" id="navLinks">
+      <a href="#hero">首页</a>
+      <a href="#education">教育</a>
+      <a href="#experience">经历</a>
+      <a href="#projects">项目</a>
+      <a href="#skills">技能</a>
+      <a href="#intro">评价</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="nav-btn-icon" id="themeBtn" aria-label="夜间模式" title="夜间模式">
+        <svg id="themeIconSun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg id="themeIconMoon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="nav-btn-icon" id="langBtn" aria-label="中文/English" title="中文 / English">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </button>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+  </header>
+  <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <p class="hero-greeting">你好，我叫</p>
+    <h1 class="hero-name">段训栋</h1>
+    <p class="hero-title">软件测试工程师</p>
+    <div class="hero-contact">
+      <a href="mailto:duanxd123@qq.com" class="hero-email-link" aria-label="发送邮件">
+        <span class="hero-email-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <span class="hero-email-text">联系我</span>
+      </a>
+    </div>
+    <a href="#education" class="hero-scroll-down" aria-label="向下滚动">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+    </a>
+  </section>
+
+  <main class="content">
+    <section class="section" id="education">
+      <h2 class="section-title">教育经历</h2>
+      <div class="section-inner">
+      <div class="edu-item reveal-item">
+        <div class="school">江西工程学院</div>
+        <div class="meta">软件工程 · 全日制本科 · 2022.07 毕业</div>
+      </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <h2 class="section-title">工作经历</h2>
+      <p class="section-subtitle reveal-item">向下滑动查看</p>
+      <div class="work-exp-viewport" id="workExpViewport">
+        <div class="work-exp-panel" id="workExpPanel0" data-we-index="0">
+          <div class="work-exp-panel-inner">
+          <div class="work-item">
+            <div class="work-header">
+              <span class="work-company">深圳软通动力信息技术有限公司</span>
+              <span class="work-date">2024.9 - 2026.2</span>
+            </div>
+            <div class="work-role">软件测试工程师</div>
+            <div class="work-desc">
+              <ul>
+                <li>负责鸿蒙系统移动端和PC端核心功能测试，覆盖系统设置、应用管理、跨设备协同等关键模块</li>
+                <li>基于 Python+Appium/Selenium 搭建自动化测试框架，编写关键业务流程脚本</li>
+                <li>使用 JMeter 进行接口性能基准测试，分析响应时间、TPS 等关键指标</li>
+                <li>定期输出多维度测试报告，为项目迭代决策提供数据支撑</li>
+              </ul>
+            </div>
+            <div class="stats-row">
+              <div class="stat-item"><span class="stat">280+</span><span class="stat-label">缺陷跟踪解决</span></div>
+              <div class="stat-item"><span class="stat">30%</span><span class="stat-label">人工测试减少</span></div>
+              <div class="stat-item"><span class="stat">5</span><span class="stat-label">性能瓶颈优化</span></div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="work-exp-panel" id="workExpPanel1" data-we-index="1">
+          <div class="work-exp-panel-inner">
+          <div class="work-item">
+            <div class="work-header">
+              <span class="work-company">广州神州浩天科技有限公司</span>
+              <span class="work-date">2024.3 - 2024.8</span>
+            </div>
+            <div class="work-role">软件实施工程师</div>
+            <div class="work-desc">
+              <ul>
+                <li>负责广东省 20+ 所学校天财智慧财务系统部署实施，完成需求调研、系统配置和数据初始化</li>
+                <li>运用 SQL Server 进行基础数据导入、清洗与校验，处理跨系统数据同步差异</li>
+                <li>组织各学校财务人员开展系统操作培训，编制专属操作手册</li>
+                <li>推动报销流程简化和财务报表可视化功能优化</li>
+              </ul>
+            </div>
+            <div class="stats-row">
+              <div class="stat-item"><span class="stat">20+</span><span class="stat-label">所学校部署</span></div>
+              <div class="stat-item"><span class="stat">100%</span><span class="stat-label">数据准确性</span></div>
+              <div class="stat-item"><span class="stat">96%</span><span class="stat-label">用户满意度</span></div>
+              <div class="stat-item"><span class="stat">45%</span><span class="stat-label">财务效率提升</span></div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="work-exp-panel" id="workExpPanel2" data-we-index="2">
+          <div class="work-exp-panel-inner">
+          <div class="work-item">
+            <div class="work-header">
+              <span class="work-company">广州用友政务软件有限公司</span>
+              <span class="work-date">2022.3 - 2024.3</span>
+            </div>
+            <div class="work-role">软件测试工程师</div>
+            <div class="work-desc">
+              <ul>
+                <li>参与数字财政系统和数字人大系统实施，负责需求调研、系统配置、测试和上线支持全流程</li>
+                <li>及时跟踪处理实施过程中客户提交的问题</li>
+                <li>使用 Postman 进行接口测试，编写测试用例保障系统功能稳定性</li>
+                <li>维护良好客户关系</li>
+              </ul>
+            </div>
+            <div class="stats-row">
+              <div class="stat-item"><span class="stat">500+</span><span class="stat-label">实施问题解决</span></div>
+              <div class="stat-item"><span class="stat">1000+</span><span class="stat-label">测试用例</span></div>
+              <div class="stat-item"><span class="stat">95%+</span><span class="stat-label">客户好评率</span></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <h2 class="section-title">项目经历</h2>
+      <p class="section-subtitle reveal-item">左右滑动查看</p>
+      <div class="projects-wrap reveal-item">
+        <div class="projects-slider-wrap">
+      <div class="projects-slider reveal-item" id="projectsSlider">
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-name">智小荣 & 知识社区测试</span>
+          <span class="project-date">2025.8 - 2026.2</span>
+        </div>
+        <div class="project-subtitle">荣耀 MagicOS 生态核心项目 · 软件测试工程师</div>
+        <div class="project-block">
+          <h4>项目背景</h4>
+          <ul><li>聚焦智小荣 AI 助手研发与知识社区搭建，服务内部员工及核心用户</li></ul>
+        </div>
+        <div class="project-block">
+          <h4>主要职责</h4>
+          <ul>
+            <li>使用 DevSecOps、JMeter、Postman、MySQL 等工具</li>
+            <li>依托云龙平台搭建测试体系，每月输出 200 条用例，适配月中发版节奏</li>
+            <li>承担社区核心模块手动测试，使用 JMeter 开展性能与压力测试</li>
+            <li>借助云龙平台落地接口自动化测试，精简重复工作量</li>
+          </ul>
+        </div>
+        <div class="project-result">保障系统交互准确率 <span class="stat">91%+</span>，社区故障率 <span class="stat">&lt;0.3%</span>，支撑 <span class="stat">10 万+</span> 人次活动 · 重复工作精简 <span class="stat">40%</span>，测试效率提升 <span class="stat">35%</span> · 私域转化超行业均值 <span class="stat">25%</span>，指令识别准确率提升 <span class="stat">23%</span></div>
+      </div>
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-name">鸿蒙移动 & PC 集成测试</span>
+          <span class="project-date">2024.9 - 2025.7</span>
+        </div>
+        <div class="project-subtitle">软件测试工程师</div>
+        <div class="project-block">
+          <h4>项目背景</h4>
+          <ul><li>参与华为鸿蒙系统移动端和 PC 端全面测试，覆盖系统设置、应用安装卸载、多设备协同、文件跨端传输等核心模块</li></ul>
+        </div>
+        <div class="project-block">
+          <h4>主要职责</h4>
+          <ul>
+            <li>使用 Python、Postman、Appium、Selenium、JMeter、dev 平台</li>
+            <li>设计覆盖系统设置、多设备协同等模块的测试用例</li>
+            <li>执行端侧功能/接口测试，用 Python 编写自动化脚本</li>
+            <li>开展多设备/硬件环境兼容性测试，输出测试报告</li>
+          </ul>
+        </div>
+        <div class="project-result">完成 <span class="stat">1000+</span> 测试用例执行 · 发现并跟踪解决缺陷 <span class="stat">280+</span> 个 · 累计 <span class="stat">8000+</span> 行自动化代码 · 减少人工测试工作量 <span class="stat">30%</span></div>
+      </div>
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-name">天财智慧财务系统</span>
+          <span class="project-date">2024.3 - 2024.8</span>
+        </div>
+        <div class="project-subtitle">软件实施工程师</div>
+        <div class="project-block">
+          <h4>项目背景</h4>
+          <ul><li>为广东省 20+ 所学校部署天财智慧财务平台，适配财政预算一体化改革要求</li></ul>
+        </div>
+        <div class="project-block">
+          <h4>主要职责</h4>
+          <ul>
+            <li>牵头多校财务需求调研，输出 3 份场景化需求报告</li>
+            <li>用 SQL Server 处理账务/人员/预算数据</li>
+            <li>搭建测试环境，组织 20+ 场培训，编制操作手册</li>
+          </ul>
+        </div>
+        <div class="project-result">数据同步准确率 <span class="stat">100%</span> · 用户满意度 <span class="stat">96%</span> · 财务办公效率提升 <span class="stat">45%</span></div>
+      </div>
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-name">数字人大系统</span>
+          <span class="project-date">2023.10 - 2024.3</span>
+        </div>
+        <div class="project-subtitle">软件实施工程师</div>
+        <div class="project-block">
+          <h4>项目背景</h4>
+          <ul><li>搭建人大常委会国资监督支撑平台，实现专项报告、数据报表汇聚和自动预警功能</li></ul>
+        </div>
+        <div class="project-block">
+          <h4>主要职责</h4>
+          <ul>
+            <li>使用 Linux、MySQL、永洪 BI</li>
+            <li>负责国资数据图表展示、数据管理等核心功能的 Web 端功能测试</li>
+            <li>编写测试用例超 1000 条，在 Linux 下搭建 UAT 测试环境</li>
+          </ul>
+        </div>
+        <div class="project-result">协助分析解决 BUG 缺陷 <span class="stat">100+</span> 条，保障系统稳定上线</div>
+      </div>
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-name">数字财政系统</span>
+          <span class="project-date">2022.3 - 2023.10</span>
+        </div>
+        <div class="project-subtitle">软件实施工程师</div>
+        <div class="project-block">
+          <h4>项目背景</h4>
+          <ul><li>搭建财政局一体化信息化管理平台，通过数字化支付转型提升跨部门协同效率</li></ul>
+        </div>
+        <div class="project-block">
+          <h4>主要职责</h4>
+          <ul>
+            <li>使用 Navicat、Postman、FineReport、TAPD 等工具</li>
+            <li>开展功能测试、接口测试、兼容性测试</li>
+            <li>跟踪处理客户反馈问题，推动 100+ 问题解决</li>
+          </ul>
+        </div>
+        <div class="project-result">提升跨部门协同效率 <span class="stat">30%</span>，降低成本 <span class="stat">20%</span> · 客户好评率 <span class="stat">95%+</span>，成为部门实施标杆项目</div>
+      </div>
+      </div>
+        </div>
+        <div class="projects-nav">
+          <button class="arrow" id="projPrev" aria-label="上一项">‹</button>
+          <button class="arrow" id="projNext" aria-label="下一项">›</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="skills-header">
+        <p class="skills-subtitle">技能線</p>
+        <h2 class="section-title">技术能力</h2>
+      </div>
+      <div class="skills-rows reveal-item">
+        <!-- 第一行：工具/技术 -->
+        <div class="skill-row-wrap">
+          <div class="skill-row" id="skillRow1">
+            <div class="skill-row-copy">
+              <span class="skill-pill">Linux</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Postman</span>
+              <span class="skill-pill">JMeter</span>
+              <span class="skill-pill">MySQL</span>
+              <span class="skill-pill">Selenium</span>
+              <span class="skill-pill">Appium</span>
+              <span class="skill-pill">Pytest</span>
+              <span class="skill-pill">Fiddler</span>
+              <span class="skill-pill">Redis</span>
+              <span class="skill-pill">FineReport</span>
+              <span class="skill-pill">永洪 BI</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill">Linux</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Postman</span>
+              <span class="skill-pill">JMeter</span>
+              <span class="skill-pill">MySQL</span>
+              <span class="skill-pill">Selenium</span>
+              <span class="skill-pill">Appium</span>
+              <span class="skill-pill">Pytest</span>
+              <span class="skill-pill">Fiddler</span>
+              <span class="skill-pill">Redis</span>
+              <span class="skill-pill">FineReport</span>
+              <span class="skill-pill">永洪 BI</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill">Linux</span>
+              <span class="skill-pill">Python</span>
+              <span class="skill-pill">Postman</span>
+              <span class="skill-pill">JMeter</span>
+              <span class="skill-pill">MySQL</span>
+              <span class="skill-pill">Selenium</span>
+              <span class="skill-pill">Appium</span>
+              <span class="skill-pill">Pytest</span>
+              <span class="skill-pill">Fiddler</span>
+              <span class="skill-pill">Redis</span>
+              <span class="skill-pill">FineReport</span>
+              <span class="skill-pill">永洪 BI</span>
+            </div>
+          </div>
+        </div>
+        <!-- 第二行：软技能/流程 -->
+        <div class="skill-row-wrap">
+          <div class="skill-row" id="skillRow2">
+            <div class="skill-row-copy">
+              <span class="skill-pill">团队协作</span>
+              <span class="skill-pill">质量管控</span>
+              <span class="skill-pill">需求分析</span>
+              <span class="skill-pill">测试报告</span>
+              <span class="skill-pill">进度管控</span>
+              <span class="skill-pill">风险管理</span>
+              <span class="skill-pill">接口测试</span>
+              <span class="skill-pill">自动化测试</span>
+              <span class="skill-pill">性能测试</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill">团队协作</span>
+              <span class="skill-pill">质量管控</span>
+              <span class="skill-pill">需求分析</span>
+              <span class="skill-pill">测试报告</span>
+              <span class="skill-pill">进度管控</span>
+              <span class="skill-pill">风险管理</span>
+              <span class="skill-pill">接口测试</span>
+              <span class="skill-pill">自动化测试</span>
+              <span class="skill-pill">性能测试</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill">团队协作</span>
+              <span class="skill-pill">质量管控</span>
+              <span class="skill-pill">需求分析</span>
+              <span class="skill-pill">测试报告</span>
+              <span class="skill-pill">进度管控</span>
+              <span class="skill-pill">风险管理</span>
+              <span class="skill-pill">接口测试</span>
+              <span class="skill-pill">自动化测试</span>
+              <span class="skill-pill">性能测试</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="intro">
+      <h2 class="section-title">自我评价</h2>
+      <div class="section-inner">
+      <div class="self-intro reveal-item">
+        <ul>
+          <li>具备 4 年软件测试与实施经验，熟悉软件测试全流程和方法，能够独立完成自动化测试脚本开发和维护</li>
+          <li>精通 Python 编程语言，熟练使用 Postman、JMeter 等测试工具，具备丰富的接口测试和性能测试经验</li>
+          <li>具有良好的问题分析和解决能力，能够快速定位和解决软件缺陷，保障系统质量和稳定性</li>
+          <li>工作积极认真，细心负责，善于发现问题并提出解决方案，具备良好的团队协作和沟通能力</li>
+          <li>对新技术有强烈的学习兴趣，能够快速掌握和应用新的测试工具和技术，适应高强度工作环境</li>
+        </ul>
+      </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function() {
+      /* 夜间模式：图标切换 + localStorage */
+      var theme = localStorage.getItem('resume-theme') || 'light';
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeIconSun').style.display = 'none';
+        document.getElementById('themeIconMoon').style.display = 'block';
+        document.getElementById('themeBtn').setAttribute('title', '日间模式');
+        document.getElementById('themeBtn').setAttribute('aria-label', '日间模式');
+      }
+      document.getElementById('themeBtn').addEventListener('click', function(e) {
+        var btn = this;
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var langNow = localStorage.getItem('resume-lang') || 'zh';
+        var lbl = langNow === 'en' ? { dark: 'Dark mode', light: 'Light mode' } : { dark: '夜间模式', light: '日间模式' };
+        var x = e.clientX;
+        var y = e.clientY;
+
+        document.documentElement.classList.add('theme-switching');
+        if (isDark) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('resume-theme', 'light');
+          document.getElementById('themeIconSun').style.display = 'block';
+          document.getElementById('themeIconMoon').style.display = 'none';
+          btn.setAttribute('title', lbl.dark);
+          btn.setAttribute('aria-label', lbl.dark);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('resume-theme', 'dark');
+          document.getElementById('themeIconSun').style.display = 'none';
+          document.getElementById('themeIconMoon').style.display = 'block';
+          btn.setAttribute('title', lbl.light);
+          btn.setAttribute('aria-label', lbl.light);
+        }
+
+        var overlay = document.createElement('div');
+        overlay.className = 'theme-overlay';
+        overlay.style.setProperty('--theme-x', x + 'px');
+        overlay.style.setProperty('--theme-y', y + 'px');
+        overlay.classList.add(isDark ? 'theme-spread-light' : 'theme-spread-dark');
+        document.body.appendChild(overlay);
+
+        function cleanup() {
+          overlay.removeEventListener('animationend', cleanup);
+          if (overlay.parentNode) overlay.remove();
+          document.documentElement.classList.remove('theme-switching');
+        }
+        overlay.addEventListener('animationend', cleanup);
+        setTimeout(cleanup, 620);
+      });
+
+      /* 工作经历：三段式滑动+循环，滚轮/触屏/自动轮播 */
+      var workExpViewport = document.getElementById('workExpViewport');
+      if (workExpViewport) {
+        var workExpPanels = [ document.getElementById('workExpPanel0'), document.getElementById('workExpPanel1'), document.getElementById('workExpPanel2') ];
+        var WORK_EXP_COUNT = 3;
+        var currentCompanyIndex = 0;
+        var workExpAnimating = false;
+        var workExpAutoTimer = null;
+
+        function reorderWorkExpModules(opt) {
+          var topIndex = (currentCompanyIndex - 1 + WORK_EXP_COUNT) % WORK_EXP_COUNT;
+          var middleIndex = currentCompanyIndex;
+          var bottomIndex = (currentCompanyIndex + 1) % WORK_EXP_COUNT;
+          workExpPanels[topIndex].className = 'work-exp-panel module-top';
+          workExpPanels[middleIndex].className = 'work-exp-panel module-middle' + (opt && opt.entering ? ' module-middle-entering' : '');
+          workExpPanels[bottomIndex].className = 'work-exp-panel module-bottom';
+          workExpViewport.appendChild(workExpPanels[topIndex]);
+          workExpViewport.appendChild(workExpPanels[middleIndex]);
+          workExpViewport.appendChild(workExpPanels[bottomIndex]);
+        }
+
+        function switchWorkExpModule(direction) {
+          if (workExpAnimating) return;
+          workExpAnimating = true;
+          var oldMiddleIndex = currentCompanyIndex;
+          currentCompanyIndex = direction === 1
+            ? (currentCompanyIndex + 1) % WORK_EXP_COUNT
+            : (currentCompanyIndex - 1 + WORK_EXP_COUNT) % WORK_EXP_COUNT;
+          var oldMiddle = workExpPanels[oldMiddleIndex];
+          workExpViewport.classList.add('work-exp-viewport--switching');
+          oldMiddle.classList.add('module-middle-leaving');
+          if (direction === 1) workExpViewport.classList.add('work-exp-viewport--switching-next');
+          else workExpViewport.classList.add('work-exp-viewport--switching-prev');
+          var leaveMs = 620;
+          var enterMs = 520;
+          setTimeout(function() {
+            oldMiddle.classList.remove('module-middle-leaving');
+            workExpViewport.classList.remove('work-exp-viewport--switching', 'work-exp-viewport--switching-next', 'work-exp-viewport--switching-prev');
+            if (direction === 1) workExpViewport.classList.add('work-exp-viewport--entering-from-bottom');
+            else workExpViewport.classList.add('work-exp-viewport--entering-from-top');
+            reorderWorkExpModules({ entering: true });
+            var newMiddle = workExpPanels[currentCompanyIndex];
+            requestAnimationFrame(function() {
+              requestAnimationFrame(function() {
+                newMiddle.classList.remove('module-middle-entering');
+              });
+            });
+            setTimeout(function() {
+              workExpAnimating = false;
+              workExpViewport.classList.remove('work-exp-viewport--entering-from-bottom', 'work-exp-viewport--entering-from-top');
+            }, enterMs);
+          }, leaveMs);
+          if (workExpAutoTimer) {
+            clearInterval(workExpAutoTimer);
+            workExpAutoTimer = null;
+          }
+          workExpAutoTimer = setInterval(function() { switchWorkExpModule(1); }, 5000);
+        }
+
+        function startWorkExpAuto() {
+          if (workExpAutoTimer) return;
+          workExpAutoTimer = setInterval(function() { switchWorkExpModule(1); }, 5000);
+        }
+        function stopWorkExpAuto() {
+          if (workExpAutoTimer) {
+            clearInterval(workExpAutoTimer);
+            workExpAutoTimer = null;
+          }
+        }
+
+        reorderWorkExpModules();
+        startWorkExpAuto();
+
+        workExpViewport.addEventListener('mouseenter', stopWorkExpAuto);
+        workExpViewport.addEventListener('mouseleave', startWorkExpAuto);
+
+        workExpViewport.addEventListener('wheel', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (workExpAnimating) return;
+          /* 向上滑动(deltaY<0)：中间→上、下方→中间、上方→下；向下滑动：顺序相反 */
+          switchWorkExpModule(e.deltaY < 0 ? 1 : -1);
+        }, { passive: false });
+
+        var weTouchStartY = 0;
+        workExpViewport.addEventListener('touchstart', function(e) {
+          weTouchStartY = e.touches[0].clientY;
+          stopWorkExpAuto();
+        }, { passive: true });
+        workExpViewport.addEventListener('touchend', function(e) {
+          if (!e.changedTouches[0]) return;
+          var dy = e.changedTouches[0].clientY - weTouchStartY;
+          if (dy < -50) switchWorkExpModule(1);
+          else if (dy > 50) switchWorkExpModule(-1);
+          startWorkExpAuto();
+        }, { passive: true });
+      }
+
+      /* 英文/中文切换 */
+      var lang = localStorage.getItem('resume-lang') || 'zh';
+      var t = {
+        zh: { hero: '首页', education: '教育', experience: '经历', projects: '项目', skills: '技能', intro: '评价', subtitle: '左右滑动查看', experienceSubtitle: '向下滑动查看' },
+        en: { hero: 'Home', education: 'Education', experience: 'Experience', projects: 'Projects', skills: 'Skills', intro: 'About', subtitle: 'Swipe to view', experienceSubtitle: 'Swipe down to view' }
+      };
+      var sectionTitles = {
+        zh: { education: '教育经历', experience: '工作经历', projects: '项目经历', skills: '技术能力', intro: '自我评价' },
+        en: { education: 'Education', experience: 'Work Experience', projects: 'Projects', skills: 'Skills', intro: 'Self Evaluation' }
+      };
+      var heroContent = {
+        zh: { title: '软件测试工程师', greeting: '你好，我叫', contactMe: '联系我' },
+        en: { title: 'Software Test Engineer', greeting: "Hi, I'm", contactMe: 'Contact Me' }
+      };
+      var eduContent = {
+        zh: { school: '江西工程学院', meta: '软件工程 · 全日制本科 · 2022.07 毕业' },
+        en: { school: 'Jiangxi Institute of Engineering', meta: 'Software Engineering · Full-time Bachelor · Graduated Jul 2022' }
+      };
+      var workContent = {
+        zh: [
+          { company: '深圳软通动力信息技术有限公司', date: '2024.9 - 2026.2', role: '软件测试工程师', desc: ['负责鸿蒙系统移动端和PC端核心功能测试，覆盖系统设置、应用管理、跨设备协同等关键模块','基于 Python+Appium/Selenium 搭建自动化测试框架，编写关键业务流程脚本','使用 JMeter 进行接口性能基准测试，分析响应时间、TPS 等关键指标','定期输出多维度测试报告，为项目迭代决策提供数据支撑'], stats: ['缺陷跟踪解决','人工测试减少','性能瓶颈优化'] },
+          { company: '广州神州浩天科技有限公司', date: '2024.3 - 2024.8', role: '软件实施工程师', desc: ['负责广东省 20+ 所学校天财智慧财务系统部署实施，完成需求调研、系统配置和数据初始化','运用 SQL Server 进行基础数据导入、清洗与校验，处理跨系统数据同步差异','组织各学校财务人员开展系统操作培训，编制专属操作手册','推动报销流程简化和财务报表可视化功能优化'], stats: ['所学校部署','数据准确性','用户满意度','财务效率提升'] },
+          { company: '广州用友政务软件有限公司', date: '2022.3 - 2024.3', role: '软件测试工程师', desc: ['参与数字财政系统和数字人大系统实施，负责需求调研、系统配置、测试和上线支持全流程','及时跟踪处理实施过程中客户提交的问题','使用 Postman 进行接口测试，编写测试用例保障系统功能稳定性','维护良好客户关系'], stats: ['实施问题解决','测试用例','客户好评率'] }
+        ],
+        en: [
+          { company: 'Shenzhen Chinasoft Information Technology Co., Ltd.', date: 'Sep 2024 - Feb 2026', role: 'Software Test Engineer', desc: ['Core functional testing for HarmonyOS mobile and PC (settings, app management, cross-device sync)','Built automation framework with Python+Appium/Selenium for key business flows','JMeter-based API performance benchmarking; analyzed response time and TPS','Delivered multi-dimensional test reports to support release decisions'], stats: ['Defects tracked & resolved','Manual test reduction','Performance bottlenecks optimized'] },
+          { company: 'Guangzhou Shenzhou Haotian Technology Co., Ltd.', date: 'Mar - Aug 2024', role: 'Software Implementation Engineer', desc: ['Deployed Tiancai finance system for 20+ schools in Guangdong; requirements, config, data init','SQL Server for data import, cleansing, validation and cross-system sync','Trained school finance staff; wrote operation manuals'], stats: ['Schools deployed','Data accuracy','User satisfaction','Finance efficiency gain'] },
+          { company: 'Guangzhou Yonyou Government Software Co., Ltd.', date: 'Mar 2022 - Mar 2024', role: 'Software Test Engineer', desc: ['Digital fiscal and NPC systems: requirements, config, testing and go-live support','Tracked and resolved customer-reported issues','Postman API testing; test cases for system stability','Maintained customer relationships'], stats: ['Implementation issues resolved','Test cases','Client satisfaction'] }
+        ]
+      };
+      var projContent = {
+        zh: [
+          { name: '智小荣 & 知识社区测试', date: '2025.8 - 2026.2', sub: '荣耀 MagicOS 生态核心项目 · 软件测试工程师', bg: ['聚焦智小荣 AI 助手研发与知识社区搭建，服务内部员工及核心用户'], duty: ['项目背景'], dutyLabel: '主要职责', dutyList: ['使用 DevSecOps、JMeter、Postman、MySQL 等工具','依托云龙平台搭建测试体系，每月输出 200 条用例，适配月中发版节奏','承担社区核心模块手动测试，使用 JMeter 开展性能与压力测试','借助云龙平台落地接口自动化测试，精简重复工作量'], result: '保障系统交互准确率 <span class="stat">91%+</span>，社区故障率 <span class="stat">&lt;0.3%</span>，支撑 <span class="stat">10 万+</span> 人次活动 · 重复工作精简 <span class="stat">40%</span>，测试效率提升 <span class="stat">35%</span> · 私域转化超行业均值 <span class="stat">25%</span>，指令识别准确率提升 <span class="stat">23%</span>' },
+          { name: '鸿蒙移动 & PC 集成测试', date: '2024.9 - 2025.7', sub: '软件测试工程师', bg: ['参与华为鸿蒙系统移动端和 PC 端全面测试，覆盖系统设置、应用安装卸载、多设备协同、文件跨端传输等核心模块'], duty: ['项目背景'], dutyLabel: '主要职责', dutyList: ['使用 Python、Postman、Appium、Selenium、JMeter、dev 平台','设计覆盖系统设置、多设备协同等模块的测试用例','执行端侧功能/接口测试，用 Python 编写自动化脚本','开展多设备/硬件环境兼容性测试，输出测试报告'], result: '完成 <span class="stat">1000+</span> 测试用例执行 · 发现并跟踪解决缺陷 <span class="stat">280+</span> 个 · 累计 <span class="stat">8000+</span> 行自动化代码 · 减少人工测试工作量 <span class="stat">30%</span>' },
+          { name: '天财智慧财务系统', date: '2024.3 - 2024.8', sub: '软件实施工程师', bg: ['为广东省 20+ 所学校部署天财智慧财务平台，适配财政预算一体化改革要求'], duty: ['项目背景'], dutyLabel: '主要职责', dutyList: ['牵头多校财务需求调研，输出 3 份场景化需求报告','用 SQL Server 处理账务/人员/预算数据','搭建测试环境，组织 20+ 场培训，编制操作手册'], result: '数据同步准确率 <span class="stat">100%</span> · 用户满意度 <span class="stat">96%</span> · 财务办公效率提升 <span class="stat">45%</span>' },
+          { name: '数字人大系统', date: '2023.10 - 2024.3', sub: '软件实施工程师', bg: ['搭建人大常委会国资监督支撑平台，实现专项报告、数据报表汇聚和自动预警功能'], duty: ['项目背景'], dutyLabel: '主要职责', dutyList: ['使用 Linux、MySQL、永洪 BI','负责国资数据图表展示、数据管理等核心功能的 Web 端功能测试','编写测试用例超 1000 条，在 Linux 下搭建 UAT 测试环境'], result: '协助分析解决 BUG 缺陷 <span class="stat">100+</span> 条，保障系统稳定上线' },
+          { name: '数字财政系统', date: '2022.3 - 2023.10', sub: '软件实施工程师', bg: ['搭建财政局一体化信息化管理平台，通过数字化支付转型提升跨部门协同效率'], duty: ['项目背景'], dutyLabel: '主要职责', dutyList: ['使用 Navicat、Postman、FineReport、TAPD 等工具','开展功能测试、接口测试、兼容性测试','跟踪处理客户反馈问题，推动 100+ 问题解决'], result: '提升跨部门协同效率 <span class="stat">30%</span>，降低成本 <span class="stat">20%</span> · 客户好评率 <span class="stat">95%+</span>，成为部门实施标杆项目' }
+        ],
+        en: [
+          { name: 'Zhi Xiaorong & Knowledge Community Testing', date: 'Aug 2025 - Feb 2026', sub: 'Honor MagicOS core project · Software Test Engineer', bg: ['AI assistant and knowledge community testing for internal and core users'], duty: ['Background'], dutyLabel: 'Responsibilities', dutyList: ['DevSecOps, JMeter, Postman, MySQL; test system on Yunlong platform; 200 cases/month','Manual testing for community modules; JMeter performance and stress testing','Interface automation on Yunlong to reduce repetitive work'], result: 'Interaction accuracy <span class="stat">91%+</span>, community failure rate <span class="stat">&lt;0.3%</span>, 100k+ events · 40% repetitive work reduced, 35% test efficiency gain · 25% above industry on conversion, 23% command recognition gain' },
+          { name: 'HarmonyOS Mobile & PC Integration Testing', date: 'Sep 2024 - Jul 2025', sub: 'Software Test Engineer', bg: ['Full-scope testing for HarmonyOS mobile and PC: settings, app install/uninstall, multi-device sync, cross-device file transfer'], duty: ['Background'], dutyLabel: 'Responsibilities', dutyList: ['Python, Postman, Appium, Selenium, JMeter, dev platform','Test cases for settings and multi-device sync','E2E and API testing; Python automation scripts','Compatibility testing across devices and hardware; test reports'], result: '<span class="stat">1000+</span> test cases executed · <span class="stat">280+</span> defects tracked and resolved · <span class="stat">8000+</span> lines of automation · 30% manual test reduction' },
+          { name: 'Tiancai Smart Finance System', date: 'Mar - Aug 2024', sub: 'Software Implementation Engineer', bg: ['Deployed Tiancai finance platform for 20+ schools in Guangdong; budget integration reform'], duty: ['Background'], dutyLabel: 'Responsibilities', dutyList: ['Led requirements across schools; 3 scenario-based reports','SQL Server for accounts, personnel, budget data','Test env setup; 20+ training sessions; operation manuals'], result: 'Data sync accuracy <span class="stat">100%</span> · User satisfaction <span class="stat">96%</span> · Finance efficiency <span class="stat">45%</span> up' },
+          { name: 'Digital NPC System', date: 'Oct 2023 - Mar 2024', sub: 'Software Implementation Engineer', bg: ['NPC standing committee state-owned assets supervision platform; reports, dashboards, alerts'], duty: ['Background'], dutyLabel: 'Responsibilities', dutyList: ['Linux, MySQL, Yonghong BI','Web testing for data charts and data management','1000+ test cases; UAT env on Linux'], result: '<span class="stat">100+</span> bugs analyzed and resolved for stable launch' },
+          { name: 'Digital Fiscal System', date: 'Mar 2022 - Oct 2023', sub: 'Software Implementation Engineer', bg: ['Integrated fiscal management platform; digital payment and cross-department collaboration'], duty: ['Background'], dutyLabel: 'Responsibilities', dutyList: ['Navicat, Postman, FineReport, TAPD','Functional, API and compatibility testing','Customer feedback and 100+ issues resolved'], result: 'Cross-department efficiency <span class="stat">30%</span> up, cost <span class="stat">20%</span> down · <span class="stat">95%+</span> client satisfaction, benchmark project' }
+        ]
+      };
+      var projBlockTitles = { zh: { bg: '项目背景', duty: '主要职责' }, en: { bg: 'Background', duty: 'Responsibilities' } };
+      var skillsContent = {
+        zh: { subtitle: '技能線', title: '技术能力', row2: ['团队协作','质量管控','需求分析','测试报告','进度管控','风险管理','接口测试','自动化测试','性能测试'] },
+        en: { subtitle: 'Skills', title: 'Technical Skills', row2: ['Teamwork','Quality Control','Requirements Analysis','Test Reporting','Progress Control','Risk Management','API Testing','Automation Testing','Performance Testing'] }
+      };
+      var introContent = {
+        zh: ['具备 4 年软件测试与实施经验，熟悉软件测试全流程和方法，能够独立完成自动化测试脚本开发和维护','精通 Python 编程语言，熟练使用 Postman、JMeter 等测试工具，具备丰富的接口测试和性能测试经验','具有良好的问题分析和解决能力，能够快速定位和解决软件缺陷，保障系统质量和稳定性','工作积极认真，细心负责，善于发现问题并提出解决方案，具备良好的团队协作和沟通能力','对新技术有强烈的学习兴趣，能够快速掌握和应用新的测试工具和技术，适应高强度工作环境'],
+        en: ['4 years of software testing and implementation; familiar with full test lifecycle; independent automation script development and maintenance','Proficient in Python; experienced with Postman, JMeter; strong API and performance testing','Strong analytical and problem-solving skills; quick defect identification and resolution for quality and stability','Proactive, detail-oriented; good at finding issues and proposing solutions; team collaboration and communication','Strong interest in new technologies; quick to learn and apply new tools; adaptable to high-intensity work']
+      };
+      var btnLabels = {
+        zh: { menu: '菜单', theme: '夜间模式', themeLight: '日间模式', prev: '上一项', next: '下一项' },
+        en: { menu: 'Menu', theme: 'Dark mode', themeLight: 'Light mode', prev: 'Previous', next: 'Next' }
+      };
+
+      /* 工作经历：不克隆，仅 3 个模块静态展示 */
+      function applyLang(l) {
+        var isEn = l === 'en';
+        var navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(function(a) {
+          var h = a.getAttribute('href').slice(1);
+          a.textContent = isEn ? t.en[h] : t.zh[h];
+        });
+        ['education','experience','projects','skills','intro'].forEach(function(id) {
+          var sec = document.getElementById(id);
+          if (sec) {
+            var titleEl = sec.querySelector('.section-title');
+            if (titleEl) titleEl.textContent = sectionTitles[l][id];
+          }
+        });
+        document.querySelectorAll('.section-subtitle').forEach(function(s) {
+          s.textContent = isEn ? t.en.subtitle : t.zh.subtitle;
+        });
+        var expSub = document.querySelector('#experience .section-subtitle');
+        if (expSub) expSub.textContent = isEn ? t.en.experienceSubtitle : t.zh.experienceSubtitle;
+        var heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) heroTitle.textContent = heroContent[l].title;
+        var heroGreeting = document.querySelector('.hero-greeting');
+        if (heroGreeting) heroGreeting.textContent = heroContent[l].greeting;
+        var heroEmailText = document.querySelector('.hero-email-text');
+        if (heroEmailText) heroEmailText.textContent = heroContent[l].contactMe;
+        var eduSchool = document.querySelector('#education .school');
+        if (eduSchool) eduSchool.textContent = eduContent[l].school;
+        var eduMeta = document.querySelector('#education .meta');
+        if (eduMeta) eduMeta.textContent = eduContent[l].meta;
+        var workItems = document.querySelectorAll('#experience .work-item');
+        workContent[l].forEach(function(w, i) {
+          if (!workItems[i]) return;
+          workItems[i].querySelector('.work-company').textContent = w.company;
+          workItems[i].querySelector('.work-date').textContent = w.date;
+          workItems[i].querySelector('.work-role').textContent = w.role;
+          var lis = workItems[i].querySelectorAll('.work-desc li');
+          w.desc.forEach(function(line, j) { if (lis[j]) lis[j].textContent = line; });
+          var statLabs = workItems[i].querySelectorAll('.stat-label');
+          w.stats.forEach(function(label, j) { if (statLabs[j]) statLabs[j].textContent = label; });
+        });
+        var projItems = document.querySelectorAll('.project-item');
+        projContent[l].forEach(function(p, i) {
+          if (!projItems[i]) return;
+          projItems[i].querySelector('.project-name').textContent = p.name;
+          projItems[i].querySelector('.project-date').textContent = p.date;
+          projItems[i].querySelector('.project-subtitle').textContent = p.sub;
+          var blocks = projItems[i].querySelectorAll('.project-block');
+          if (blocks[0]) { blocks[0].querySelector('h4').textContent = projBlockTitles[l].bg; blocks[0].querySelector('li').textContent = p.bg[0]; }
+          if (blocks[1]) { blocks[1].querySelector('h4').textContent = p.dutyLabel; blocks[1].querySelectorAll('li').forEach(function(li, j) { li.textContent = (p.dutyList && p.dutyList[j]) || ''; }); }
+          var res = projItems[i].querySelector('.project-result');
+          if (res) res.innerHTML = p.result;
+        });
+        var skillsHeader = document.querySelector('.skills-header');
+        if (skillsHeader) {
+          var st = skillsHeader.querySelector('.skills-subtitle');
+          if (st) st.textContent = skillsContent[l].subtitle;
+          var tit = skillsHeader.querySelector('.section-title');
+          if (tit) tit.textContent = skillsContent[l].title;
+        }
+        var row2Pills = document.querySelectorAll('#skillRow2 .skill-pill');
+        row2Pills.forEach(function(pill, j) { pill.textContent = skillsContent[l].row2[j % skillsContent[l].row2.length]; });
+        var introLis = document.querySelectorAll('#intro .self-intro li');
+        introContent[l].forEach(function(para, j) { if (introLis[j]) introLis[j].textContent = para; });
+        var menuBtn = document.getElementById('menuBtn');
+        if (menuBtn) menuBtn.setAttribute('aria-label', btnLabels[l].menu);
+        var themeBtn = document.getElementById('themeBtn');
+        if (themeBtn) {
+          var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          themeBtn.setAttribute('title', isDark ? btnLabels[l].themeLight : btnLabels[l].theme);
+          themeBtn.setAttribute('aria-label', isDark ? btnLabels[l].themeLight : btnLabels[l].theme);
+        }
+        var projPrev = document.getElementById('projPrev');
+        var projNext = document.getElementById('projNext');
+        if (projPrev) projPrev.setAttribute('aria-label', btnLabels[l].prev);
+        if (projNext) projNext.setAttribute('aria-label', btnLabels[l].next);
+      }
+      if (lang === 'en') applyLang('en');
+      document.getElementById('langBtn').addEventListener('click', function() {
+        lang = lang === 'zh' ? 'en' : 'zh';
+        localStorage.setItem('resume-lang', lang);
+        applyLang(lang);
+      });
+
+      /* 顶部导航：滚动缩小 */
+      var topNav = document.getElementById('topNav');
+      function onScrollNav() {
+        var y = window.scrollY;
+        if (y > 55) {
+          topNav.classList.add('scrolled');
+        } else if (y < 25) {
+          topNav.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', onScrollNav, { passive: true });
+      onScrollNav();
+
+      /* 导航点击：高亮 + 平滑滚动 */
+      var navLinks = document.getElementById('navLinks');
+      var topNavEl = document.getElementById('topNav');
+      var navOverlay = document.getElementById('navOverlay');
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var id = this.getAttribute('href');
+          if (!id || id === '#') return;
+          id = id.slice(1);
+
+          /* 取消现有高亮 */
+          document.querySelectorAll('.nav-links a').forEach(function(l) { l.classList.remove('active'); });
+
+          /* 点击位置发散涟漪（限制在导航条内） */
+          var ripple = document.createElement('div');
+          ripple.className = 'nav-ripple';
+          var navRect = topNavEl.getBoundingClientRect();
+          ripple.style.left = (e.clientX - navRect.left) + 'px';
+          ripple.style.top = (e.clientY - navRect.top) + 'px';
+          topNavEl.appendChild(ripple);
+          setTimeout(function() { ripple.remove(); }, 550);
+
+          var el = document.getElementById(id);
+          if (el) {
+            var navHeight = topNavEl ? topNavEl.offsetHeight : 60;
+            var target = id === 'hero' ? el : (el.classList && el.classList.contains('section') ? el : (el.querySelector('.section-title') || el.querySelector('.skills-header') || el));
+            if (!target || !el.contains(target)) target = el;
+            requestAnimationFrame(function() {
+              var rect = target.getBoundingClientRect();
+              var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              var targetTop = rect.top + scrollTop;
+              var to = Math.max(0, Math.round(targetTop - navHeight));
+              var start = window.pageYOffset || document.documentElement.scrollTop;
+              var startTime = null;
+              function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+              function step(now) {
+                if (startTime == null) startTime = now;
+                var elapsed = now - startTime;
+                var t = Math.min(elapsed / 500, 1);
+                window.scrollTo(0, start + (to - start) * easeOut(t));
+                if (t < 1) requestAnimationFrame(step);
+              }
+              requestAnimationFrame(step);
+            });
+          }
+          if (navLinks) navLinks.classList.remove('open');
+          if (navOverlay) navOverlay.classList.remove('open');
+        });
+      });
+
+      var menuBtn = document.getElementById('menuBtn');
+      if (menuBtn) menuBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('open');
+        if (navOverlay) navOverlay.classList.toggle('open', navLinks.classList.contains('open'));
+      });
+      if (navOverlay) navOverlay.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        navOverlay.classList.remove('open');
+      });
+
+      /* 滚动出现：Section + 子元素错峰 */
+      var sectionObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var section = entry.target;
+          section.classList.add('visible');
+          var items = section.querySelectorAll('.reveal-item');
+          items.forEach(function(item, i) {
+            item.style.transitionDelay = (i * 0.08) + 's';
+            item.classList.add('reveal');
+          });
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+
+      document.querySelectorAll('.section').forEach(function(section) {
+        sectionObserver.observe(section);
+      });
+
+      /* Hero 首屏立即显示 */
+      var hero = document.getElementById('hero');
+      var heroObserver = new IntersectionObserver(function(entries) {
+        if (entries[0].isIntersecting) hero.classList.add('visible');
+      }, { threshold: 0.5 });
+      heroObserver.observe(hero);
+      if (window.scrollY < 100) hero.classList.add('visible');
+
+      /* 滚动高亮：当前可视模块 */
+      var sections = document.querySelectorAll('.section');
+      var heroEl = document.getElementById('hero');
+      function updateActive() {
+        var navH = topNavEl ? topNavEl.offsetHeight : 60;
+        var threshold = navH + 10;
+        var current = null;
+        if (heroEl && heroEl.getBoundingClientRect().bottom > threshold) {
+          current = heroEl;
+        } else {
+          var bestTop = -1e9;
+          sections.forEach(function(sec) {
+            var top = sec.getBoundingClientRect().top;
+            if (top <= threshold && top > bestTop) {
+              bestTop = top;
+              current = sec;
+            }
+          });
+        }
+        if (!current && sections.length) current = sections[0];
+        document.querySelectorAll('.nav-links a').forEach(function(a) {
+          var href = a.getAttribute('href').slice(1);
+          a.classList.toggle('active', current && current.id === href);
+        });
+      }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+
+      /* 工作经历：静态三块，上下渐变 */
+      var projSlider = document.getElementById('projectsSlider');
+      var projPrev = document.getElementById('projPrev');
+      var projNext = document.getElementById('projNext');
+      if (projSlider) {
+        var projSlides = projSlider.querySelectorAll('.project-item');
+        if (projSlides.length) {
+          var sw = 0;
+          function getProjSlideWidth() {
+            return projSlides[0].offsetWidth + 24;
+          }
+          function updateProjArrows() {
+            sw = getProjSlideWidth();
+            var maxScroll = projSlider.scrollWidth - projSlider.clientWidth;
+            var atStart = maxScroll <= 0 || projSlider.scrollLeft <= 2;
+            var atEnd = maxScroll <= 0 || projSlider.scrollLeft >= maxScroll - 2;
+            if (projPrev) { projPrev.disabled = atStart; projPrev.setAttribute('aria-disabled', atStart ? 'true' : 'false'); }
+            if (projNext) { projNext.disabled = atEnd; projNext.setAttribute('aria-disabled', atEnd ? 'true' : 'false'); }
+          }
+          function goToProj(i) {
+            sw = getProjSlideWidth();
+            projSlider.scrollTo({ left: i * sw, behavior: 'smooth' });
+          }
+          projSlider.addEventListener('scroll', updateProjArrows);
+          window.addEventListener('resize', updateProjArrows);
+          updateProjArrows();
+          setTimeout(updateProjArrows, 100);
+          setTimeout(updateProjArrows, 400);
+          var projSection = document.getElementById('projects');
+          if (projSection) {
+            var runProjArrowsWhenVisible = function() {
+              var rect = projSection.getBoundingClientRect();
+              if (rect.top < window.innerHeight && rect.bottom > 0) requestAnimationFrame(updateProjArrows);
+            };
+            window.addEventListener('scroll', runProjArrowsWhenVisible, { passive: true });
+            var projSectionObs = new IntersectionObserver(function(entries) {
+              if (entries[0].isIntersecting) requestAnimationFrame(updateProjArrows);
+            }, { threshold: 0 });
+            projSectionObs.observe(projSection);
+          }
+          if (typeof ResizeObserver !== 'undefined') {
+            var ro = new ResizeObserver(function() { updateProjArrows(); });
+            ro.observe(projSlider);
+          }
+          if (projPrev) projPrev.addEventListener('click', function() {
+            if (projPrev.disabled) return;
+            sw = getProjSlideWidth();
+            var idx = Math.max(0, Math.floor(projSlider.scrollLeft / sw) - 1);
+            goToProj(idx);
+          });
+          if (projNext) projNext.addEventListener('click', function() {
+            if (projNext.disabled) return;
+            sw = getProjSlideWidth();
+            var idx = Math.min(projSlides.length - 1, Math.floor(projSlider.scrollLeft / sw) + 1);
+            goToProj(idx);
+          });
+        }
+      }
+    })();
+  </script>
+  <!--
+  精简说明（本次优化）：
+  1. CSS 变量：删除未使用的 --ease-out-quart、--blur(24px)；保留 --blur-sm(16px)。
+  2. html：合并为单条规则（scroll-behavior + 滚动条 scrollbar-width/scrollbar-color）；-webkit 滚动条合并为单行；删除冗余 [data-theme="dark"] html（变量已统一）。
+  3. .work-item.fade-out / .work-item.fade-below：合并相同 ::after 为 .work-item.fade-out::after, .work-item.fade-below::after；保留两处 opacity 与 fade-out 的 pointer-events。
+  4. 媒体查询 @media (max-width:768px)：修复错位——.menu-btn 仅保留 display:none；原误写入的 padding/margin/min-height 归入 .hero 移动端样式。
+  5. 注释：长条 "========== ... ==========" 改为简短单行注释，便于阅读。
+  6. 未删除任何在用的类/ID/JS，未改动邮箱按钮动效（0.4s、cubic-bezier、圆形↔圆角矩形、文字淡入淡出）。
+  -->
 </body>
 </html>
