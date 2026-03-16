@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>段训栋 - 软件测试工程师 | 个人简历</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <!-- 首页（self-introduction）：包含导航栏、夜间模式、中英文切换、自我介绍 -->
+  <section class="self-introduction">
+    <header class="top-nav nav-bar" id="topNav">
+      <span class="name">段训栋</span>
+      <nav class="nav-links" id="navLinks">
+        <a href="#hero">首页</a>
+        <a href="#education">教育</a>
+        <a href="#experience">经历</a>
+        <a href="#projects">项目</a>
+        <a href="#skills">技能</a>
+        <a href="#intro">评价</a>
+      </nav>
+      <div class="nav-actions">
+        <button type="button" class="nav-btn-icon dark-mode-toggle" id="themeBtn" aria-label="夜间模式" title="夜间模式">
+          <svg id="themeIconSun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="themeIconMoon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="nav-btn-icon lang-toggle" id="langBtn" aria-label="中文/English" title="中文 / English">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </button>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+    <section class="hero intro-text" id="hero">
+      <p class="hero-greeting">你好，我叫</p>
+      <h1 class="hero-name">段训栋</h1>
+      <p class="hero-title">软件测试工程师</p>
+      <div class="hero-contact">
+        <a href="mailto:duanxd123@qq.com" class="hero-email-link" aria-label="发送邮件">
+          <span class="hero-email-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+          <span class="hero-email-text">联系我</span>
+        </a>
+      </div>
+      <a href="#education" class="hero-scroll-down" aria-label="向下滚动">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      </a>
+    </section>
+  </section>
+  <!-- 首页（self-introduction）结束 -->
+
+  <main class="content">
+    <!-- 教育经历（education）：单卡片展示教育背景 -->
+    <section class="section education" id="education">
+      <h2 class="section-title">教育经历</h2>
+      <div class="section-inner">
+        <div class="edu-item education-card reveal-item">
+          <div class="school">江西工程学院</div>
+          <div class="meta">软件工程 · 全日制本科 · 2022.07 毕业</div>
+        </div>
+      </div>
+    </section>
+    <!-- 教育经历（education）结束 -->
+
+    <!-- 工作经历（work-experience）：3个列表项展示工作信息 -->
+    <section class="section work-experience" id="experience">
+      <h2 class="section-title">工作经历</h2>
+      <p class="section-subtitle reveal-item"></p>
+      <div class="work-exp-list-wrap reveal-item" id="workExpListWrap">
+        <ul class="work-exp-list" id="workExpList" aria-label="工作经历列表"></ul>
+      </div>
+      <div class="work-exp-overlay" id="workExpOverlay" aria-hidden="true"></div>
+      <div class="work-exp-modal" id="workExpModal" role="dialog" aria-modal="true" aria-labelledby="workExpModalCompany" aria-hidden="true">
+        <div class="work-exp-modal-inner" id="workExpModalInner">
+          <button type="button" class="work-exp-modal-close" id="workExpModalClose" aria-label="关闭">×</button>
+          <div class="work-exp-modal-image-wrap">
+            <img class="work-exp-modal-image" id="workExpModalImage" src="" alt="">
+          </div>
+          <div class="work-exp-modal-body">
+            <div class="work-exp-modal-header">
+              <div>
+                <h3 class="work-exp-modal-company" id="workExpModalCompany"></h3>
+                <p class="work-exp-modal-meta" id="workExpModalMeta"></p>
+              </div>
+              <a class="work-exp-modal-cta" id="workExpModalCta" href="#" target="_blank" rel="noopener"></a>
+            </div>
+            <div class="work-exp-modal-desc" id="workExpModalDesc"></div>
+            <div class="work-exp-modal-stats" id="workExpModalStats"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 工作经历（work-experience）结束 -->
+
+    <!-- 项目经历（project-experience）：5张卡片展示项目信息 -->
+    <section class="section project-experience" id="projects">
+      <h2 class="section-title">项目经历</h2>
+      <p class="section-subtitle reveal-item">拖动卡片查看，拖出屏幕丢弃</p>
+      <div class="recover-btn-wrap">
+        <button class="recover-btn" id="recoverBtn" style="display:none;">↩ 捡回卡片</button>
+      </div>
+      <div class="draggable-card-container" id="draggableContainer">
+        <div class="draggable-card project-card-1" data-index="0">
+          <div class="project-header">
+            <span class="project-name">智小荣 & 知识社区测试</span>
+            <span class="project-date">2025.8 - 2026.2</span>
+          </div>
+          <div class="project-subtitle">荣耀 MagicOS 生态核心项目 · 软件测试工程师</div>
+          <div class="project-block">
+            <h4>项目背景</h4>
+            <ul><li>聚焦智小荣 AI 助手研发与知识社区搭建，服务内部员工及核心用户</li></ul>
+          </div>
+          <div class="project-block">
+            <h4>主要职责</h4>
+            <ul>
+              <li>使用 DevSecOps、JMeter、Postman、MySQL 等工具</li>
+              <li>依托云龙平台搭建测试体系，每月输出 200 条用例，适配月中发版节奏</li>
+              <li>承担社区核心模块手动测试，使用 JMeter 开展性能与压力测试</li>
+              <li>借助云龙平台落地接口自动化测试，精简重复工作量</li>
+            </ul>
+          </div>
+          <div class="project-result">保障系统交互准确率 <span class="stat">91%+</span>，社区故障率 <span class="stat">&lt;0.3%</span>，支撑 <span class="stat">10 万+</span> 人次活动 · 重复工作精简 <span class="stat">40%</span>，测试效率提升 <span class="stat">35%</span> · 私域转化超行业均值 <span class="stat">25%</span>，指令识别准确率提升 <span class="stat">23%</span></div>
+        </div>
+        <div class="draggable-card project-card-2" data-index="1">
+          <div class="project-header">
+            <span class="project-name">鸿蒙移动 & PC 集成测试</span>
+            <span class="project-date">2024.9 - 2025.7</span>
+          </div>
+          <div class="project-subtitle">软件测试工程师</div>
+          <div class="project-block">
+            <h4>项目背景</h4>
+            <ul><li>参与华为鸿蒙系统移动端和 PC 端全面测试，覆盖系统设置、应用安装卸载、多设备协同、文件跨端传输等核心模块</li></ul>
+          </div>
+          <div class="project-block">
+            <h4>主要职责</h4>
+            <ul>
+              <li>使用 Python、Postman、Appium、Selenium、JMeter、dev 平台</li>
+              <li>设计覆盖系统设置、多设备协同等模块的测试用例</li>
+              <li>执行端侧功能/接口测试，用 Python 编写自动化脚本</li>
+              <li>开展多设备/硬件环境兼容性测试，输出测试报告</li>
+            </ul>
+          </div>
+          <div class="project-result">完成 <span class="stat">1000+</span> 测试用例执行 · 发现并跟踪解决缺陷 <span class="stat">280+</span> 个 · 累计 <span class="stat">8000+</span> 行自动化代码 · 减少人工测试工作量 <span class="stat">30%</span></div>
+        </div>
+        <div class="draggable-card project-card-3" data-index="2">
+          <div class="project-header">
+            <span class="project-name">天财智慧财务系统</span>
+            <span class="project-date">2024.3 - 2024.8</span>
+          </div>
+          <div class="project-subtitle">软件实施工程师</div>
+          <div class="project-block">
+            <h4>项目背景</h4>
+            <ul><li>为广东省 20+ 所学校部署天财智慧财务平台，适配财政预算一体化改革要求</li></ul>
+          </div>
+          <div class="project-block">
+            <h4>主要职责</h4>
+            <ul>
+              <li>牵头多校财务需求调研，输出 3 份场景化需求报告</li>
+              <li>用 SQL Server 处理账务/人员/预算数据</li>
+              <li>搭建测试环境，组织 20+ 场培训，编制操作手册</li>
+            </ul>
+          </div>
+          <div class="project-result">数据同步准确率 <span class="stat">100%</span> · 用户满意度 <span class="stat">96%</span> · 财务办公效率提升 <span class="stat">45%</span></div>
+        </div>
+        <div class="draggable-card project-card-4" data-index="3">
+          <div class="project-header">
+            <span class="project-name">数字人大系统</span>
+            <span class="project-date">2023.10 - 2024.3</span>
+          </div>
+          <div class="project-subtitle">软件实施工程师</div>
+          <div class="project-block">
+            <h4>项目背景</h4>
+            <ul><li>搭建人大常委会国资监督支撑平台，实现专项报告、数据报表汇聚和自动预警功能</li></ul>
+          </div>
+          <div class="project-block">
+            <h4>主要职责</h4>
+            <ul>
+              <li>使用 Linux、MySQL、永洪 BI</li>
+              <li>负责国资数据图表展示、数据管理等核心功能的 Web 端功能测试</li>
+              <li>编写测试用例超 1000 条，在 Linux 下搭建 UAT 测试环境</li>
+            </ul>
+          </div>
+          <div class="project-result">协助分析解决 BUG 缺陷 <span class="stat">100+</span> 条，保障系统稳定上线</div>
+        </div>
+        <div class="draggable-card project-card-5" data-index="4">
+          <div class="project-header">
+            <span class="project-name">数字财政系统</span>
+            <span class="project-date">2022.3 - 2023.10</span>
+          </div>
+          <div class="project-subtitle">软件实施工程师</div>
+          <div class="project-block">
+            <h4>项目背景</h4>
+            <ul><li>搭建财政局一体化信息化管理平台，通过数字化支付转型提升跨部门协同效率</li></ul>
+          </div>
+          <div class="project-block">
+            <h4>主要职责</h4>
+            <ul>
+              <li>使用 Navicat、Postman、FineReport、TAPD 等工具</li>
+              <li>开展功能测试、接口测试、兼容性测试</li>
+              <li>跟踪处理客户反馈问题，推动 100+ 问题解决</li>
+            </ul>
+          </div>
+          <div class="project-result">提升跨部门协同效率 <span class="stat">30%</span>，降低成本 <span class="stat">20%</span> · 客户好评率 <span class="stat">95%+</span>，成为部门实施标杆项目</div>
+        </div>
+      </div>
+    </section>
+    <!-- 项目经历（project-experience）结束 -->
+
+    <!-- 技术能力（technical-skills）：技术标题横向来回滚动 -->
+    <section class="section technical-skills" id="skills">
+      <div class="skills-header">
+        <p class="skills-subtitle">技能線</p>
+        <h2 class="section-title">技术能力</h2>
+      </div>
+      <div class="skills-rows reveal-item">
+        <div class="skill-row-wrap">
+          <div class="skill-row" id="skillRow1">
+            <div class="skill-row-copy">
+              <span class="skill-pill skill-text">Linux</span>
+              <span class="skill-pill skill-text">Python</span>
+              <span class="skill-pill skill-text">Postman</span>
+              <span class="skill-pill skill-text">JMeter</span>
+              <span class="skill-pill skill-text">MySQL</span>
+              <span class="skill-pill skill-text">Selenium</span>
+              <span class="skill-pill skill-text">Appium</span>
+              <span class="skill-pill skill-text">Pytest</span>
+              <span class="skill-pill skill-text">Fiddler</span>
+              <span class="skill-pill skill-text">Redis</span>
+              <span class="skill-pill skill-text">FineReport</span>
+              <span class="skill-pill skill-text">永洪 BI</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill skill-text">Linux</span>
+              <span class="skill-pill skill-text">Python</span>
+              <span class="skill-pill skill-text">Postman</span>
+              <span class="skill-pill skill-text">JMeter</span>
+              <span class="skill-pill skill-text">MySQL</span>
+              <span class="skill-pill skill-text">Selenium</span>
+              <span class="skill-pill skill-text">Appium</span>
+              <span class="skill-pill skill-text">Pytest</span>
+              <span class="skill-pill skill-text">Fiddler</span>
+              <span class="skill-pill skill-text">Redis</span>
+              <span class="skill-pill skill-text">FineReport</span>
+              <span class="skill-pill skill-text">永洪 BI</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill skill-text">Linux</span>
+              <span class="skill-pill skill-text">Python</span>
+              <span class="skill-pill skill-text">Postman</span>
+              <span class="skill-pill skill-text">JMeter</span>
+              <span class="skill-pill skill-text">MySQL</span>
+              <span class="skill-pill skill-text">Selenium</span>
+              <span class="skill-pill skill-text">Appium</span>
+              <span class="skill-pill skill-text">Pytest</span>
+              <span class="skill-pill skill-text">Fiddler</span>
+              <span class="skill-pill skill-text">Redis</span>
+              <span class="skill-pill skill-text">FineReport</span>
+              <span class="skill-pill skill-text">永洪 BI</span>
+            </div>
+          </div>
+        </div>
+        <div class="skill-row-wrap">
+          <div class="skill-row" id="skillRow2">
+            <div class="skill-row-copy">
+              <span class="skill-pill skill-text">团队协作</span>
+              <span class="skill-pill skill-text">质量管控</span>
+              <span class="skill-pill skill-text">需求分析</span>
+              <span class="skill-pill skill-text">测试报告</span>
+              <span class="skill-pill skill-text">进度管控</span>
+              <span class="skill-pill skill-text">风险管理</span>
+              <span class="skill-pill skill-text">接口测试</span>
+              <span class="skill-pill skill-text">自动化测试</span>
+              <span class="skill-pill skill-text">性能测试</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill skill-text">团队协作</span>
+              <span class="skill-pill skill-text">质量管控</span>
+              <span class="skill-pill skill-text">需求分析</span>
+              <span class="skill-pill skill-text">测试报告</span>
+              <span class="skill-pill skill-text">进度管控</span>
+              <span class="skill-pill skill-text">风险管理</span>
+              <span class="skill-pill skill-text">接口测试</span>
+              <span class="skill-pill skill-text">自动化测试</span>
+              <span class="skill-pill skill-text">性能测试</span>
+            </div>
+            <div class="skill-row-copy">
+              <span class="skill-pill skill-text">团队协作</span>
+              <span class="skill-pill skill-text">质量管控</span>
+              <span class="skill-pill skill-text">需求分析</span>
+              <span class="skill-pill skill-text">测试报告</span>
+              <span class="skill-pill skill-text">进度管控</span>
+              <span class="skill-pill skill-text">风险管理</span>
+              <span class="skill-pill skill-text">接口测试</span>
+              <span class="skill-pill skill-text">自动化测试</span>
+              <span class="skill-pill skill-text">性能测试</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 技术能力（technical-skills）结束 -->
+
+    <!-- 自我评价（self-evaluation）：单卡片展示自我评价 -->
+    <section class="section self-evaluation" id="intro">
+      <h2 class="section-title">自我评价</h2>
+      <div class="section-inner">
+        <div class="self-intro evaluation-card reveal-item" style="--m-x:50%;--m-y:50%;--r-x:0deg;--r-y:0deg;--bg-x:50%;--bg-y:50%;--duration:300ms;--foil-size:100%;--opacity:0;--radius:20px;--easing:ease;--transition:var(--duration) var(--easing)">
+          <div class="glare-grid">
+            <!-- 基础背景层 -->
+            <div class="glare-base">
+              <div class="glare-content">
+                <svg width="66" height="65" viewBox="0 0 66 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="glare-icon">
+                  <path d="M8 8.05571C8 8.05571 54.9009 18.1782 57.8687 30.062C60.8365 41.9458 9.05432 57.4696 9.05432 57.4696" stroke="currentColor" stroke-width="15" stroke-miterlimit="3.86874" stroke-linecap="round"></path>
+                </svg>
+                <h3 class="glare-title">自我评价</h3>
+              </div>
+            </div>
+
+            <!-- 眩光层 -->
+            <div class="glare-highlight"></div>
+
+            <!-- 纹理层 -->
+            <div class="glare-texture"></div>
+
+            <!-- 内容层 -->
+            <div class="glare-content-layer">
+              <ul>
+                <li>具备 4 年软件测试与实施经验，熟悉软件测试全流程和方法，能够独立完成自动化测试脚本开发和维护</li>
+                <li>精通 Python 编程语言，熟练使用 Postman、JMeter 等测试工具，具备丰富的接口测试和性能测试经验</li>
+                <li>具有良好的问题分析和解决能力，能够快速定位和解决软件缺陷，保障系统质量和稳定性</li>
+                <li>工作积极认真，细心负责，善于发现问题并提出解决方案，具备良好的团队协作和沟通能力</li>
+                <li>对新技术有强烈的学习兴趣，能够快速掌握和应用新的测试工具和技术，适应高强度工作环境</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 自我评价（self-evaluation）结束 -->
+  </main>
+
+  <script src="static/js/script.js"></script>
+</body>
+</html>
