@@ -311,6 +311,13 @@
       overflow: hidden;
       border-bottom: 1px solid var(--border);
       scroll-margin-top: 0;
+      background: var(--card-glass);
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.04);
+      border-radius: 24px;
+      max-width: 600px;
+      margin: 3rem auto 2rem auto;
+      backdrop-filter: blur(var(--blur-sm));
+      -webkit-backdrop-filter: blur(var(--blur-sm));
     }
 
     .hero::before {
@@ -1733,7 +1740,8 @@
       transform: rotateY(var(--r-y)) rotateX(var(--r-x));
       transition: transform var(--duration) var(--easing);
       perspective: 600px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      border: none !important;
+      border: none !important;
     }
 
     [data-theme="dark"] .glare-grid {
@@ -1803,12 +1811,13 @@
     }
 
     .glare-content-layer {
+        border: none !important;
       grid-area: stack;
       position: relative;
       z-index: 10;
       padding: 2rem 2.5rem;
-      color: rgba(0, 0, 0, 0.9);
-      background: rgba(235, 245, 255, 0.75);
+      color: #222;
+      background: #e3f2fd;
       backdrop-filter: blur(10px);
       border-radius: calc(var(--radius) - 4px);
       margin: 4px;
@@ -1831,7 +1840,7 @@
       margin-bottom: 0.75rem;
       line-height: 1.6;
       font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.95);
+      color: #222;
     }
 
     [data-theme="dark"] .glare-content-layer {
