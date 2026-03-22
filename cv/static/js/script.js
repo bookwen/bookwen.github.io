@@ -73,8 +73,8 @@
       var workContent = {
         zh: [
           { company: '深圳软通动力信息技术有限公司', date: '2024.9 - 2026.2', role: '软件测试工程师', img: 'static/img/isoftstone.png', link: 'https://www.isoftstone.com/', desc: ['负责鸿蒙系统移动端和PC端核心功能测试，覆盖系统设置、应用管理、跨设备协同等关键模块','基于 Python+Appium/Selenium 搭建自动化测试框架，编写关键业务流程脚本','使用 JMeter 进行接口性能基准测试，分析响应时间、TPS 等关键指标','定期输出多维度测试报告，为项目迭代决策提供数据支撑'], stats: ['缺陷跟踪解决','人工测试减少','性能瓶颈优化'], statVals: ['280+','30%','5'] },
-          { company: '广州神州浩天科技有限公司', date: '2024.3 - 2024.8', role: '软件实施工程师', img: 'static/img/szhtkj.png', link: 'http://www.szhtkj.com.cn/', desc: ['负责广东省 20+ 所学校天财智慧财务系统部署实施，完成需求调研、系统配置和数据初始化','运用 SQL Server 进行基础数据导入、清洗与校验，处理跨系统数据同步差异','组织各学校财务人员开展系统操作培训，编制专属操作手册','推动报销流程简化和财务报表可视化功能优化'], stats: ['所学校部署','数据准确性','用户满意度','财务效率提升'], statVals: ['20+','100%','96%','45%'] },
-          { company: '广州用友政务软件有限公司', date: '2022.3 - 2024.3', role: '软件测试工程师', img: 'static/img/yonyou.png', link: 'https://www.yonyou.com/', desc: ['参与数字财政系统和数字人大系统实施，负责需求调研、系统配置、测试和上线支持全流程','及时跟踪处理实施过程中客户提交的问题','使用 Postman 进行接口测试，编写测试用例保障系统功能稳定性','维护良好客户关系'], stats: ['实施问题解决','测试用例','客户好评率'], statVals: ['500+','1000+','95%+'] }
+          { company: '广州神州浩天科技有限公司', date: '2024.3 - 2024.8', role: '软件实施工程师', img: 'static/img/szhtkj.png', link: 'http://www.szhtkj.com.cn/', desc: ['负责广东省 20+ 所学校天财智慧财务系统部署实施，完成需求调研、系统配置和数据初始化','运用 SQL Server 进行基础数据导入、清洗与校验，处理跨系统数据同步差异','负责用户反馈、客户培训工作,解答用户系统使用过程中的疑问,推动报销流程简化和财务报表可视化功能优化','负责项目的测试、上线、验收及后期维护,确保项目按照交付和符合质量标准','负责公司软件产品的实施及售后维护工作,协助新产品发布及版本更新后的测试反馈,完成测试环境搭建及演示流程'], stats: ['所学校部署','数据准确性','用户满意度','财务效率提升'], statVals: ['20+','100%','96%','45%'] },
+          { company: '广州用友政务软件有限公司', date: '2022.3 - 2024.3', role: '软件测试工程师', img: 'static/img/yonyou.png', link: 'https://www.yonyou.com/', desc: ['参与数字财政系统和数字人大系统实施，负责项目的项目计划、需求分析、项目进度管理、系统配置、测试和上线支持全流程','协助新产品发布及版本更新后的测试反馈，完成测试环境搭建及演示流程','负责公司软件产品的实施及售后维护工作,及时跟踪处理实施过程中客户提交的问题','使用 Postman 进行接口测试，编写测试用例保障系统功能稳定性','负责用户反馈、客户培训工作，解答用户系统使用过程中的疑问,维护良好客户关系'], stats: ['实施问题解决','测试用例','客户好评率'], statVals: ['500+','1000+','95%+'] }
         ],
         en: [
           { company: 'Shenzhen Chinasoft Information Technology Co., Ltd.', date: 'Sep 2024 - Feb 2026', role: 'Software Test Engineer', img: 'static/img/isoftstone.png', link: 'https://www.isoftstone.com/', desc: ['Core functional testing for HarmonyOS mobile and PC (settings, app management, cross-device sync)','Built automation framework with Python+Appium/Selenium for key business flows','JMeter-based API performance benchmarking; analyzed response time and TPS','Delivered multi-dimensional test reports to support release decisions'], stats: ['Defects tracked & resolved','Manual test reduction','Performance bottlenecks optimized'], statVals: ['280+','30%','5'] },
@@ -1053,48 +1053,177 @@
 
       /* 自我评价：眩光卡片效果 */
       (function initGlareCard() {
-        var card = document.querySelector('.self-intro');
-        if (!card) return;
+        var container = document.getElementById('cardContainer');
+        var card = document.getElementById('card3d');
+        var innerGlow = document.getElementById('innerGlow');
+        if (!container || !card || !innerGlow) return;
 
-        var bounds;
-        var updateBounds = function() {
-          bounds = card.getBoundingClientRect();
-        };
+        var isInside = false;
 
-        var updateMouse = function(e) {
-          if (!bounds) return;
+        function updateGlowPosition(e) {
+          var rect = container.getBoundingClientRect();
 
-          var x = e.clientX - bounds.left;
-          var y = e.clientY - bounds.top;
+          // 如果鼠标不在容器内，直接重置并返回
+          if (e.clientX < rect.left || e.clientX > rect.right ||
+              e.clientY < rect.top  || e.clientY > rect.bottom) {
+            if (isInside) {
+              isInside = false;
+              card.style.transform = 'rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+              innerGlow.style.setProperty('--mouse-x', '50%');
+              innerGlow.style.setProperty('--mouse-y', '50%');
+            }
+            return;
+          }
 
-          var leftX = x - bounds.width / 2;
-          var topY = y - bounds.height / 2;
-          var totalX = leftX / bounds.width;
-          var totalY = topY / bounds.height;
+          isInside = true;
 
-          var rotateY = 15 * totalX;
-          var rotateX = -15 * totalY;
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
 
-          card.style.setProperty('--m-x', x + 'px');
-          card.style.setProperty('--m-y', y + 'px');
-          card.style.setProperty('--r-x', rotateX + 'deg');
-          card.style.setProperty('--r-y', rotateY + 'deg');
-          card.style.setProperty('--bg-x', (50 + totalX * 50) + '%');
-          card.style.setProperty('--bg-y', (50 + totalY * 50) + '%');
-        };
+          var centerX = rect.width / 2;
+          var centerY = rect.height / 2;
 
-        card.addEventListener('mouseenter', function() {
-          updateBounds();
-          card.style.setProperty('--opacity', '0.8');
+          var rotateX = ((y - centerY) / centerY) * -8;
+          var rotateY = ((x - centerX) / centerX) * 8;
+
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+          innerGlow.style.setProperty('--mouse-x', `${x}px`);
+          innerGlow.style.setProperty('--mouse-y', `${y}px`);
+        }
+
+        // 监听 window 而非 container，彻底避免快速移出时 mouseleave 丢帧的问题
+        window.addEventListener('mousemove', updateGlowPosition);
+
+        container.addEventListener('mouseleave', function() {
+          isInside = false;
+          card.style.transform = 'rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+          innerGlow.style.setProperty('--mouse-x', '50%');
+          innerGlow.style.setProperty('--mouse-y', '50%');
         });
 
-        card.addEventListener('mouseleave', function() {
-          card.style.setProperty('--opacity', '0');
+        container.addEventListener('mouseenter', function() {
+          isInside = true;
+          card.style.transition = 'transform 0.1s ease-out';
         });
 
-        card.addEventListener('mousemove', updateMouse);
+        if (window.DeviceOrientationEvent) {
+          window.addEventListener('deviceorientation', function(e) {
+            if (window.innerWidth < 768) {
+              var rotateX = (e.beta - 45) * 0.2;
+              var rotateY = e.gamma * 0.2;
+              card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
+          });
+        }
+      })();
 
-        window.addEventListener('resize', updateBounds);
-        updateBounds();
+      /* 教育经历：可展开卡片 */
+      (function initEduCards() {
+        var expandedCard = null;
+        var originalRect = null;
+        var placeholder = null;
+
+        function expandEduCard(card) {
+          if (expandedCard) return;
+
+          var rect = card.getBoundingClientRect();
+          originalRect = rect;
+
+          // 占位符防止布局塌陷
+          placeholder = document.createElement('div');
+          placeholder.style.width = rect.width + 'px';
+          placeholder.style.height = rect.height + 'px';
+          placeholder.style.visibility = 'hidden';
+          card.parentNode.insertBefore(placeholder, card);
+
+          // 固定定位，保持当前位置
+          card.style.position = 'fixed';
+          card.style.top = rect.top + 'px';
+          card.style.left = rect.left + 'px';
+          card.style.width = rect.width + 'px';
+          card.style.margin = '0';
+          card.classList.add('is-expanding');
+
+          // 强制重绘
+          card.offsetHeight;
+
+          // 显示遮罩
+          document.getElementById('eduBackdrop').classList.add('is-active');
+          document.body.classList.add('no-scroll');
+
+          // 目标尺寸（屏幕中央）
+          var targetWidth = Math.min(window.innerWidth * 0.9, 460);
+          var targetTop = 80;
+          var targetLeft = (window.innerWidth - targetWidth) / 2;
+
+          requestAnimationFrame(function() {
+            card.style.top = targetTop + 'px';
+            card.style.left = targetLeft + 'px';
+            card.style.width = targetWidth + 'px';
+            card.classList.add('is-expanded');
+
+            var expandedContent = card.querySelector('.edu-expanded-content');
+            if (expandedContent) {
+              expandedContent.classList.remove('hidden');
+            }
+          });
+
+          expandedCard = card;
+        }
+
+        function closeEduCard() {
+          if (!expandedCard || !originalRect) return;
+
+          var card = expandedCard;
+
+          var expandedContent = card.querySelector('.edu-expanded-content');
+          if (expandedContent) {
+            expandedContent.classList.add('hidden');
+          }
+
+          card.classList.remove('is-expanded');
+
+          card.style.top = originalRect.top + 'px';
+          card.style.left = originalRect.left + 'px';
+          card.style.width = originalRect.width + 'px';
+
+          document.getElementById('eduBackdrop').classList.remove('is-active');
+          document.body.classList.remove('no-scroll');
+
+          setTimeout(function() {
+            card.style.position = '';
+            card.style.top = '';
+            card.style.left = '';
+            card.style.width = '';
+            card.style.margin = '';
+            card.classList.remove('is-expanding');
+
+            if (placeholder && placeholder.parentNode) {
+              placeholder.parentNode.removeChild(placeholder);
+            }
+
+            expandedCard = null;
+            originalRect = null;
+            placeholder = null;
+          }, 420);
+        }
+
+        // ESC 键关闭
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && expandedCard) {
+            closeEduCard();
+          }
+        });
+
+        // 窗口大小改变时关闭
+        window.addEventListener('resize', function() {
+          if (expandedCard) {
+            closeEduCard();
+          }
+        });
+
+        // 暴露到全局
+        window.expandEduCard = expandEduCard;
+        window.closeEduCard = closeEduCard;
       })();
     })();

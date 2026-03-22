@@ -13,6 +13,7 @@
       <span class="name">段训栋</span>
       <nav class="nav-links" id="navLinks">
         <a href="#hero">首页</a>
+        <a href="#about">关于</a>
         <a href="#education">教育</a>
         <a href="#experience">经历</a>
         <a href="#projects">项目</a>
@@ -44,6 +45,7 @@
           <span class="hero-email-text">联系我</span>
         </a>
       </div>
+
       <a href="#education" class="hero-scroll-down" aria-label="向下滚动">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
       </a>
@@ -52,13 +54,114 @@
   <!-- 首页（self-introduction）结束 -->
 
   <main class="content">
-    <!-- 教育经历（education）：单卡片展示教育背景 -->
+    <!-- 认识一下（about）：个人简介 + 基本信息 -->
+    <section class="section about" id="about">
+      <h2 class="section-title">认识一下</h2>
+      <div class="section-inner">
+        <div class="about-grid">
+          <!-- 个人简介 -->
+          <div class="about-card">
+            <div class="about-card-header">
+              <div class="about-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="16" y1="13" x2="8" y2="13"/>
+                  <line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+              </div>
+              <h3 class="about-card-title">个人简介</h3>
+            </div>
+            <p class="about-card-text">拥有 4 年软件测试与实施经验，熟悉软件测试全流程，熟练掌握 Python 及 Postman、JMeter 等测试工具，具备自动化测试、接口测试与性能测试实战能力。工作认真细致、责任心强，善于分析定位问题、优化流程，具备良好的团队协作与沟通能力，对新技术保持持续学习热情，能快速适应高强度工作节奏。</p>
+          </div>
+          <!-- 基本信息 -->
+          <div class="about-card">
+            <div class="about-card-header">
+              <div class="about-card-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="12" cy="8" r="4"/>
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+                </svg>
+              </div>
+              <h3 class="about-card-title">基本信息</h3>
+            </div>
+            <div class="about-info-list">
+              <div class="about-info-item">
+                <span class="about-info-label">工作年限</span>
+                <span class="about-info-value">4 年</span>
+              </div>
+              <div class="about-info-item">
+                <span class="about-info-label">学历</span>
+                <span class="about-info-value">本科</span>
+              </div>
+              <div class="about-info-item">
+                <span class="about-info-label">所在城市</span>
+                <span class="about-info-value">深圳</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 认识一下（about）结束 -->
+
+    <!-- 教育经历（education）：可展开卡片 -->
     <section class="section education" id="education">
       <h2 class="section-title">教育经历</h2>
       <div class="section-inner">
-        <div class="edu-item education-card reveal-item">
-          <div class="school">江西工程学院</div>
-          <div class="meta">软件工程 · 全日制本科 · 2022.07 毕业</div>
+        <!-- 遮罩层 -->
+        <div class="edu-backdrop" id="eduBackdrop"></div>
+
+        <!-- 卡片网格 -->
+        <div class="edu-cards-grid" id="eduCardsGrid">
+
+          <!-- Card 1: 江西工程学院 -->
+          <div class="edu-music-card" onclick="expandEduCard(this)" data-id="1">
+            <div class="edu-card-thumb">
+              <img src="static/img/jxgc.jpg" alt="江西工程学院" class="edu-card-img">
+              <div class="edu-card-overlay"></div>
+            </div>
+            <div class="edu-card-body">
+              <h3 class="edu-card-title">江西工程学院</h3>
+              <p class="edu-card-meta">软件工程 · 全日制本科 · 2020-2022</p>
+              <div class="edu-expanded-content hidden">
+                
+                <ul class="edu-expanded-list">
+                  <li>毕设论文：基于 Node.js 的蛋糕店系统设计与实现。</li>
+                  <li>项目描述：系统前端采用 Vue.js，后端使用 Express 框架，数据库为 MySQL。实现了商品管理、订单管理、用户登录、权限控制与报表统计等功能，具备完整 MVC 架构与 API 规范。</li>
+                  <li>在校期间担任班级宣传委员及宿管委员，负责班级宣传工作与宿舍管理，具备良好的组织协调与服务意识。</li>
+                </ul>
+              </div>
+            </div>
+            <button class="edu-close-btn" onclick="event.stopPropagation(); closeEduCard()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Card 2: 江西工业贸易职业技术学院 -->
+          <div class="edu-music-card" onclick="expandEduCard(this)" data-id="2">
+            <div class="edu-card-thumb">
+              <img src="static/img/jxgm.jpg" alt="江西工业贸易职业技术学院" class="edu-card-img">
+              <div class="edu-card-overlay"></div>
+            </div>
+            <div class="edu-card-body">
+              <h3 class="edu-card-title">江西工业贸易职业技术学院</h3>
+              <p class="edu-card-meta">计算机网络技术 · 全日制大专 · 2017-2020</p>
+              <div class="edu-expanded-content hidden">
+                <ul class="edu-expanded-list">
+                  <li>在校期间担任班级团支书，负责团支部日常管理与团务工作，组织开展主题团日、团员教育等活动，具备良好的组织协调与责任意识。</li>
+                </ul>
+              </div>
+            </div>
+            <button class="edu-close-btn" onclick="event.stopPropagation(); closeEduCard()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
         </div>
       </div>
     </section>
@@ -232,17 +335,17 @@
               <span class="skill-pill skill-text">永洪 BI</span>
             </div>
             <div class="skill-row-copy">
-              <span class="skill-pill skill-text">Linux</span>
-              <span class="skill-pill skill-text">Python</span>
+              <span class="skill-pill skill-text">Photoshop</span>
+              <span class="skill-pill skill-text">Illustrator</span>
+              <span class="skill-pill skill-text">word</span>
+              <span class="skill-pill skill-text">Excel</span>
+              <span class="skill-pill skill-text">PowerPoint</span>
+              <span class="skill-pill skill-text">Oracle</span>
+              <span class="skill-pill skill-text">SQL Server</span>
+              <span class="skill-pill skill-text">LoadRunner</span>
+              <span class="skill-pill skill-text">Git</span>
               <span class="skill-pill skill-text">Postman</span>
-              <span class="skill-pill skill-text">JMeter</span>
-              <span class="skill-pill skill-text">MySQL</span>
-              <span class="skill-pill skill-text">Selenium</span>
-              <span class="skill-pill skill-text">Appium</span>
-              <span class="skill-pill skill-text">Pytest</span>
-              <span class="skill-pill skill-text">Fiddler</span>
-              <span class="skill-pill skill-text">Redis</span>
-              <span class="skill-pill skill-text">FineReport</span>
+              <span class="skill-pill skill-text">VScode</span>
               <span class="skill-pill skill-text">永洪 BI</span>
             </div>
             <div class="skill-row-copy">
@@ -302,43 +405,72 @@
     </section>
     <!-- 技术能力（technical-skills）结束 -->
 
-    <!-- 自我评价（self-evaluation）：单卡片展示自我评价 -->
+    <!-- 自我评价（self-evaluation）：3D 悬浮卡片 -->
     <section class="section self-evaluation" id="intro">
       <h2 class="section-title">自我评价</h2>
       <div class="section-inner">
-        <div class="self-intro evaluation-card reveal-item" style="--m-x:50%;--m-y:50%;--r-x:0deg;--r-y:0deg;--bg-x:50%;--bg-y:50%;--duration:300ms;--foil-size:100%;--opacity:0;--radius:20px;--easing:ease;--transition:var(--duration) var(--easing)">
-          <div class="glare-grid">
-            <!-- 基础背景层 -->
-            <div class="glare-base">
-              <div class="glare-content">
-                <svg width="66" height="65" viewBox="0 0 66 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="glare-icon">
-                  <path d="M8 8.05571C8 8.05571 54.9009 18.1782 57.8687 30.062C60.8365 41.9458 9.05432 57.4696 9.05432 57.4696" stroke="currentColor" stroke-width="15" stroke-miterlimit="3.86874" stroke-linecap="round"></path>
-                </svg>
-                <h3 class="glare-title">自我评价</h3>
+        <!-- 3D卡片容器 -->
+        <div class="card-container" id="cardContainer">
+          <div class="card-3d" id="card3d">
+            <!-- 主卡片 -->
+            <div class="main-card">
+              <!-- 顶部高光 -->
+              <div class="highlight-bar"></div>
+              <!-- 内部跟随光晕 -->
+              <div class="inner-glow" id="innerGlow"></div>
+              <!-- 角落渐变装饰 -->
+              <div class="corner-blob corner-blob-tr"></div>
+              <div class="corner-blob corner-blob-bl"></div>
+
+              <!-- 正文内容 -->
+              <div class="eval-body">
+                <div class="eval-item">
+                  <div class="skill-number">01</div>
+                  <p>拥有<span class="highlight">4年</span>软件测试与实施经验，熟悉软件测试全流程及各类测试方法，具备独立完成自动化测试脚本开发与维护的能力。</p>
+                </div>
+                <div class="eval-item">
+                  <div class="skill-number" style="color:#9333ea; border-color:rgba(147,51,234,0.25); background:linear-gradient(135deg,rgba(147,51,234,0.15),rgba(59,130,246,0.15))">02</div>
+                  <p>精通<span class="highlight">Python</span>编程语言，熟练使用Postman、JMeter等主流测试工具，具备丰富的接口测试与性能测试实战经验。</p>
+                </div>
+                <div class="eval-item">
+                  <div class="skill-number" style="color:#0891b2; border-color:rgba(8,145,178,0.25); background:linear-gradient(135deg,rgba(8,145,178,0.15),rgba(59,130,246,0.15))">03</div>
+                  <p>具备较强的<span class="highlight">问题分析与解决能力</span>，能够高效定位并修复软件缺陷，保障系统运行的稳定性与可靠性。</p>
+                </div>
+                <div class="eval-item">
+                  <div class="skill-number" style="color:#0d9488; border-color:rgba(13,148,136,0.25); background:linear-gradient(135deg,rgba(13,148,136,0.15),rgba(59,130,246,0.15))">04</div>
+                  <p>工作态度<span class="highlight">认真细致</span>，责任心强，善于发现潜在问题并提出优化方案，具备良好的团队协作与沟通能力。</p>
+                </div>
+                <div class="eval-item">
+                  <div class="skill-number" style="color:#059669; border-color:rgba(5,150,105,0.25); background:linear-gradient(135deg,rgba(5,150,105,0.15),rgba(59,130,246,0.15))">05</div>
+                  <p>对新技术保持<span class="highlight">高度敏感和学习热情</span>，能够快速掌握并应用新的测试工具与技术，适应高强度工作节奏。</p>
+                </div>
               </div>
-            </div>
 
-            <!-- 眩光层 -->
-            <div class="glare-highlight"></div>
+              <!-- 底部 -->
+              <div class="eval-footer">
+                <div class="eval-footer-dots">
+                  <span class="dot-pulse dot-blue"></span>
+                  <span class="dot-pulse dot-purple"></span>
+                  <span class="dot-pulse dot-cyan"></span>
+                </div>
+                <span class="years-badge">4+ Years Experience</span>
+              </div>
 
-            <!-- 纹理层 -->
-            <div class="glare-texture"></div>
-
-            <!-- 内容层 -->
-            <div class="glare-content-layer">
-              <ul>
-                <li>具备 4 年软件测试与实施经验，熟悉软件测试全流程和方法，能够独立完成自动化测试脚本开发和维护</li>
-                <li>精通 Python 编程语言，熟练使用 Postman、JMeter 等测试工具，具备丰富的接口测试和性能测试经验</li>
-                <li>具有良好的问题分析和解决能力，能够快速定位和解决软件缺陷，保障系统质量和稳定性</li>
-                <li>工作积极认真，细心负责，善于发现问题并提出解决方案，具备良好的团队协作和沟通能力</li>
-                <li>对新技术有强烈的学习兴趣，能够快速掌握和应用新的测试工具和技术，适应高强度工作环境</li>
-              </ul>
+              <!-- 装饰光点 -->
+              <div class="sparkle" style="top:12%;left:6%;animation-delay:0s"></div>
+              <div class="sparkle" style="top:40%;right:8%;animation-delay:1.5s"></div>
+              <div class="sparkle" style="bottom:20%;left:12%;animation-delay:3s"></div>
             </div>
           </div>
         </div>
       </div>
     </section>
     <!-- 自我评价（self-evaluation）结束 -->
+
+    <!-- 装饰光球：放在所有内容下方 -->
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-cyan"></div>
   </main>
 
   <script src="static/js/script.js"></script>
