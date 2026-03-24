@@ -2,16 +2,28 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="段训栋 - 4年经验软件测试工程师，精通自动化测试、接口测试与性能测试。
+熟悉Python、Postman、JMeter等测试工具。">
+  <meta name="keywords" content="软件测试,测试工程师,自动化测试,接口测试,性能测试,Python,段训栋">
+  <meta name="author" content="段训栋">
+  <!-- Open Graph 社交分享 -->
+  <meta property="og:title" content="段训栋 - 软件测试工程师 | 个人简历">
+  <meta property="og:description" content="4年软件测试与实施经验，精通自动化测试、接口测试与性能测试">
+  <meta property="og:type" content="profile">
+  <meta property="og:locale" content="zh_CN">
   <title>段训栋 - 软件测试工程师 | 个人简历</title>
   <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
   <!-- 首页（self-introduction）：包含导航栏、夜间模式、中英文切换、自我介绍 -->
+  <!-- 跳转链接 - 改善键盘导航 -->
+  <a href="#main-content" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:-1;">跳到主要内容</a>
+
   <section class="self-introduction">
-    <header class="top-nav nav-bar" id="topNav">
+    <header class="top-nav nav-bar" id="topNav" role="banner">
       <span class="name">段训栋</span>
-      <nav class="nav-links" id="navLinks">
+      <nav class="nav-links" id="navLinks" role="navigation" aria-label="主导航">
         <a href="#hero">首页</a>
         <a href="#about">简介</a>
         <a href="#education">教育</a>
@@ -21,23 +33,23 @@
         <a href="#intro">评价</a>
         <a href="#skills">技能</a>
       </nav>
-      <div class="nav-actions">
+      <div class="nav-actions" role="group" aria-label="设置">
         <button type="button" class="nav-btn-icon dark-mode-toggle" id="themeBtn" aria-label="夜间模式" title="夜间模式">
-          <svg id="themeIconSun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          <svg id="themeIconMoon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="themeIconSun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="themeIconMoon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
         <button type="button" class="nav-btn-icon lang-toggle" id="langBtn" aria-label="中文/English" title="中文 / English">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         </button>
       </div>
-      <button class="menu-btn" id="menuBtn" aria-label="菜单">☰</button>
+      <button class="menu-btn" id="menuBtn" aria-label="菜单" aria-expanded="false">☰</button>
     </header>
     <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
 
-    <section class="hero intro-text" id="hero">
+    <section class="hero intro-text" id="hero" aria-labelledby="hero-title">
       <p class="hero-greeting">你好，我叫</p>
       <h1 class="hero-name">段训栋</h1>
-      <p class="hero-title">软件测试工程师</p>
+      <p class="hero-title" id="hero-title">软件测试工程师</p>
       <div class="hero-contact">
         <a href="mailto:duanxd123@qq.com" class="hero-email-link" aria-label="发送邮件">
           <span class="hero-email-icon" aria-hidden="true">
@@ -54,18 +66,18 @@
   </section>
   <!-- 首页（self-introduction）结束 -->
 
-  <main class="content">
+  <main class="content" id="main-content" role="main">
     <!-- 认识一下（about）：四卡片 -->
-    <section class="section about" id="about">
-      <h2 class="section-title">认识一下</h2>
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">认识一下</h2>
       <p class="section-subtitle">关于我</p>
       <div class="section-inner">
         <div id="aboutOverlay"></div>
         <div class="about-grid-container">
-          <div class="about-grid-item about-item-1" onclick="handleAboutExpand(this)">
+          <div class="about-grid-item about-item-1" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开个人简介卡片">
             <div class="about-card-bg"></div>
             <div class="about-card-title">
-              <span class="about-card-icon">👤</span>
+              <span class="about-card-icon" aria-hidden="true">👤</span>
               个人简介
             </div>
             <div class="about-card-detail">
@@ -86,10 +98,10 @@
               </div>
             </div>
           </div>
-          <div class="about-grid-item about-item-2" onclick="handleAboutExpand(this)">
+          <div class="about-grid-item about-item-2" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开基本信息卡片">
             <div class="about-card-bg"></div>
             <div class="about-card-title">
-              <span class="about-card-icon">📋</span>
+              <span class="about-card-icon" aria-hidden="true">📋</span>
               基本信息
             </div>
             <div class="about-card-detail">
@@ -116,10 +128,10 @@
               </div>
             </div>
           </div>
-          <div class="about-grid-item about-item-3" onclick="handleAboutExpand(this)">
+          <div class="about-grid-item about-item-3" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开兴趣爱好卡片">
             <div class="about-card-bg"></div>
             <div class="about-card-title">
-              <span class="about-card-icon">🎯</span>
+              <span class="about-card-icon" aria-hidden="true">🎯</span>
               兴趣爱好
             </div>
             <div class="about-card-detail">
@@ -147,10 +159,10 @@
               <p class="about-quote">"保持好奇心，探索生活的无限可能"</p>
             </div>
           </div>
-          <div class="about-grid-item about-item-4" onclick="handleAboutExpand(this)">
+          <div class="about-grid-item about-item-4" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开未来规划卡片">
             <div class="about-card-bg"></div>
             <div class="about-card-title">
-              <span class="about-card-icon">🚀</span>
+              <span class="about-card-icon" aria-hidden="true">🚀</span>
               未来规划
             </div>
             <div class="about-card-detail">
@@ -395,10 +407,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-    <!-- 工作经历（work-experience）结束 -->
         </div>
       </div>
     </section>

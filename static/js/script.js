@@ -1,6 +1,26 @@
-/* 简历页脚本 script.js：主题切换、中英切换、工作经历弹窗、导航与滚动、可拖动卡片等 */
+/* ============================================================
+   简历页脚本 script.js
+   
+   功能模块:
+   1. 主题切换 (Theme) - 夜间/日间模式切换
+   2. 国际化 (i18n) - 中英文切换
+   3. 工作经历弹窗 (Work Experience Modal)
+   4. 认识一下卡片 (About Cards)
+   5. 教育经历卡片 (Education Cards)
+   6. 获奖轮播 (Awards Carousel)
+   7. 项目轮播 (Projects Slider)
+   8. 可拖动卡片 (Draggable Cards)
+   9. 眩光卡片效果 (Glare Card)
+   10. 导航与滚动 (Navigation & Scroll)
+   ============================================================ */
 
 (function() {
+  'use strict';
+
+  /* ============================================================
+     1. 主题切换模块 (Theme Toggle)
+     功能: 夜间/日间模式切换，localStorage 持久化，涟漪动画效果
+     ============================================================ */
       /* 夜间模式：图标切换 + localStorage */
       var theme = localStorage.getItem('resume-theme') || 'light';
       if (theme === 'dark') {
@@ -51,6 +71,10 @@
         setTimeout(cleanup, 620);
       });
 
+  /* ============================================================
+     2. 国际化模块 (i18n - Internationalization)
+     功能: 中英文切换，更新所有页面文本内容
+     ============================================================ */
       /* 工作经历：可扩展卡片列表 + 弹窗详情（在 workContent/btnLabels 定义之后初始化） */
       /* 英文/中文切换 */
       var lang = localStorage.getItem('resume-lang') || 'zh';
@@ -59,12 +83,66 @@
         en: { hero: 'Home', about: 'About', education: 'Education', experience: 'Experience', projects: 'Projects', awards: 'Awards', skills: 'Skills', intro: 'About', subtitle: 'Drag cards to view, drag off-screen to discard', experienceSubtitle: 'Swipe down to view' }
       };
       var sectionTitles = {
-        zh: { education: '教育经历', experience: '工作经历', projects: '项目经历', skills: '技术能力', intro: '自我评价' },
-        en: { education: 'Education', experience: 'Work Experience', projects: 'Projects', skills: 'Skills', intro: 'Self Evaluation' }
+        zh: { about: '认识一下', education: '教育经历', experience: '工作经历', projects: '项目经历', skills: '技术能力', intro: '自我评价', awards: '获奖经历' },
+        en: { about: 'About Me', education: 'Education', experience: 'Work Experience', projects: 'Projects', skills: 'Skills', intro: 'Self Evaluation', awards: 'Awards' }
+      };
+      /* 认识一下模块翻译数据 */
+      var aboutContent = {
+        zh: {
+          card1: { title: '个人简介', role: '测试工程师', roleEn: 'Software Test Engineer', desc1: '拥有 4 年软件测试与实施经验，熟悉软件测试全流程，熟练掌握 Python 及 Postman、JMeter 等测试工具，具备自动化测试、接口测试与性能测试实战能力。', desc2: '工作认真细致、责任心强，善于分析定位问题、优化流程，具备良好的团队协作与沟通能力，对新技术保持持续学习热情，能快速适应高强度工作节奏。', tags: ['🔧 自动化测试', '🌐 接口测试', '⚡ 性能测试', '🐍 Python'] },
+          card2: { title: '基本信息', role: '基本信息', roleEn: 'Basic Information', workYears: '工作年限', workYearsVal: '4 年', education: '学历', educationVal: '本科', location: '所在城市', locationVal: '深圳' },
+          card3: { title: '兴趣爱好', role: '兴趣爱好', roleEn: 'Hobbies & Interests', hobbies: ['🎵 听歌', '🎮 游戏', '💻 写代码', '🎤 唱歌', '🏃 跑步', '🔨 DIY', '🏸 羽毛球', '🎾 网球', '🥾 徒步', '✈️ 旅游', '🧗 爬山', '📚 学习'], quote: '"保持好奇心，探索生活的无限可能"' },
+          card4: { title: '未来规划', role: '未来规划', roleEn: 'Future Plans', plans: [{ title: '深耕测试领域', desc: '熟练掌握功能测试、接口测试、自动化测试等核心技能，提升问题定位与分析能力。' }, { title: '技术持续进阶', desc: '持续学习 Python、Linux、测试工具等技术，向自动化测试与性能测试方向发展。' }, { title: '职业成长目标', desc: '逐步积累项目管理与团队协作经验，成长为技术扎实、能独当一面的测试工程师。' }, { title: '长期发展规划', desc: '保持持续学习习惯，紧跟行业新技术、新流程，不断提升综合竞争力，实现长期稳定职业发展。' }] }
+        },
+        en: {
+          card1: { title: 'Profile', role: 'Test Engineer', roleEn: 'Software Test Engineer', desc1: '4 years of experience in software testing and implementation. Proficient in Python, Postman, JMeter and other testing tools. Capable of automation testing, API testing and performance testing.', desc2: 'Detail-oriented and responsible. Strong problem-solving skills and process optimization abilities. Excellent teamwork and communication skills. Passionate about learning new technologies and adaptable to fast-paced environments.', tags: ['🔧 Automation Testing', '🌐 API Testing', '⚡ Performance Testing', '🐍 Python'] },
+          card2: { title: 'Basic Info', role: 'Basic Information', roleEn: 'Basic Information', workYears: 'Experience', workYearsVal: '4 Years', education: 'Education', educationVal: "Bachelor's", location: 'Location', locationVal: 'Shenzhen' },
+          card3: { title: 'Hobbies', role: 'Hobbies & Interests', roleEn: 'Hobbies & Interests', hobbies: ['🎵 Music', '🎮 Gaming', '💻 Coding', '🎤 Singing', '🏃 Running', '🔨 DIY', '🏸 Badminton', '🎾 Tennis', '🥾 Hiking', '✈️ Travel', '🧗 Climbing', '📚 Learning'], quote: '"Stay curious, explore the infinite possibilities of life"' },
+          card4: { title: 'Future Plans', role: 'Future Plans', roleEn: 'Future Plans', plans: [{ title: 'Testing Expertise', desc: 'Master functional testing, API testing, automation testing and other core skills. Improve problem analysis and positioning capabilities.' }, { title: 'Technical Advancement', desc: 'Continue learning Python, Linux, testing tools and technologies. Develop towards automation and performance testing.' }, { title: 'Career Growth', desc: 'Accumulate project management and team collaboration experience. Grow into a capable test engineer.' }, { title: 'Long-term Development', desc: 'Maintain continuous learning habits. Keep up with new technologies and processes. Enhance comprehensive competitiveness.' }] }
+        }
       };
       var heroContent = {
-        zh: { title: '软件测试工程师', greeting: '你好，我叫', contactMe: '联系我' },
-        en: { title: 'Software Test Engineer', greeting: "Hi, I'm", contactMe: 'Contact Me' }
+        zh: { title: '软件测试工程师', greeting: '你好，我叫', contactMe: '联系我', name: '段训栋' },
+        en: { title: 'Software Test Engineer', greeting: "Hi, I'm", contactMe: 'Contact Me', name: 'Bookwen' }
+      };
+      /* 获奖经历翻译数据 */
+      var awardsContent = {
+        zh: [
+          { title: 'NCIE全国信息化工程师', subtitle: 'National Certification of Information Engineer', level: '项目证书', year: '认证' },
+          { title: 'MS Office高级应用', subtitle: 'Computer Rank Examination', level: '计算机二级', year: '优秀' },
+          { title: '三好学生', subtitle: 'Merit Student', level: '荣誉称号', year: '2019' },
+          { title: '三等奖学金', subtitle: 'Third-class Scholarship', level: '2018-2019学年', year: '×2次' },
+          { title: '网页设计大赛', subtitle: 'Web Design Competition', level: '三等奖', year: '2018' },
+          { title: '简历设计大赛', subtitle: 'Resume Design Competition', level: '一等奖', year: '2018' },
+          { title: '职业规划大赛', subtitle: 'Career Planning Competition', level: '优秀奖', year: '2018-2019' },
+          { title: 'Photoshop平面设计大赛', subtitle: 'Graphic Design Competition', level: '一等奖', year: '2019' },
+          { title: '互联网+竞赛', subtitle: 'Internet+ Innovation Competition', level: '二等奖', year: '2019' },
+          { title: '数字影视制作', subtitle: 'Digital Film Production', level: '三等奖', year: '2019' },
+          { title: '网络管理工程师', subtitle: 'Network Management Engineer', level: '专业证书', year: '认证' },
+          { title: '微团课大赛', subtitle: 'Micro League Class Competition', level: '三等奖', year: '2018' },
+          { title: '优秀团干', subtitle: 'Outstanding League Cadre', level: '荣誉称号', year: '2018' },
+          { title: '全国大学生网络安全知识竞赛', subtitle: 'Cybersecurity Knowledge Contest', level: '优秀奖', year: '2019' },
+          { title: '读书知识竞赛', subtitle: 'Reading Knowledge Contest', level: '优秀奖', year: '2019' },
+          { title: '团的知识竞赛', subtitle: 'League Knowledge Competition', level: '三等奖', year: '2018' }
+        ],
+        en: [
+          { title: 'NCIE National Information Engineer', subtitle: 'National Certification of Information Engineer', level: 'Certificate', year: 'Cert' },
+          { title: 'MS Office Advanced Application', subtitle: 'Computer Rank Examination', level: 'Level 2', year: 'Excellent' },
+          { title: 'Merit Student', subtitle: 'Merit Student', level: 'Honor Title', year: '2019' },
+          { title: 'Third-class Scholarship', subtitle: 'Third-class Scholarship', level: '2018-2019', year: '×2' },
+          { title: 'Web Design Competition', subtitle: 'Web Design Competition', level: '3rd Prize', year: '2018' },
+          { title: 'Resume Design Competition', subtitle: 'Resume Design Competition', level: '1st Prize', year: '2018' },
+          { title: 'Career Planning Competition', subtitle: 'Career Planning Competition', level: 'Excellence', year: '2018-2019' },
+          { title: 'Photoshop Graphic Design Competition', subtitle: 'Graphic Design Competition', level: '1st Prize', year: '2019' },
+          { title: 'Internet+ Innovation Competition', subtitle: 'Internet+ Innovation Competition', level: '2nd Prize', year: '2019' },
+          { title: 'Digital Film Production', subtitle: 'Digital Film Production', level: '3rd Prize', year: '2019' },
+          { title: 'Network Management Engineer', subtitle: 'Network Management Engineer', level: 'Certificate', year: 'Cert' },
+          { title: 'Micro League Class Competition', subtitle: 'Micro League Class Competition', level: '3rd Prize', year: '2018' },
+          { title: 'Outstanding League Cadre', subtitle: 'Outstanding League Cadre', level: 'Honor Title', year: '2018' },
+          { title: 'National Cybersecurity Knowledge Contest', subtitle: 'Cybersecurity Knowledge Contest', level: 'Excellence', year: '2019' },
+          { title: 'Reading Knowledge Contest', subtitle: 'Reading Knowledge Contest', level: 'Excellence', year: '2019' },
+          { title: 'League Knowledge Competition', subtitle: 'League Knowledge Competition', level: '3rd Prize', year: '2018' }
+        ]
       };
       var eduContent = {
         zh: { school: '江西工程学院', meta: '软件工程 · 全日制本科 · 2022.07 毕业' },
@@ -107,11 +185,116 @@
         zh: ['具备 4 年软件测试与实施经验，熟悉软件测试全流程和方法，能够独立完成自动化测试脚本开发和维护','精通 Python 编程语言，熟练使用 Postman、JMeter 等测试工具，具备丰富的接口测试和性能测试经验','具有良好的问题分析和解决能力，能够快速定位和解决软件缺陷，保障系统质量和稳定性','工作积极认真，细心负责，善于发现问题并提出解决方案，具备良好的团队协作和沟通能力','对新技术有强烈的学习兴趣，能够快速掌握和应用新的测试工具和技术，适应高强度工作环境'],
         en: ['4 years of software testing and implementation; familiar with full test lifecycle; independent automation script development and maintenance','Proficient in Python; experienced with Postman, JMeter; strong API and performance testing','Strong analytical and problem-solving skills; quick defect identification and resolution for quality and stability','Proactive, detail-oriented; good at finding issues and proposing solutions; team collaboration and communication','Strong interest in new technologies; quick to learn and apply new tools; adaptable to high-intensity work']
       };
+      /* 自我评价模块详细翻译 */
+      var evalContent = {
+        zh: {
+          items: [
+            { num: '01', title: '精通多维度测试', desc: '具备功能测试、接口测试与性能测试综合能力，能独立输出高覆盖测试方案，有效保障产品质量。' },
+            { num: '02', title: '数据分析与工具驱动', desc: '熟练使用 Postman、JMeter 等工具分析接口响应与服务器指标，快速定位性能瓶颈与异常点。' },
+            { num: '03', title: '自动化与效能提升', desc: '熟练掌握 Python 自动化测试框架，结合 Selenium、Appium 实现核心业务自动回归，提升测试效率 30%。' },
+            { num: '04', title: '协作与沟通力', desc: '擅长与产品、研发团队高效协作，能精准推动问题修复与流程优化，确保项目高质量交付。' }
+          ]
+        },
+        en: {
+          items: [
+            { num: '01', title: 'Multi-dimensional Testing', desc: 'Comprehensive capability in functional, API and performance testing; deliver high-coverage test plans independently.' },
+            { num: '02', title: 'Data Analysis & Tools', desc: 'Proficient with Postman, JMeter for API response and server metrics analysis; quick bottleneck identification.' },
+            { num: '03', title: 'Automation & Efficiency', desc: 'Python automation frameworks with Selenium, Appium for regression testing; 30% efficiency improvement.' },
+            { num: '04', title: 'Collaboration & Communication', desc: 'Effective collaboration with product and development teams; drive issue resolution and process optimization.' }
+          ]
+        }
+      };
+      /* 教育经历模块翻译 */
+      var eduCardContent = {
+        zh: {
+          card1: { title: '江西工程学院', meta: '软件工程 · 全日制本科 · 2020-2022', expanded: ['毕设论文：基于 Node.js 的蛋糕店系统设计与实现。', '项目描述：系统前端采用 Vue.js，后端使用 Express 框架，数据库为 MySQL。实现了商品管理、订单管理、用户登录、权限控制与报表统计等功能，具备完整 MVC 架构与 API 规范。', '在校期间担任班级宣传委员及宿管委员，负责班级宣传工作与宿舍管理，具备良好的组织协调与服务意识。'] },
+          card2: { title: '江西工业贸易职业技术学院', meta: '计算机网络技术 · 全日制大专 · 2017-2020', expanded: ['在校期间担任班级团支书，负责团支部日常管理与团务工作，组织开展主题团日、团员教育等活动，具备良好的组织协调与责任意识。'] }
+        },
+        en: {
+          card1: { title: 'Jiangxi Institute of Engineering', meta: 'Software Engineering · Full-time Bachelor · 2020-2022', expanded: ['Thesis: Design and Implementation of a Cake Shop System based on Node.js.', 'Project: Vue.js frontend, Express backend, MySQL database. Implemented product management, order management, user login, permission control and reporting.', 'Served as class publicity and dormitory committee member; good organizational skills.'] },
+          card2: { title: 'Jiangxi Industry & Trade Vocational College', meta: 'Computer Network Technology · Full-time Diploma · 2017-2020', expanded: ['Served as class Youth League branch secretary; organized theme activities and member education.'] }
+        }
+      };
+      /* 工作经历模块翻译 */
+      var workExpContent = {
+        zh: {
+          cards: [
+            { company: '深圳软通动力信息技术有限公司', date: '软件测试工程师 | 2024.9 - 至今', btn: '查看', 
+              desc: '负责鸿蒙移动端与 PC 端核心功能测试，覆盖系统设置、应用管理、跨设备协同等模块；基于 Python+Appium/Selenium 搭建自动化测试框架，使用 JMeter 开展接口性能测试，定期输出测试报告，为产品迭代提供数据支撑。',
+              items: [
+                { title: '功能测试：', desc: '负责鸿蒙系统移动端和PC 端核心功能测试，覆盖系统设置、应用管理、跨设备协同等关键模块，累计发现并跟踪解决缺陷280+个。' },
+                { title: '自动化：', desc: '基于Python+Appium/Selenium 搭建自动化测试框架，编写关键业务流程脚本，实现高频场景自动化验证，减少人工测试工作量30%。' },
+                { title: '性能测试：', desc: '使用JMeter 进行接口性能基准测试，分析系统响应时间、TPS 等关键指标，识别并优化性能瓶颈5处。' },
+                { title: '测试报告：', desc: '定期输出多维度测试报告，清晰呈现测试进展、缺陷分布和风险点，为项目迭代决策提供数据支撑。' }
+              ],
+              tags: ['280+</br>缺陷跟踪解决', '30%</br>人工测试减少', '5</br>性能瓶颈优化']
+            },
+            { company: '广州神州浩天科技有限公司', date: '软件实施工程师 | 2024.4 - 2024.8', btn: '查看',
+              desc: '负责广东 20 + 所学校智慧财务系统部署实施，完成需求调研、系统配置、数据初始化及 SQL 数据处理；开展项目测试、上线验收与后期维护，负责客户培训及问题处理，推动流程优化与功能迭代。',
+              items: [
+                { title: '系统实施：', desc: '负责广东省20+所学校天财智慧财务系统部署实施，完成需求调研、系统配置和数据初始化工作。' },
+                { title: '数据管理：', desc: '运用SQL Server 进行基础数据导入、清洗与校验，处理跨系统数据同步差异，确保数据准确性达100%。' },
+                { title: '用户培训：', desc: '组织各学校财务人员开展系统操作培训，编制专属操作手册，用户满意度达96%。' },
+                { title: '流程优化：', desc: '收集用户反馈建议，推动报销流程简化和财务报表可视化功能优化，助力财务办公效率提升45%。' }
+              ],
+              tags: ['20+</br>所学校部署', '100%</br>数据准确性', '96%</br>用户满意度', '45%</br>财务效率提升']
+            },
+            { company: '广州用友政务软件有限公司', date: '软件实施工程师 | 2022.3 - 2024.2', btn: '查看',
+              desc: '参与数字财政、数字人大系统项目全流程管理，负责计划制定、需求分析、进度管控、系统配置、测试及上线支持；使用 Postman 完成接口测试，搭建测试环境并完成产品验证，提供客户培训与售后技术支持。',
+              items: [
+                { title: '项目实施：', desc: '参与数字财政系统和数字人大系统实施，负责需求调研、系统配置、测试和上线支持全流程。' },
+                { title: '问题处理：', desc: '及时跟踪处理实施过程中客户提交的问题，累计解决实施问题500+个。' },
+                { title: '测试执行：', desc: '使用Postman 进行接口测试，编写测试用例1000+条，保障系统功能稳定性。' },
+                { title: '客户关系：', desc: '维护良好客户关系，获得客户好评率95%以上。' }
+              ],
+              tags: ['500+</br>实施问题解决', '1000+</br>测试用例', '95%+</br>客户好评率']
+            }
+          ]
+        },
+        en: {
+          cards: [
+            { company: 'Shenzhen Chinasoft Information Technology Co., Ltd.', date: 'Software Test Engineer | Sep 2024 - Present', btn: 'View',
+              desc: 'Core functional testing for HarmonyOS mobile and PC (settings, app management, cross-device sync); Python+Appium/Selenium automation framework; JMeter performance testing; test reports for product iteration.',
+              items: [
+                { title: 'Functional Testing: ', desc: 'Core testing for HarmonyOS mobile and PC; settings, app management, cross-device sync; 280+ defects tracked.' },
+                { title: 'Automation: ', desc: 'Python+Appium/Selenium framework; automated key business flows; 30% manual testing reduction.' },
+                { title: 'Performance: ', desc: 'JMeter API benchmarking; analyzed response time, TPS; optimized 5 performance bottlenecks.' },
+                { title: 'Reports: ', desc: 'Multi-dimensional test reports; clear progress, defect distribution and risk presentation.' }
+              ],
+              tags: ['280+</br>Defects tracked', '30%</br>Manual test reduction', '5</br>Bottlenecks optimized']
+            },
+            { company: 'Guangzhou Shenzhou Haotian Technology Co., Ltd.', date: 'Software Implementation Engineer | Apr - Aug 2024', btn: 'View',
+              desc: 'Deployed smart finance system for 20+ schools in Guangdong; requirements, config, data init, SQL processing; testing, go-live, maintenance, training and issue resolution.',
+              items: [
+                { title: 'Implementation: ', desc: 'Deployed Tiancai smart finance system for 20+ schools; requirements, config, data initialization.' },
+                { title: 'Data Management: ', desc: 'SQL Server for data import, cleansing, validation; cross-system sync; 100% accuracy.' },
+                { title: 'Training: ', desc: 'Organized training sessions; created operation manuals; 96% user satisfaction.' },
+                { title: 'Optimization: ', desc: 'Collected feedback; simplified reimbursement process; visualized reports; 45% efficiency gain.' }
+              ],
+              tags: ['20+</br>Schools deployed', '100%</br>Data accuracy', '96%</br>User satisfaction', '45%</br>Efficiency gain']
+            },
+            { company: 'Guangzhou Yonyou Government Software Co., Ltd.', date: 'Software Implementation Engineer | Mar 2022 - Feb 2024', btn: 'View',
+              desc: 'Full project management for digital fiscal and NPC systems; requirements, schedule, config, testing, go-live; Postman API testing; training and technical support.',
+              items: [
+                { title: 'Implementation: ', desc: 'Digital fiscal and NPC systems implementation; requirements, config, testing, go-live support.' },
+                { title: 'Issue Resolution: ', desc: 'Tracked and resolved 500+ customer-reported issues.' },
+                { title: 'Testing: ', desc: 'Postman API testing; 1000+ test cases; system stability assurance.' },
+                { title: 'Relationships: ', desc: 'Maintained good customer relationships; 95%+ satisfaction.' }
+              ],
+              tags: ['500+</br>Issues resolved', '1000+</br>Test cases', '95%+</br>Client satisfaction']
+            }
+          ]
+        }
+      };
       var btnLabels = {
         zh: { menu: '菜单', theme: '夜间模式', themeLight: '日间模式', prev: '上一项', next: '下一项', recover: '↩ 捡回卡片', viewExp: '查看', visitSite: '访问官网' },
         en: { menu: 'Menu', theme: 'Dark mode', themeLight: 'Light mode', prev: 'Previous', next: 'Next', recover: '↩ Recover cards', viewExp: 'View', visitSite: 'Visit site' }
       };
 
+  /* ============================================================
+     3. 工作经历模块 (Work Experience)
+     功能: 可扩展卡片列表 + 弹窗详情展示
+     ============================================================ */
       /* 新工作经历展开/收缩动画 */
       var workExpOverlay = document.getElementById('workExpNewOverlay');
       var workExpActiveCard = null;
@@ -328,37 +511,119 @@
         document.addEventListener('scroll', onScroll, true);
       })();
 
-      /* 工作经历：不克隆，仅 3 个模块静态展示 */
+  /* ============================================================
+     4. 认识一下模块 (About Cards)
+     功能: 四张可展开卡片，点击展开显示详情
+     ============================================================ */
+
+      /* 语言切换主函数 - 更新所有页面文本 */
       function applyLang(l) {
         var isEn = l === 'en';
+        
+        /* 更新导航链接 */
         var navLinks = document.querySelectorAll('.nav-links a');
         navLinks.forEach(function(a) {
           var h = a.getAttribute('href').slice(1);
           a.textContent = isEn ? t.en[h] : t.zh[h];
         });
-        ['education','experience','projects','skills','intro'].forEach(function(id) {
+        
+        /* 更新 Section 标题 */
+        ['about','education','experience','projects','skills','intro','awards'].forEach(function(id) {
           var sec = document.getElementById(id);
           if (sec) {
             var titleEl = sec.querySelector('.section-title');
-            if (titleEl) titleEl.textContent = sectionTitles[l][id];
+            if (titleEl && sectionTitles[l][id]) titleEl.textContent = sectionTitles[l][id];
           }
         });
+        
+        /* 更新副标题 */
         document.querySelectorAll('.section-subtitle').forEach(function(s) {
           s.textContent = isEn ? t.en.subtitle : t.zh.subtitle;
         });
         var expSub = document.querySelector('#experience .section-subtitle');
         if (expSub) expSub.textContent = isEn ? t.en.experienceSubtitle : t.zh.experienceSubtitle;
+        
         window.resumeLang = l;
+        
+        /* 更新 Hero 区域 */
         var heroTitle = document.querySelector('.hero-title');
         if (heroTitle) heroTitle.textContent = heroContent[l].title;
         var heroGreeting = document.querySelector('.hero-greeting');
         if (heroGreeting) heroGreeting.textContent = heroContent[l].greeting;
         var heroEmailText = document.querySelector('.hero-email-text');
         if (heroEmailText) heroEmailText.textContent = heroContent[l].contactMe;
-        var eduSchool = document.querySelector('#education .school');
-        if (eduSchool) eduSchool.textContent = eduContent[l].school;
-        var eduMeta = document.querySelector('#education .meta');
-        if (eduMeta) eduMeta.textContent = eduContent[l].meta;
+        var heroName = document.querySelector('.hero-name');
+        if (heroName && heroContent[l].name) heroName.textContent = heroContent[l].name;
+        var navName = document.querySelector('.top-nav .name');
+        if (navName && heroContent[l].name) navName.textContent = heroContent[l].name;
+        
+        /* 更新认识一下模块卡片 */
+        var aboutCards = document.querySelectorAll('.about-grid-item');
+        if (aboutCards.length >= 4 && aboutContent) {
+          /* Card 1: 个人简介 */
+          var card1Title = aboutCards[0].querySelector('.about-card-title');
+          if (card1Title) card1Title.childNodes[card1Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card1.title;
+          var card1Role = aboutCards[0].querySelector('.about-role');
+          if (card1Role) card1Role.textContent = aboutContent[l].card1.role;
+          var card1RoleEn = aboutCards[0].querySelector('.about-role-en');
+          if (card1RoleEn) card1RoleEn.textContent = aboutContent[l].card1.roleEn;
+          var card1Descs = aboutCards[0].querySelectorAll('.about-desc');
+          if (card1Descs[0]) card1Descs[0].textContent = aboutContent[l].card1.desc1;
+          if (card1Descs[1]) card1Descs[1].textContent = aboutContent[l].card1.desc2;
+          var card1Tags = aboutCards[0].querySelectorAll('.about-tag');
+          aboutContent[l].card1.tags.forEach(function(tag, i) {
+            if (card1Tags[i]) card1Tags[i].textContent = tag;
+          });
+          
+          /* Card 2: 基本信息 */
+          var card2Title = aboutCards[1].querySelector('.about-card-title');
+          if (card2Title) card2Title.childNodes[card2Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card2.title;
+          var card2Role = aboutCards[1].querySelector('.about-role');
+          if (card2Role) card2Role.textContent = aboutContent[l].card2.role;
+          var card2RoleEn = aboutCards[1].querySelector('.about-role-en');
+          if (card2RoleEn) card2RoleEn.textContent = aboutContent[l].card2.roleEn;
+          var card2Labels = aboutCards[1].querySelectorAll('.about-info-label');
+          var card2Values = aboutCards[1].querySelectorAll('.about-info-value');
+          if (card2Labels[0]) card2Labels[0].textContent = '💼 ' + aboutContent[l].card2.workYears;
+          if (card2Values[0]) card2Values[0].innerHTML = '<span class="about-info-highlight">' + aboutContent[l].card2.workYearsVal + '</span>';
+          if (card2Labels[1]) card2Labels[1].textContent = '🎓 ' + aboutContent[l].card2.education;
+          if (card2Values[1]) card2Values[1].textContent = aboutContent[l].card2.educationVal;
+          if (card2Labels[2]) card2Labels[2].textContent = '📍 ' + aboutContent[l].card2.location;
+          if (card2Values[2]) card2Values[2].innerHTML = '<span class="about-dot-green"></span>' + aboutContent[l].card2.locationVal;
+          
+          /* Card 3: 兴趣爱好 */
+          var card3Title = aboutCards[2].querySelector('.about-card-title');
+          if (card3Title) card3Title.childNodes[card3Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card3.title;
+          var card3Role = aboutCards[2].querySelector('.about-role');
+          if (card3Role) card3Role.textContent = aboutContent[l].card3.role;
+          var card3RoleEn = aboutCards[2].querySelector('.about-role-en');
+          if (card3RoleEn) card3RoleEn.textContent = aboutContent[l].card3.roleEn;
+          var card3Hobbies = aboutCards[2].querySelectorAll('.about-hobby-tag');
+          aboutContent[l].card3.hobbies.forEach(function(hobby, i) {
+            if (card3Hobbies[i]) card3Hobbies[i].textContent = hobby;
+          });
+          var card3Quote = aboutCards[2].querySelector('.about-quote');
+          if (card3Quote) card3Quote.textContent = aboutContent[l].card3.quote;
+          
+          /* Card 4: 未来规划 */
+          var card4Title = aboutCards[3].querySelector('.about-card-title');
+          if (card4Title) card4Title.childNodes[card4Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card4.title;
+          var card4Role = aboutCards[3].querySelector('.about-role');
+          if (card4Role) card4Role.textContent = aboutContent[l].card4.role;
+          var card4RoleEn = aboutCards[3].querySelector('.about-role-en');
+          if (card4RoleEn) card4RoleEn.textContent = aboutContent[l].card4.roleEn;
+          var card4Items = aboutCards[3].querySelectorAll('.about-plan-item');
+          aboutContent[l].card4.plans.forEach(function(plan, i) {
+            if (card4Items[i]) {
+              var h4 = card4Items[i].querySelector('h4');
+              var p = card4Items[i].querySelector('p');
+              if (h4) h4.textContent = plan.title;
+              if (p) p.textContent = plan.desc;
+            }
+          });
+        }
+        
+        /* 更新项目经历 */
         var projItems = document.querySelectorAll('.draggable-card, .project-item');
         projContent[l].forEach(function(p, i) {
           if (!projItems[i]) return;
@@ -371,6 +636,8 @@
           var res = projItems[i].querySelector('.project-result');
           if (res) res.innerHTML = p.result;
         });
+        
+        /* 更新技能模块 */
         var skillsHeader = document.querySelector('.skills-header');
         if (skillsHeader) {
           var st = skillsHeader.querySelector('.skills-subtitle');
@@ -380,8 +647,96 @@
         }
         var row2Pills = document.querySelectorAll('#skillRow2 .skill-pill');
         row2Pills.forEach(function(pill, j) { pill.textContent = skillsContent[l].row2[j % skillsContent[l].row2.length]; });
-        var introLis = document.querySelectorAll('#intro .self-intro li');
-        introContent[l].forEach(function(para, j) { if (introLis[j]) introLis[j].textContent = para; });
+        
+        /* 更新自我评价模块 */
+        var evalItems = document.querySelectorAll('.eval-item');
+        if (evalContent && evalItems.length > 0) {
+          evalContent[l].items.forEach(function(item, i) {
+            if (evalItems[i]) {
+              var numEl = evalItems[i].querySelector('.skill-number');
+              var titleEl = evalItems[i].querySelector('h4');
+              var descEl = evalItems[i].querySelector('p');
+              if (numEl) numEl.textContent = item.num;
+              if (titleEl) titleEl.textContent = item.title;
+              if (descEl) descEl.textContent = item.desc;
+            }
+          });
+        }
+        
+        /* 更新教育经历模块 */
+        if (eduCardContent) {
+          var eduCards = document.querySelectorAll('.edu-music-card');
+          eduCardContent[l].card1.expanded.forEach(function(text, i) {
+            if (eduCards[0]) {
+              var titleEl = eduCards[0].querySelector('.edu-card-title');
+              var metaEl = eduCards[0].querySelector('.edu-card-meta');
+              var listItems = eduCards[0].querySelectorAll('.edu-expanded-list li');
+              if (titleEl) titleEl.textContent = eduCardContent[l].card1.title;
+              if (metaEl) metaEl.textContent = eduCardContent[l].card1.meta;
+              if (listItems[i]) listItems[i].textContent = text;
+            }
+          });
+          eduCardContent[l].card2.expanded.forEach(function(text, i) {
+            if (eduCards[1]) {
+              var titleEl = eduCards[1].querySelector('.edu-card-title');
+              var metaEl = eduCards[1].querySelector('.edu-card-meta');
+              var listItems = eduCards[1].querySelectorAll('.edu-expanded-list li');
+              if (titleEl) titleEl.textContent = eduCardContent[l].card2.title;
+              if (metaEl) metaEl.textContent = eduCardContent[l].card2.meta;
+              if (listItems[i]) listItems[i].textContent = text;
+            }
+          });
+        }
+        
+        /* 更新工作经历模块 */
+        if (workExpContent) {
+          var workCards = document.querySelectorAll('.work-exp-new-card');
+          workExpContent[l].cards.forEach(function(card, i) {
+            if (workCards[i]) {
+              var companyEl = workCards[i].querySelector('.work-exp-new-company');
+              var dateEl = workCards[i].querySelector('.work-exp-new-date');
+              var btnEl = workCards[i].querySelector('.work-exp-new-btn');
+              var descEl = workCards[i].querySelector('.work-exp-new-desc-title');
+              if (companyEl) companyEl.textContent = card.company;
+              if (dateEl) dateEl.textContent = card.date;
+              if (btnEl) btnEl.textContent = card.btn;
+              if (descEl) descEl.textContent = card.desc;
+              
+              /* 更新工作职责列表 */
+              var itemEls = workCards[i].querySelectorAll('.work-exp-new-item p');
+              card.items.forEach(function(item, j) {
+                if (itemEls[j]) {
+                  itemEls[j].innerHTML = '<b>' + item.title + '</b>' + item.desc;
+                }
+              });
+              
+              /* 更新标签 */
+              var tagEls = workCards[i].querySelectorAll('.work-exp-new-tag');
+              card.tags.forEach(function(tag, j) {
+                if (tagEls[j]) tagEls[j].innerHTML = tag;
+              });
+            }
+          });
+        }
+        
+        /* 更新获奖经历模块 */
+        if (awardsContent) {
+          var awardsCards = document.querySelectorAll('.awards-card');
+          awardsContent[l].forEach(function(award, i) {
+            if (awardsCards[i]) {
+              var titleEl = awardsCards[i].querySelector('.awards-card-title');
+              var subtitleEl = awardsCards[i].querySelector('.awards-card-subtitle');
+              var levelSpan = awardsCards[i].querySelector('.awards-level span');
+              var yearTag = awardsCards[i].querySelector('.awards-year-tag');
+              if (titleEl) titleEl.textContent = award.title;
+              if (subtitleEl) subtitleEl.textContent = award.subtitle;
+              if (levelSpan) levelSpan.textContent = award.level;
+              if (yearTag) yearTag.textContent = award.year;
+            }
+          });
+        }
+        
+        /* 更新按钮标签 */
         var menuBtn = document.getElementById('menuBtn');
         if (menuBtn) menuBtn.setAttribute('aria-label', btnLabels[l].menu);
         var themeBtn = document.getElementById('themeBtn');
@@ -396,8 +751,7 @@
         if (projNext) projNext.setAttribute('aria-label', btnLabels[l].next);
         var recoverBtn = document.getElementById('recoverBtn');
         if (recoverBtn) {
-          var baseText = btnLabels[l].recover;
-          recoverBtn.innerHTML = baseText;
+          recoverBtn.innerHTML = btnLabels[l].recover;
         }
       }
       if (lang === 'en') applyLang('en');
@@ -546,6 +900,11 @@
       window.addEventListener('scroll', updateActive, { passive: true });
       updateActive();
 
+  /* ============================================================
+     5. 项目轮播模块 (Projects Carousel)
+     功能: 左右箭头切换项目卡片
+     ============================================================ */
+
       /* 工作经历：静态三块，上下渐变 */
       var projSlider = document.getElementById('projectsSlider');
       var projPrev = document.getElementById('projPrev');
@@ -605,6 +964,10 @@
         }
       }
 
+  /* ============================================================
+     6. 可拖动卡片模块 (Draggable Cards)
+     功能: 卡片拖动、丢弃、恢复、惯性滑动
+     ============================================================ */
       /* 可拖动卡片组件 */
       (function initDraggableCards() {
         var container = document.getElementById('draggableContainer');
@@ -974,6 +1337,10 @@
         }, 100);
       })();
 
+  /* ============================================================
+     7. 眩光卡片效果模块 (Glare Card Effect)
+     功能: 3D卡片鼠标跟随效果
+     ============================================================ */
       /* 自我评价：眩光卡片效果 */
       (function initGlareCard() {
         var container = document.getElementById('cardContainer');
@@ -1040,6 +1407,10 @@
         }
       })();
 
+  /* ============================================================
+     8. 教育经历卡片模块 (Education Cards)
+     功能: 可展开的教育经历卡片
+     ============================================================ */
       /* 教育经历：可展开卡片 */
       (function initEduCards() {
         var expandedCard = null;
