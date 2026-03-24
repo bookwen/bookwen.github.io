@@ -55,8 +55,8 @@
       /* 英文/中文切换 */
       var lang = localStorage.getItem('resume-lang') || 'zh';
       var t = {
-        zh: { hero: '首页', education: '教育', experience: '经历', projects: '项目', skills: '技能', intro: '评价', subtitle: '拖动卡片查看，拖出屏幕丢弃', experienceSubtitle: '向下滑动查看' },
-        en: { hero: 'Home', education: 'Education', experience: 'Experience', projects: 'Projects', skills: 'Skills', intro: 'About', subtitle: 'Drag cards to view, drag off-screen to discard', experienceSubtitle: 'Swipe down to view' }
+        zh: { hero: '首页', about: '关于', education: '教育', experience: '经历', projects: '项目', awards: '荣誉', skills: '技能', intro: '评价', subtitle: '拖动卡片查看，拖出屏幕丢弃', experienceSubtitle: '向下滑动查看' },
+        en: { hero: 'Home', about: 'About', education: 'Education', experience: 'Experience', projects: 'Projects', awards: 'Awards', skills: 'Skills', intro: 'About', subtitle: 'Drag cards to view, drag off-screen to discard', experienceSubtitle: 'Swipe down to view' }
       };
       var sectionTitles = {
         zh: { education: '教育经历', experience: '工作经历', projects: '项目经历', skills: '技术能力', intro: '自我评价' },
@@ -112,270 +112,200 @@
         en: { menu: 'Menu', theme: 'Dark mode', themeLight: 'Light mode', prev: 'Previous', next: 'Next', recover: '↩ Recover cards', viewExp: 'View', visitSite: 'Visit site' }
       };
 
-      (function initWorkExpExpandable() {
-        var listWrap = document.getElementById('workExpListWrap');
-        var listEl = document.getElementById('workExpList');
-        var overlay = document.getElementById('workExpOverlay');
-        var modal = document.getElementById('workExpModal');
-        var modalInner = document.getElementById('workExpModalInner');
-        var modalClose = document.getElementById('workExpModalClose');
-        var modalImage = document.getElementById('workExpModalImage');
-        var modalCompany = document.getElementById('workExpModalCompany');
-        var modalMeta = document.getElementById('workExpModalMeta');
-        var modalCta = document.getElementById('workExpModalCta');
-        var modalDesc = document.getElementById('workExpModalDesc');
-        var modalStats = document.getElementById('workExpModalStats');
-        var activeIndex = null;
-        var openTransitionPending = false;
-        function getLang() { return window.resumeLang || localStorage.getItem('resume-lang') || 'zh'; }
-        function getViewLabel() { return btnLabels[getLang()].viewExp; }
-        function getVisitLabel() { return btnLabels[getLang()].visitSite; }
-        function openModal(index) {
-          if (!workContent || !listEl) return;
-          var lang = getLang();
-          var list = workContent[lang];
-          if (!list || !list[index]) return;
-          if (activeIndex !== null && activeIndex !== index) {
-            doClose();
+      /* 新工作经历展开/收缩动画 */
+      var workExpOverlay = document.getElementById('workExpNewOverlay');
+      var workExpActiveCard = null;
+      var workExpOriginalRect = null;
+
+      window.handleWorkExpBtnClick = function(event, btn, url) {
+        var card = btn.closest('.work-exp-new-card');
+        if (card && card.classList.contains('expanded')) {
+          event.stopPropagation();
+          window.open(url, '_blank');
+        }
+      };
+
+      window.handleWorkExpExpand = function(card) {
+        if (workExpActiveCard || card.classList.contains('expanded')) return;
+        workExpActiveCard = card;
+        workExpOriginalRect = card.getBoundingClientRect();
+
+        card.style.width = workExpOriginalRect.width + 'px';
+        card.style.height = workExpOriginalRect.height + 'px';
+        card.style.top = workExpOriginalRect.top + 'px';
+        card.style.left = workExpOriginalRect.left + 'px';
+        card.style.position = 'fixed';
+        card.offsetHeight;
+        card.classList.add('work-exp-new-animate', 'expanded');
+
+        if (workExpOverlay) workExpOverlay.classList.add('show');
+
+        var btn = card.querySelector('.work-exp-new-btn');
+        if (btn) btn.textContent = '访问官网';
+
+        var head = card.querySelector('.work-exp-new-head');
+        if (head) {
+          head.style.flexDirection = 'column';
+          head.style.alignItems = 'stretch';
+        }
+      };
+
+      function handleWorkExpShrink() {
+        if (!workExpActiveCard) return;
+        var card = workExpActiveCard;
+
+        card.style.width = workExpOriginalRect.width + 'px';
+        card.style.height = workExpOriginalRect.height + 'px';
+        card.style.top = workExpOriginalRect.top + 'px';
+        card.style.left = workExpOriginalRect.left + 'px';
+        card.style.transform = 'none';
+        card.classList.remove('expanded');
+
+        if (workExpOverlay) workExpOverlay.classList.remove('show');
+
+        var btn = card.querySelector('.work-exp-new-btn');
+        if (btn) btn.textContent = '查看';
+
+        var head = card.querySelector('.work-exp-new-head');
+        if (head) {
+          head.style.flexDirection = 'row';
+          head.style.alignItems = 'center';
+        }
+
+        setTimeout(function() {
+          card.classList.remove('work-exp-new-animate');
+          card.style.position = '';
+          card.style.width = '';
+          card.style.height = '';
+          card.style.top = '';
+          card.style.left = '';
+          card.style.transform = '';
+          workExpActiveCard = null;
+        }, 800);
+      }
+
+      if (workExpOverlay) {
+        workExpOverlay.addEventListener('click', handleWorkExpShrink);
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && workExpActiveCard) handleWorkExpShrink();
+      });
+
+      /* 认识一下模块：四卡片展开/收缩动画 */
+      var aboutOverlay = document.getElementById('aboutOverlay');
+      var aboutActiveCard = null;
+      var aboutPlaceholder = null;
+
+      window.handleAboutExpand = function(card) {
+        if (aboutActiveCard) return;
+        aboutActiveCard = card;
+
+        var rect = card.getBoundingClientRect();
+
+        aboutPlaceholder = card.cloneNode(true);
+        aboutPlaceholder.classList.add('about-placeholder');
+        card.parentNode.insertBefore(aboutPlaceholder, card);
+
+        card.style.position = 'fixed';
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.width = rect.width + 'px';
+        card.style.height = rect.height + 'px';
+        card.style.margin = '0';
+        card.style.transition = 'all 0.6s var(--ease-out-expo)';
+
+        requestAnimationFrame(function() {
+          card.classList.add('active');
+          if (aboutOverlay) aboutOverlay.classList.add('show');
+          card.style.top = '50%';
+          card.style.left = '50%';
+          card.style.transform = 'translate(-50%, -50%)';
+        });
+      };
+
+      function handleAboutShrink() {
+        if (!aboutActiveCard) return;
+
+        var card = aboutActiveCard;
+        var pRect = aboutPlaceholder.getBoundingClientRect();
+
+        card.style.transform = 'translate(0, 0)';
+        card.style.top = pRect.top + 'px';
+        card.style.left = pRect.left + 'px';
+        card.style.width = pRect.width + 'px';
+        card.style.height = pRect.height + 'px';
+
+        card.classList.remove('active');
+        if (aboutOverlay) aboutOverlay.classList.remove('show');
+
+        setTimeout(function() {
+          card.style.transition = 'none';
+          card.style.position = '';
+          card.style.width = '';
+          card.style.height = '';
+          card.style.top = '';
+          card.style.left = '';
+          card.style.transform = '';
+
+          if (aboutPlaceholder) {
+            aboutPlaceholder.remove();
+            aboutPlaceholder = null;
           }
-          activeIndex = index;
-          var item = list[index];
-          modalImage.src = item.img || '';
-          modalImage.alt = item.company;
-          modalCompany.textContent = item.company;
-          modalMeta.textContent = item.date + ' · ' + item.role;
-          modalCta.href = item.link || '#';
-          modalCta.textContent = getVisitLabel();
-          modalDesc.innerHTML = '';
-          var ul = document.createElement('ul');
-          (item.desc || []).forEach(function(line) {
-            var li = document.createElement('li');
-            li.textContent = line;
-            ul.appendChild(li);
-          });
-          modalDesc.appendChild(ul);
-          modalStats.innerHTML = '';
-          (item.stats || []).forEach(function(label, i) {
-            var div = document.createElement('div');
-            div.className = 'work-exp-modal-stat';
-            div.innerHTML = '<span class="stat-val">' + (item.statVals && item.statVals[i] ? item.statVals[i] : '') + '</span><span class="stat-label">' + label + '</span>';
-            modalStats.appendChild(div);
-          });
-          var listItem = listEl.children[index];
-          var listItemImg = listItem ? listItem.querySelector('.work-exp-list-item-img') : null;
-          var listItemCompany = listItem ? listItem.querySelector('.work-exp-list-item-company') : null;
-          var listItemDate = listItem ? listItem.querySelector('.work-exp-list-item-date') : null;
-          var listItemBtn = listItem ? listItem.querySelector('.work-exp-list-item-btn') : null;
-          function showModal() {
-            overlay.classList.add('is-open');
-            modal.classList.add('is-open');
-            modal.setAttribute('aria-hidden', 'false');
-            overlay.setAttribute('aria-hidden', 'false');
-            document.body.style.overflow = 'hidden';
-          }
-          function clearModalNames() {
-            modalImage.style.viewTransitionName = '';
-            modalCompany.style.viewTransitionName = '';
-            modalMeta.style.viewTransitionName = '';
-            modalCta.style.viewTransitionName = '';
-            if (modalInner) modalInner.style.viewTransitionName = '';
-          }
-          if (typeof document.startViewTransition === 'function' && listItem && listItemImg && listItemCompany && listItemDate && listItemBtn) {
-            listItem.classList.add('work-exp-item-expanding');
-            listItem.style.viewTransitionName = 'work-exp-card';
-            listItemImg.style.viewTransitionName = 'work-exp-thumb';
-            listItemCompany.style.viewTransitionName = 'work-exp-title';
-            listItemDate.style.viewTransitionName = 'work-exp-meta';
-            listItemBtn.style.viewTransitionName = 'work-exp-btn';
-            openTransitionPending = true;
-            document.startViewTransition(function() {
-              showModal();
-              if (modalInner) modalInner.style.viewTransitionName = 'work-exp-card';
-              modalImage.style.viewTransitionName = 'work-exp-thumb';
-              modalCompany.style.viewTransitionName = 'work-exp-title';
-              modalMeta.style.viewTransitionName = 'work-exp-meta';
-              modalCta.style.viewTransitionName = 'work-exp-btn';
-              listItem.style.viewTransitionName = '';
-              listItemImg.style.viewTransitionName = '';
-              listItemCompany.style.viewTransitionName = '';
-              listItemDate.style.viewTransitionName = '';
-              listItemBtn.style.viewTransitionName = '';
-            }).finished.then(function() {
-              openTransitionPending = false;
-              listItem.classList.remove('work-exp-item-expanding');
-              clearModalNames();
-              if (listWrap) {
-                listWrap.style.minHeight = listWrap.offsetHeight + 'px';
-                listWrap.setAttribute('data-active-index', String(index));
-              }
-              for (var i = 0; i < listEl.children.length; i++) {
-                if (i === index) listEl.children[i].classList.add('work-exp-item-active');
-                else listEl.children[i].classList.add('work-exp-item-inactive');
-              }
-            });
+          aboutActiveCard = null;
+        }, 600);
+      }
+
+      if (aboutOverlay) {
+        aboutOverlay.addEventListener('click', handleAboutShrink);
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && aboutActiveCard) handleAboutShrink();
+      });
+
+      /* 获奖经历轮播 */
+      (function initAwardsCarousel() {
+        var carousel = document.getElementById('awardsCarousel');
+        if (!carousel) return;
+
+        var cards = carousel.querySelectorAll('.awards-card-wrapper');
+        var totalCards = cards.length;
+        var currentIndex = 0;
+
+        window.scrollAwardsCarousel = function(direction) {
+          var cardWidth = cards[0].offsetWidth + 24;
+          if (direction === 'left') {
+            currentIndex = Math.max(0, currentIndex - 1);
           } else {
-            showModal();
-            if (listWrap) {
-              listWrap.style.minHeight = listWrap.offsetHeight + 'px';
-              listWrap.setAttribute('data-active-index', String(index));
-            }
-            for (var i = 0; i < listEl.children.length; i++) {
-              if (i === index) listEl.children[i].classList.add('work-exp-item-active');
-              else listEl.children[i].classList.add('work-exp-item-inactive');
-            }
+            currentIndex = Math.min(totalCards - 1, currentIndex + 1);
           }
-        }
-        function doClose() {
-          overlay.classList.remove('is-open');
-          modal.classList.remove('is-open');
-          modal.classList.remove('work-exp-modal-closing');
-          modal.setAttribute('aria-hidden', 'true');
-          overlay.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = '';
-          if (listWrap) {
-            listWrap.style.minHeight = '';
-            listWrap.removeAttribute('data-active-index');
-          }
-          if (listEl) {
-            for (var i = 0; i < listEl.children.length; i++) {
-              listEl.children[i].classList.remove('work-exp-item-active', 'work-exp-item-inactive');
-            }
-          }
-          activeIndex = null;
-        }
-        function closeModal() {
-          var idx = activeIndex;
-          if (idx === null) return;
-          var listItem = listEl && listEl.children[idx] ? listEl.children[idx] : null;
-          var listItemImg = listItem ? listItem.querySelector('.work-exp-list-item-img') : null;
-          var listItemCompany = listItem ? listItem.querySelector('.work-exp-list-item-company') : null;
-          var listItemDate = listItem ? listItem.querySelector('.work-exp-list-item-date') : null;
-          var listItemBtn = listItem ? listItem.querySelector('.work-exp-list-item-btn') : null;
-          if (openTransitionPending) {
-            doClose();
-            if (listItem) listItem.classList.remove('work-exp-item-expanding');
-            if (modalInner) modalInner.style.viewTransitionName = '';
-            modalImage.style.viewTransitionName = '';
-            modalCompany.style.viewTransitionName = '';
-            modalMeta.style.viewTransitionName = '';
-            modalCta.style.viewTransitionName = '';
-            return;
-          }
-          if (typeof document.startViewTransition === 'function' && listItem && listItemImg && listItemCompany && listItemDate && listItemBtn) {
-            document.documentElement.classList.add('work-exp-closing');
-            if (modalInner) modalInner.style.viewTransitionName = 'work-exp-card';
-            modalImage.style.viewTransitionName = 'work-exp-thumb';
-            modalCompany.style.viewTransitionName = 'work-exp-title';
-            modalMeta.style.viewTransitionName = 'work-exp-meta';
-            modalCta.style.viewTransitionName = 'work-exp-btn';
-            void modalInner.offsetHeight;
-            requestAnimationFrame(function() {
-              document.startViewTransition(function() {
-                doClose();
-                if (modalInner) modalInner.style.viewTransitionName = '';
-                modalImage.style.viewTransitionName = '';
-                modalCompany.style.viewTransitionName = '';
-                modalMeta.style.viewTransitionName = '';
-                modalCta.style.viewTransitionName = '';
-                listItem.classList.remove('work-exp-item-expanding');
-                listItem.style.viewTransitionName = 'work-exp-card';
-                listItemImg.style.viewTransitionName = 'work-exp-thumb';
-                listItemCompany.style.viewTransitionName = 'work-exp-title';
-                listItemDate.style.viewTransitionName = 'work-exp-meta';
-                listItemBtn.style.viewTransitionName = 'work-exp-btn';
-              }).finished.then(function() {
-                listItem.style.viewTransitionName = '';
-                listItemImg.style.viewTransitionName = '';
-                listItemCompany.style.viewTransitionName = '';
-                listItemDate.style.viewTransitionName = '';
-                listItemBtn.style.viewTransitionName = '';
-                modalImage.style.viewTransitionName = '';
-                modalCompany.style.viewTransitionName = '';
-                modalMeta.style.viewTransitionName = '';
-                modalCta.style.viewTransitionName = '';
-                if (modalInner) modalInner.style.viewTransitionName = '';
-                document.documentElement.classList.remove('work-exp-closing');
-              });
-            });
-          } else {
-            doClose();
-          }
-        }
-        function renderList() {
-          if (!listEl || !workContent) return;
-          var lang = getLang();
-          var list = workContent[lang];
-          var viewText = getViewLabel();
-          listEl.innerHTML = '';
-          (list || []).forEach(function(item, index) {
-            var li = document.createElement('li');
-            li.className = 'work-exp-list-item';
-            li.setAttribute('data-index', index);
-            var left = document.createElement('div');
-            left.className = 'work-exp-list-item-left';
-            var img = document.createElement('img');
-            img.className = 'work-exp-list-item-img';
-            img.src = item.img || '';
-            img.alt = item.company;
-            img.onerror = function() { this.style.display = 'none'; };
-            var text = document.createElement('div');
-            text.className = 'work-exp-list-item-text';
-            var company = document.createElement('p');
-            company.className = 'work-exp-list-item-company';
-            company.textContent = item.company;
-            var date = document.createElement('p');
-            date.className = 'work-exp-list-item-date';
-            date.textContent = item.date;
-            text.appendChild(company);
-            text.appendChild(date);
-            left.appendChild(img);
-            left.appendChild(text);
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'work-exp-list-item-btn';
-            btn.textContent = viewText;
-            li.appendChild(left);
-            li.appendChild(btn);
-            li.addEventListener('click', function(e) {
-              e.preventDefault();
-              openModal(index);
-            });
-            listEl.appendChild(li);
-          });
-        }
-        window.refreshWorkExpCardsContent = function(l) {
-          renderList();
-          if (activeIndex !== null && workContent && workContent[l || getLang()]) {
-            var idx = activeIndex;
-            var item = workContent[l || getLang()][idx];
-            if (item) {
-              modalCompany.textContent = item.company;
-              modalMeta.textContent = item.date + ' · ' + item.role;
-              modalCta.textContent = getVisitLabel();
-              modalDesc.innerHTML = '';
-              var ul = document.createElement('ul');
-              (item.desc || []).forEach(function(line) {
-                var li = document.createElement('li');
-                li.textContent = line;
-                ul.appendChild(li);
-              });
-              modalDesc.appendChild(ul);
-              modalStats.innerHTML = '';
-              (item.stats || []).forEach(function(label, i) {
-                var div = document.createElement('div');
-                div.className = 'work-exp-modal-stat';
-                div.innerHTML = '<span class="stat-val">' + (item.statVals && item.statVals[i] ? item.statVals[i] : '') + '</span><span class="stat-label">' + label + '</span>';
-                modalStats.appendChild(div);
-              });
-            }
-          }
+          carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'smooth' });
         };
-        if (overlay) overlay.addEventListener('click', closeModal);
-        if (modalClose) modalClose.addEventListener('click', closeModal);
-        if (modalInner) modalInner.addEventListener('click', function(e) { e.stopPropagation(); });
-        if (modal) modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && activeIndex !== null) closeModal(); });
-        renderList();
+
+        carousel.addEventListener('scroll', function() {
+          var cardWidth = cards[0].offsetWidth + 24;
+          var newIndex = Math.round(carousel.scrollLeft / cardWidth);
+          if (newIndex !== currentIndex) {
+            currentIndex = newIndex;
+          }
+        });
+
+        var isDown = false, startX, scrollLeft;
+        carousel.addEventListener('mousedown', function(e) {
+          isDown = true;
+          startX = e.pageX - carousel.offsetLeft;
+          scrollLeft = carousel.scrollLeft;
+        });
+        carousel.addEventListener('mouseleave', function() { isDown = false; });
+        carousel.addEventListener('mouseup', function() { isDown = false; });
+        carousel.addEventListener('mousemove', function(e) {
+          if (!isDown) return;
+          e.preventDefault();
+          var x = e.pageX - carousel.offsetLeft;
+          var walk = (x - startX) * 2;
+          carousel.scrollLeft = scrollLeft - walk;
+        });
       })();
 
       (function scrollbarOnlyWhenScrolling() {
@@ -419,9 +349,6 @@
         var expSub = document.querySelector('#experience .section-subtitle');
         if (expSub) expSub.textContent = isEn ? t.en.experienceSubtitle : t.zh.experienceSubtitle;
         window.resumeLang = l;
-        if (typeof window.refreshWorkExpCardsContent === 'function') {
-          window.refreshWorkExpCardsContent(l);
-        }
         var heroTitle = document.querySelector('.hero-title');
         if (heroTitle) heroTitle.textContent = heroContent[l].title;
         var heroGreeting = document.querySelector('.hero-greeting');
@@ -432,7 +359,6 @@
         if (eduSchool) eduSchool.textContent = eduContent[l].school;
         var eduMeta = document.querySelector('#education .meta');
         if (eduMeta) eduMeta.textContent = eduContent[l].meta;
-        /* 工作经历三卡片内容由 refreshWorkExpCardsContent 更新 */
         var projItems = document.querySelectorAll('.draggable-card, .project-item');
         projContent[l].forEach(function(p, i) {
           if (!projItems[i]) return;
@@ -476,9 +402,6 @@
       }
       if (lang === 'en') applyLang('en');
       window.resumeLang = window.resumeLang || lang;
-      if (typeof window.refreshWorkExpCardsContent === 'function') {
-        window.refreshWorkExpCardsContent(lang);
-      }
       document.getElementById('langBtn').addEventListener('click', function() {
         lang = lang === 'zh' ? 'en' : 'zh';
         localStorage.setItem('resume-lang', lang);
