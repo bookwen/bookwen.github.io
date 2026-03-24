@@ -536,6 +536,7 @@
     }
 
     .card-container:hover .main-card {
+      transform: translateY(-8px);
       box-shadow:
         0 4px 8px rgba(0, 0, 0, 0.03),
         0 12px 24px rgba(0, 0, 0, 0.05),
@@ -613,8 +614,9 @@
     }
 
     .skill-item:hover {
-      transform: translateX(4px);
+      transform: translateY(-4px);
       background-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     /* 序号样式 */
@@ -726,16 +728,23 @@
       position: relative;
       border-radius: 28px;
       overflow: hidden;
-      background: #fff;
       cursor: pointer;
-      border: 1px solid #e5e7eb;
+      /* 透明玻璃质感 */
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.15);
       transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
       z-index: 10;
     }
 
     [data-theme="dark"] .about-grid-item {
-      background: #1e1e23;
-      border-color: rgba(255,255,255,0.1);
+      background: rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.08);
     }
 
     .about-item-1 { grid-column: span 2; grid-row: span 2; }
@@ -752,29 +761,163 @@
     .about-card-bg {
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.03);
+      /* 透明玻璃质感背景 */
+      background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       transition: all 0.6s var(--ease-out-expo);
     }
 
+    [data-theme="dark"] .about-card-bg {
+      background: rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
     .about-grid-item:hover .about-card-bg {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    [data-theme="dark"] .about-grid-item:hover .about-card-bg {
+      background: rgba(0, 0, 0, 0.25);
       border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* 卡片装饰图案 */
+    .about-item-1::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-item-2::before {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -20%;
+      width: 80%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-item-3::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-item-4::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 70%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 卡片装饰图标 */
+    .about-item-1::after {
+      content: '👨‍💻';
+      position: absolute;
+      bottom: 10%;
+      right: 8%;
+      font-size: 4rem;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-item-2::after {
+      content: '📊';
+      position: absolute;
+      bottom: 15%;
+      right: 10%;
+      font-size: 3rem;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-item-3::after {
+      content: '🎯';
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .about-item-4::after {
+      content: '🚀';
+      position: absolute;
+      bottom: 10%;
+      right: 5%;
+      font-size: 2.5rem;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    [data-theme="dark"] .about-item-1::after,
+    [data-theme="dark"] .about-item-2::after,
+    [data-theme="dark"] .about-item-3::after,
+    [data-theme="dark"] .about-item-4::after {
+      opacity: 0.08;
+    }
+
+    /* 卡片悬浮上浮动效 */
+    .about-grid-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    [data-theme="dark"] .about-grid-item:hover {
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35),
+                  inset 0 0 0 1px rgba(255, 255, 255, 0.12);
     }
 
     .about-card-icon {
       width: 40px;
       height: 40px;
       border-radius: 12px;
-      background: rgba(255,255,255,0.2);
+      /* 玻璃质感图标 */
+      background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 1.25rem;
       margin-right: 0.75rem;
+    }
+
+    [data-theme="dark"] .about-card-icon {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.15);
     }
 
     .about-card-title {
@@ -790,6 +933,10 @@
       transition: opacity 0.3s;
     }
 
+    [data-theme="dark"] .about-card-title {
+      color: #ffffff;
+    }
+
     .about-card-detail {
       display: none;
       padding: 2rem;
@@ -802,12 +949,16 @@
       max-height: 100%;
     }
 
+    [data-theme="dark"] .about-card-detail {
+      color: #ffffff;
+    }
+
     .about-grid-item.active {
       position: fixed !important;
       z-index: 1000 !important;
       cursor: default;
       box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-      width: 750px !important;
+      width: 900px !important;
       height: auto !important;
       min-height: 500px;
       max-height: 90vh;
@@ -902,7 +1053,8 @@
 
     .about-tag:hover {
       background: rgba(0,0,0,0.08);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .about-info-box {
@@ -968,7 +1120,8 @@
 
     .about-hobby-tag:hover {
       background: rgba(0,0,0,0.08);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .about-quote {
@@ -997,6 +1150,8 @@
 
     .about-plan-item:hover {
       background: rgba(0,0,0,0.05);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
     .about-plan-num {
@@ -1034,8 +1189,12 @@
     @media (max-width: 768px) {
       .about-grid-container { display: flex; flex-direction: column; }
       .about-grid-item { height: 180px; }
-      .about-grid-item.active { width: 90% !important; height: auto !important; min-height: 400px; }
+      .about-grid-item.active { width: 95% !important; height: auto !important; min-height: 400px; }
       .about-hobby-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-plan-list { gap: 0.8rem; }
+      .about-plan-item { padding: 1rem; gap: 1rem; }
+      .about-plan-item h4 { font-size: 0.8rem; }
+      .about-plan-item p { font-size: 0.7rem; line-height: 1; }
     }
 
     /* ===== 获奖经历（awards）：轮播卡片 ===== */
@@ -1111,13 +1270,13 @@
 
     .awards-card-wrapper {
       flex: none;
-      width: 380px;
+      width: 350px;
       scroll-snap-align: center;
     }
 
     .awards-card {
       position: relative;
-      height: 650px;
+      height: 600px;
       border-radius: 24px;
       overflow: hidden;
       cursor: pointer;
@@ -1126,7 +1285,7 @@
     }
 
     .awards-card:hover {
-      transform: translateY(-8px) scale(1.02);
+      transform: translateY(-10px) scale(1.02);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
@@ -1141,6 +1300,197 @@
       inset: 0;
       opacity: 0.1;
       background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      z-index: 1;
+    }
+
+    /* 卡片底部渐变遮罩 */
+    .awards-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.08) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* 每张卡片的独特装饰图标 - 放在右下角 */
+    .awards-card[data-gradient="1"]::before {
+      content: '🌐';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 8rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="2"]::before {
+      content: '📄';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="3"]::before {
+      content: '🎯';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="4"]::before {
+      content: '🎨';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="5"]::before {
+      content: '💡';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="6"]::before {
+      content: '🏆';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="7"]::before {
+      content: '⭐';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="8"]::before {
+      content: '🏅';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="9"]::before {
+      content: '🎪';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="10"]::before {
+      content: '🌟';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="11"]::before {
+      content: '🎤';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="12"]::before {
+      content: '📚';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="13"]::before {
+      content: '🔬';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="14"]::before {
+      content: '🎪';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="15"]::before {
+      content: '🎊';
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .awards-card[data-gradient="16"]::before {
+      content: '🎵';
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-size: 7.5rem;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 5;
     }
 
     .awards-card-content {
@@ -1149,11 +1499,15 @@
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       color: #1a1a1a;
     }
 
     .awards-card-header {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      right: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -1192,6 +1546,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
+      text-align: left;
     }
 
     .awards-level {
@@ -1269,8 +1624,9 @@
     }
 
     .eval-item:hover {
-      transform: translateX(4px);
+      transform: translateY(-4px);
       background-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     .eval-item p {
@@ -1499,10 +1855,11 @@
       transition: background 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
       background: transparent;
     }
-    /* 悬浮时：底色 #f0f2f5，无描边 */
+    /* 悬浮时：底色 #f0f2f5，无描边，上浮动效 */
     .work-exp-list-item:hover {
       background: #f0f2f5;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
     }
     [data-theme="dark"] .work-exp-list-item:hover {
       background: rgba(255, 255, 255, 0.12);
@@ -1976,8 +2333,8 @@
     }
 
     .edu-music-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.18);
     }
 
     .edu-music-card.is-expanding {
@@ -2142,7 +2499,7 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     }
     .work-item:hover {
-      transform: translateY(-2px);
+      transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     }
     [data-theme="dark"] .work-item:hover {
@@ -2402,8 +2759,8 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     }
     .project-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
     [data-theme="dark"] .project-item:hover {
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
@@ -2554,7 +2911,7 @@
       transform: rotate(var(--card-rotation, 0deg));
     }
     .draggable-card:hover {
-      transform: rotate(calc(var(--card-rotation, 0deg) + 2deg)) scale(1.04);
+      transform: translateY(-6px) rotate(calc(var(--card-rotation, 0deg) + 2deg)) scale(1.04);
       box-shadow: 0 20px 56px rgba(0, 0, 0, 0.14);
     }
     [data-theme="dark"] .draggable-card:hover {
