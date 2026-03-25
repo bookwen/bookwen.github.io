@@ -89,16 +89,16 @@
       /* 认识一下模块翻译数据 */
       var aboutContent = {
         zh: {
-          card1: { title: '个人简介', role: '测试工程师', roleEn: 'Software Test Engineer', desc1: '拥有 4 年软件测试与实施经验，熟悉软件测试全流程，熟练掌握 Python 及 Postman、JMeter 等测试工具，具备自动化测试、接口测试与性能测试实战能力。', desc2: '工作认真细致、责任心强，善于分析定位问题、优化流程，具备良好的团队协作与沟通能力，对新技术保持持续学习热情，能快速适应高强度工作节奏。', tags: ['🔧 自动化测试', '🌐 接口测试', '⚡ 性能测试', '🐍 Python'] },
-          card2: { title: '基本信息', role: '基本信息', roleEn: 'Basic Information', workYears: '工作年限', workYearsVal: '4 年', education: '学历', educationVal: '本科', location: '所在城市', locationVal: '深圳' },
-          card3: { title: '兴趣爱好', role: '兴趣爱好', roleEn: 'Hobbies & Interests', hobbies: ['🎵 听歌', '🎮 游戏', '💻 写代码', '🎤 唱歌', '🏃 跑步', '🔨 DIY', '🏸 羽毛球', '🎾 网球', '🥾 徒步', '✈️ 旅游', '🧗 爬山', '📚 学习'], quote: '"保持好奇心，探索生活的无限可能"' },
-          card4: { title: '未来规划', role: '未来规划', roleEn: 'Future Plans', plans: [{ title: '深耕测试领域', desc: '熟练掌握功能测试、接口测试、自动化测试等核心技能，提升问题定位与分析能力。' }, { title: '技术持续进阶', desc: '持续学习 Python、Linux、测试工具等技术，向自动化测试与性能测试方向发展。' }, { title: '职业成长目标', desc: '逐步积累项目管理与团队协作经验，成长为技术扎实、能独当一面的测试工程师。' }, { title: '长期发展规划', desc: '保持持续学习习惯，紧跟行业新技术、新流程，不断提升综合竞争力，实现长期稳定职业发展。' }] }
+          card1: { title: '个人简介', desc1: '拥有 4 年软件测试与实施经验，熟悉软件测试全流程，熟练掌握 Python 及 Postman、JMeter 等测试工具，具备自动化测试、接口测试与性能测试实战能力。', desc2: '工作认真细致、责任心强，善于分析定位问题、优化流程，具备良好的团队协作与沟通能力，对新技术保持持续学习热情，能快速适应高强度工作节奏。', tags: ['Python', 'Postman', 'JMeter', '自动化测试'] },
+          card2: { title: '基本信息', workYears: '工作年限', workYearsVal: '4 年', education: '学历情况', educationVal: '本科', location: '所在城市', locationVal: '深圳', phone: '手机号码', phoneVal: '159xxxxxx64', email: '邮箱地址', emailVal: 'bookwenn@foxmail.com' },
+          card3: { title: '兴趣爱好', hobbies: ['🎵 听歌', '🎮 游戏', '⌨️ 写代码', '🎤 唱歌', '🏃 跑步', '⚙️ DIY', '🏸 羽毛球', '🎾 网球', '🥾 徒步', '🌏 旅游', '🏔️ 爬山', '📚 学习'] },
+          card4: { title: '未来规划', plans: [{ title: '深耕软件测试领域', desc: '熟练掌握功能测试、接口测试、自动化测试等核心技能，提升问题定位与分析能力。' }, { title: '技术持续进阶', desc: '持续学习 Python、Linux、测试工具等技术，向自动化测试与性能测试方向发展，提高测试效率与专业性。' }, { title: '逐步积累项目管理经验', desc: '争取成长为一名技术扎实、能独当一面的测试工程师，为职业晋升打下基础。' }, { title: '保持持续学习习惯', desc: '紧跟行业新技术、新流程，不断提升综合竞争力，实现长期稳定的职业发展。' }] }
         },
         en: {
-          card1: { title: 'Profile', role: 'Test Engineer', roleEn: 'Software Test Engineer', desc1: '4 years of experience in software testing and implementation. Proficient in Python, Postman, JMeter and other testing tools. Capable of automation testing, API testing and performance testing.', desc2: 'Detail-oriented and responsible. Strong problem-solving skills and process optimization abilities. Excellent teamwork and communication skills. Passionate about learning new technologies and adaptable to fast-paced environments.', tags: ['🔧 Automation Testing', '🌐 API Testing', '⚡ Performance Testing', '🐍 Python'] },
-          card2: { title: 'Basic Info', role: 'Basic Information', roleEn: 'Basic Information', workYears: 'Experience', workYearsVal: '4 Years', education: 'Education', educationVal: "Bachelor's", location: 'Location', locationVal: 'Shenzhen' },
-          card3: { title: 'Hobbies', role: 'Hobbies & Interests', roleEn: 'Hobbies & Interests', hobbies: ['🎵 Music', '🎮 Gaming', '💻 Coding', '🎤 Singing', '🏃 Running', '🔨 DIY', '🏸 Badminton', '🎾 Tennis', '🥾 Hiking', '✈️ Travel', '🧗 Climbing', '📚 Learning'], quote: '"Stay curious, explore the infinite possibilities of life"' },
-          card4: { title: 'Future Plans', role: 'Future Plans', roleEn: 'Future Plans', plans: [{ title: 'Testing Expertise', desc: 'Master functional testing, API testing, automation testing and other core skills. Improve problem analysis and positioning capabilities.' }, { title: 'Technical Advancement', desc: 'Continue learning Python, Linux, testing tools and technologies. Develop towards automation and performance testing.' }, { title: 'Career Growth', desc: 'Accumulate project management and team collaboration experience. Grow into a capable test engineer.' }, { title: 'Long-term Development', desc: 'Maintain continuous learning habits. Keep up with new technologies and processes. Enhance comprehensive competitiveness.' }] }
+          card1: { title: 'Profile', desc1: '4 years of experience in software testing and implementation. Proficient in Python, Postman, JMeter and other testing tools. Capable of automation testing, API testing and performance testing.', desc2: 'Detail-oriented and responsible. Strong problem-solving skills and process optimization abilities. Excellent teamwork and communication skills. Passionate about learning new technologies and adaptable to fast-paced environments.', tags: ['Python', 'Postman', 'JMeter', 'Automation Testing'] },
+          card2: { title: 'Basic Info', workYears: 'Experience', workYearsVal: '4 Years', education: 'Education', educationVal: "Bachelor's", location: 'Location', locationVal: 'Shenzhen', phone: 'Phone', phoneVal: '159xxxxxx64', email: 'Email', emailVal: 'bookwenn@foxmail.com' },
+          card3: { title: 'Hobbies', hobbies: ['🎵 Music', '🎮 Gaming', '⌨️ Coding', '🎤 Singing', '🏃 Running', '⚙️ DIY', '🏸 Badminton', '🎾 Tennis', '🥾 Hiking', '🌏 Travel', '🏔️ Climbing', '📚 Learning'] },
+          card4: { title: 'Future Plans', plans: [{ title: 'Testing Expertise', desc: 'Master functional testing, API testing, automation testing and other core skills. Improve problem analysis and positioning capabilities.' }, { title: 'Technical Advancement', desc: 'Continue learning Python, Linux, testing tools and technologies. Develop towards automation and performance testing.' }, { title: 'Project Management', desc: 'Accumulate project management and team collaboration experience. Grow into a capable test engineer.' }, { title: 'Continuous Learning', desc: 'Keep up with new technologies and processes. Enhance comprehensive competitiveness for long-term career development.' }] }
         }
       };
       var heroContent = {
@@ -178,8 +178,8 @@
       };
       var projBlockTitles = { zh: { bg: '项目背景', duty: '主要职责' }, en: { bg: 'Background', duty: 'Responsibilities' } };
       var skillsContent = {
-        zh: { subtitle: '技能線', title: '技术能力', row2: ['团队协作','质量管控','需求分析','测试报告','进度管控','风险管理','接口测试','自动化测试','性能测试'] },
-        en: { subtitle: 'Skills', title: 'Technical Skills', row2: ['Teamwork','Quality Control','Requirements Analysis','Test Reporting','Progress Control','Risk Management','API Testing','Automation Testing','Performance Testing'] }
+        zh: { subtitle: '技能線', title: '技术能力', row1: ['Linux','Python','Postman','JMeter','MySQL','Selenium','Appium','Pytest','Fiddler','Redis','FineReport','永洪 BI','Photoshop','Illustrator','Word','Excel','PowerPoint','Oracle','SQL Server','LoadRunner','Git','Postman','VScode','永洪 BI','Linux','Python','Postman','JMeter','MySQL','Selenium','Appium','Pytest','Fiddler','Redis','FineReport','永洪 BI'], row2: ['团队协作','质量管控','需求分析','测试报告','进度管控','风险管理','接口测试','自动化测试','性能测试','团队协作','质量管控','需求分析','测试报告','进度管控','风险管理','接口测试','自动化测试','性能测试','团队协作','质量管控','需求分析','测试报告','进度管控','风险管理','接口测试','自动化测试','性能测试'] },
+        en: { subtitle: 'Skills', title: 'Technical Skills', row1: ['Linux','Python','Postman','JMeter','MySQL','Selenium','Appium','Pytest','Fiddler','Redis','FineReport','Yonghong BI','Photoshop','Illustrator','Word','Excel','PowerPoint','Oracle','SQL Server','LoadRunner','Git','Postman','VScode','Yonghong BI','Linux','Python','Postman','JMeter','MySQL','Selenium','Appium','Pytest','Fiddler','Redis','FineReport','Yonghong BI'], row2: ['Teamwork','Quality Control','Requirements Analysis','Test Reporting','Progress Control','Risk Management','API Testing','Automation Testing','Performance Testing','Teamwork','Quality Control','Requirements Analysis','Test Reporting','Progress Control','Risk Management','API Testing','Automation Testing','Performance Testing','Teamwork','Quality Control','Requirements Analysis','Test Reporting','Progress Control','Risk Management','API Testing','Automation Testing','Performance Testing'] }
       };
       var introContent = {
         zh: ['具备 4 年软件测试与实施经验，熟悉软件测试全流程和方法，能够独立完成自动化测试脚本开发和维护','精通 Python 编程语言，熟练使用 Postman、JMeter 等测试工具，具备丰富的接口测试和性能测试经验','具有良好的问题分析和解决能力，能够快速定位和解决软件缺陷，保障系统质量和稳定性','工作积极认真，细心负责，善于发现问题并提出解决方案，具备良好的团队协作和沟通能力','对新技术有强烈的学习兴趣，能够快速掌握和应用新的测试工具和技术，适应高强度工作环境'],
@@ -189,18 +189,20 @@
       var evalContent = {
         zh: {
           items: [
-            { num: '01', title: '精通多维度测试', desc: '具备功能测试、接口测试与性能测试综合能力，能独立输出高覆盖测试方案，有效保障产品质量。' },
-            { num: '02', title: '数据分析与工具驱动', desc: '熟练使用 Postman、JMeter 等工具分析接口响应与服务器指标，快速定位性能瓶颈与异常点。' },
-            { num: '03', title: '自动化与效能提升', desc: '熟练掌握 Python 自动化测试框架，结合 Selenium、Appium 实现核心业务自动回归，提升测试效率 30%。' },
-            { num: '04', title: '协作与沟通力', desc: '擅长与产品、研发团队高效协作，能精准推动问题修复与流程优化，确保项目高质量交付。' }
+            { num: '01', desc: '拥有4年软件测试与实施经验，熟悉软件测试全流程及各类测试方法，具备独立完成自动化测试脚本开发与维护的能力。' },
+            { num: '02', desc: '精通Python编程语言，熟练使用Postman、JMeter等主流测试工具，具备丰富的接口测试与性能测试实战经验。' },
+            { num: '03', desc: '具备较强的问题分析与解决能力，能够高效定位并修复软件缺陷，保障系统运行的稳定性与可靠性。' },
+            { num: '04', desc: '工作态度认真细致，责任心强，善于发现潜在问题并提出优化方案，具备良好的团队协作与沟通能力。' },
+            { num: '05', desc: '对新技术保持高度敏感和学习热情，能够快速掌握并应用新的测试工具与技术，适应高强度工作节奏。' }
           ]
         },
         en: {
           items: [
-            { num: '01', title: 'Multi-dimensional Testing', desc: 'Comprehensive capability in functional, API and performance testing; deliver high-coverage test plans independently.' },
-            { num: '02', title: 'Data Analysis & Tools', desc: 'Proficient with Postman, JMeter for API response and server metrics analysis; quick bottleneck identification.' },
-            { num: '03', title: 'Automation & Efficiency', desc: 'Python automation frameworks with Selenium, Appium for regression testing; 30% efficiency improvement.' },
-            { num: '04', title: 'Collaboration & Communication', desc: 'Effective collaboration with product and development teams; drive issue resolution and process optimization.' }
+            { num: '01', desc: '4 years of software testing and implementation experience, familiar with the entire testing process and various testing methods, capable of independently completing automation test script development and maintenance.' },
+            { num: '02', desc: 'Proficient in Python programming language, skilled in using mainstream testing tools such as Postman and JMeter, with rich practical experience in API testing and performance testing.' },
+            { num: '03', desc: 'Strong problem analysis and solving ability, able to efficiently locate and fix software defects, ensuring system stability and reliability.' },
+            { num: '04', desc: 'Serious and meticulous work attitude, strong sense of responsibility, good at discovering potential problems and proposing optimization solutions, with excellent teamwork and communication skills.' },
+            { num: '05', desc: 'High sensitivity and enthusiasm for learning new technologies, able to quickly master and apply new testing tools and techniques, adaptable to high-intensity work pace.' }
           ]
         }
       };
@@ -323,8 +325,9 @@
 
         if (workExpOverlay) workExpOverlay.classList.add('show');
 
+        var currentLang = window.resumeLang || 'zh';
         var btn = card.querySelector('.work-exp-new-btn');
-        if (btn) btn.textContent = '访问官网';
+        if (btn) btn.textContent = btnLabels[currentLang].visitSite;
 
         var head = card.querySelector('.work-exp-new-head');
         if (head) {
@@ -346,8 +349,9 @@
 
         if (workExpOverlay) workExpOverlay.classList.remove('show');
 
+        var currentLang = window.resumeLang || 'zh';
         var btn = card.querySelector('.work-exp-new-btn');
-        if (btn) btn.textContent = '查看';
+        if (btn) btn.textContent = btnLabels[currentLang].viewExp;
 
         var head = card.querySelector('.work-exp-new-head');
         if (head) {
@@ -375,77 +379,43 @@
         if (e.key === 'Escape' && workExpActiveCard) handleWorkExpShrink();
       });
 
-      /* 认识一下模块：四卡片展开/收缩动画 */
-      var aboutOverlay = document.getElementById('aboutOverlay');
-      var aboutActiveCard = null;
-      var aboutPlaceholder = null;
+      /* 认识一下模块：卡片堆栈轮播 */
+      (function initAboutStack() {
+        var aboutCur = 0;
+        var aboutLock = false;
+        var aboutTotal = 4;
 
-      window.handleAboutExpand = function(card) {
-        if (aboutActiveCard) return;
-        aboutActiveCard = card;
+        function aboutRender(last) {
+          for (var i = 0; i < aboutTotal; i++) {
+            var card = document.getElementById('aboutImg-' + i);
+            var slide = document.getElementById('aboutS-' + i);
+            if (!card || !slide) continue;
 
-        var rect = card.getBoundingClientRect();
+            slide.classList.toggle('active', i === aboutCur);
+            card.classList.remove('active', 'stack', 'exit');
 
-        aboutPlaceholder = card.cloneNode(true);
-        aboutPlaceholder.classList.add('about-placeholder');
-        card.parentNode.insertBefore(aboutPlaceholder, card);
-
-        card.style.position = 'fixed';
-        card.style.top = rect.top + 'px';
-        card.style.left = rect.left + 'px';
-        card.style.width = rect.width + 'px';
-        card.style.height = rect.height + 'px';
-        card.style.margin = '0';
-        card.style.transition = 'all 0.6s var(--ease-out-expo)';
-
-        requestAnimationFrame(function() {
-          card.classList.add('active');
-          if (aboutOverlay) aboutOverlay.classList.add('show');
-          card.style.top = '50%';
-          card.style.left = '50%';
-          card.style.transform = 'translate(-50%, -50%)';
-        });
-      };
-
-      function handleAboutShrink() {
-        if (!aboutActiveCard) return;
-
-        var card = aboutActiveCard;
-        var pRect = aboutPlaceholder.getBoundingClientRect();
-
-        card.style.transform = 'translate(0, 0)';
-        card.style.top = pRect.top + 'px';
-        card.style.left = pRect.left + 'px';
-        card.style.width = pRect.width + 'px';
-        card.style.height = pRect.height + 'px';
-
-        card.classList.remove('active');
-        if (aboutOverlay) aboutOverlay.classList.remove('show');
-
-        setTimeout(function() {
-          card.style.transition = 'none';
-          card.style.position = '';
-          card.style.width = '';
-          card.style.height = '';
-          card.style.top = '';
-          card.style.left = '';
-          card.style.transform = '';
-
-          if (aboutPlaceholder) {
-            aboutPlaceholder.remove();
-            aboutPlaceholder = null;
+            if (i === aboutCur) {
+              card.classList.add('active');
+            } else if (i === last) {
+              card.classList.add('exit');
+            } else if (Math.abs(i - aboutCur) === 1 || (aboutCur === 0 && i === aboutTotal - 1) || (aboutCur === aboutTotal - 1 && i === 0)) {
+              card.classList.add('stack');
+              card.style.transform = 'rotate(' + (i % 2 === 0 ? -4 : 4) + 'deg) scale(0.9) translateY(20px)';
+            }
           }
-          aboutActiveCard = null;
-        }, 600);
-      }
+        }
 
-      if (aboutOverlay) {
-        aboutOverlay.addEventListener('click', handleAboutShrink);
-      }
+        window.aboutMove = function(dir) {
+          if (aboutLock) return;
+          aboutLock = true;
+          var last = aboutCur;
+          aboutCur = (aboutCur + dir + aboutTotal) % aboutTotal;
+          aboutRender(last);
+          setTimeout(function() { aboutLock = false; }, 600);
+        };
 
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && aboutActiveCard) handleAboutShrink();
-      });
+        aboutRender(null);
+      })();
 
       /* 获奖经历轮播 */
       (function initAwardsCarousel() {
@@ -557,67 +527,68 @@
         var navName = document.querySelector('.top-nav .name');
         if (navName && heroContent[l].name) navName.textContent = heroContent[l].name;
         
-        /* 更新认识一下模块卡片 */
-        var aboutCards = document.querySelectorAll('.about-grid-item');
-        if (aboutCards.length >= 4 && aboutContent) {
-          /* Card 1: 个人简介 */
-          var card1Title = aboutCards[0].querySelector('.about-card-title');
-          if (card1Title) card1Title.childNodes[card1Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card1.title;
-          var card1Role = aboutCards[0].querySelector('.about-role');
-          if (card1Role) card1Role.textContent = aboutContent[l].card1.role;
-          var card1RoleEn = aboutCards[0].querySelector('.about-role-en');
-          if (card1RoleEn) card1RoleEn.textContent = aboutContent[l].card1.roleEn;
-          var card1Descs = aboutCards[0].querySelectorAll('.about-desc');
-          if (card1Descs[0]) card1Descs[0].textContent = aboutContent[l].card1.desc1;
-          if (card1Descs[1]) card1Descs[1].textContent = aboutContent[l].card1.desc2;
-          var card1Tags = aboutCards[0].querySelectorAll('.about-tag');
+        /* 更新认识一下模块（卡片堆栈布局） */
+        var aboutSlide0 = document.getElementById('aboutS-0');
+        var aboutSlide1 = document.getElementById('aboutS-1');
+        var aboutSlide2 = document.getElementById('aboutS-2');
+        var aboutSlide3 = document.getElementById('aboutS-3');
+        
+        if (aboutSlide0 && aboutContent) {
+          /* Slide 0: 个人简介 */
+          var s0Title = aboutSlide0.querySelector('.about-slide-title');
+          var s0Paras = aboutSlide0.querySelectorAll('.about-slide-paragraph');
+          var s0Tags = aboutSlide0.querySelectorAll('.about-tag');
+          if (s0Title) s0Title.textContent = aboutContent[l].card1.title;
+          if (s0Paras[0]) s0Paras[0].textContent = aboutContent[l].card1.desc1;
+          if (s0Paras[1]) s0Paras[1].textContent = aboutContent[l].card1.desc2;
           aboutContent[l].card1.tags.forEach(function(tag, i) {
-            if (card1Tags[i]) card1Tags[i].textContent = tag;
+            if (s0Tags[i]) s0Tags[i].textContent = tag;
           });
+        }
+        
+        if (aboutSlide1 && aboutContent) {
+          /* Slide 1: 基本信息 */
+          var s1Title = aboutSlide1.querySelector('.about-slide-title');
+          if (s1Title) s1Title.textContent = aboutContent[l].card2.title;
           
-          /* Card 2: 基本信息 */
-          var card2Title = aboutCards[1].querySelector('.about-card-title');
-          if (card2Title) card2Title.childNodes[card2Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card2.title;
-          var card2Role = aboutCards[1].querySelector('.about-role');
-          if (card2Role) card2Role.textContent = aboutContent[l].card2.role;
-          var card2RoleEn = aboutCards[1].querySelector('.about-role-en');
-          if (card2RoleEn) card2RoleEn.textContent = aboutContent[l].card2.roleEn;
-          var card2Labels = aboutCards[1].querySelectorAll('.about-info-label');
-          var card2Values = aboutCards[1].querySelectorAll('.about-info-value');
-          if (card2Labels[0]) card2Labels[0].textContent = '💼 ' + aboutContent[l].card2.workYears;
-          if (card2Values[0]) card2Values[0].innerHTML = '<span class="about-info-highlight">' + aboutContent[l].card2.workYearsVal + '</span>';
-          if (card2Labels[1]) card2Labels[1].textContent = '🎓 ' + aboutContent[l].card2.education;
-          if (card2Values[1]) card2Values[1].textContent = aboutContent[l].card2.educationVal;
-          if (card2Labels[2]) card2Labels[2].textContent = '📍 ' + aboutContent[l].card2.location;
-          if (card2Values[2]) card2Values[2].innerHTML = '<span class="about-dot-green"></span>' + aboutContent[l].card2.locationVal;
-          
-          /* Card 3: 兴趣爱好 */
-          var card3Title = aboutCards[2].querySelector('.about-card-title');
-          if (card3Title) card3Title.childNodes[card3Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card3.title;
-          var card3Role = aboutCards[2].querySelector('.about-role');
-          if (card3Role) card3Role.textContent = aboutContent[l].card3.role;
-          var card3RoleEn = aboutCards[2].querySelector('.about-role-en');
-          if (card3RoleEn) card3RoleEn.textContent = aboutContent[l].card3.roleEn;
-          var card3Hobbies = aboutCards[2].querySelectorAll('.about-hobby-tag');
+          var s1Rows = aboutSlide1.querySelectorAll('.about-info-row');
+          s1Rows.forEach(function(row) {
+            var key = row.getAttribute('data-key');
+            var label = row.querySelector('span:first-child');
+            var value = row.querySelector('span:last-child');
+            if (key === 'workYears' && label) label.textContent = aboutContent[l].card2.workYears;
+            if (key === 'workYears' && value) value.textContent = aboutContent[l].card2.workYearsVal;
+            if (key === 'education' && label) label.textContent = aboutContent[l].card2.education;
+            if (key === 'education' && value) value.textContent = aboutContent[l].card2.educationVal;
+            if (key === 'location' && label) label.textContent = aboutContent[l].card2.location;
+            if (key === 'location' && value) value.textContent = aboutContent[l].card2.locationVal;
+            if (key === 'phone' && label) label.textContent = aboutContent[l].card2.phone;
+            if (key === 'phone' && value) value.textContent = aboutContent[l].card2.phoneVal;
+            if (key === 'email' && label) label.textContent = aboutContent[l].card2.email;
+            if (key === 'email' && value) value.textContent = aboutContent[l].card2.emailVal;
+          });
+        }
+        
+        if (aboutSlide2 && aboutContent) {
+          /* Slide 2: 兴趣爱好 */
+          var s2Title = aboutSlide2.querySelector('.about-slide-title');
+          var s2Cards = aboutSlide2.querySelectorAll('.about-hobby-card');
+          if (s2Title) s2Title.textContent = aboutContent[l].card3.title;
           aboutContent[l].card3.hobbies.forEach(function(hobby, i) {
-            if (card3Hobbies[i]) card3Hobbies[i].textContent = hobby;
+            if (s2Cards[i]) s2Cards[i].textContent = hobby;
           });
-          var card3Quote = aboutCards[2].querySelector('.about-quote');
-          if (card3Quote) card3Quote.textContent = aboutContent[l].card3.quote;
-          
-          /* Card 4: 未来规划 */
-          var card4Title = aboutCards[3].querySelector('.about-card-title');
-          if (card4Title) card4Title.childNodes[card4Title.childNodes.length-1].textContent = ' ' + aboutContent[l].card4.title;
-          var card4Role = aboutCards[3].querySelector('.about-role');
-          if (card4Role) card4Role.textContent = aboutContent[l].card4.role;
-          var card4RoleEn = aboutCards[3].querySelector('.about-role-en');
-          if (card4RoleEn) card4RoleEn.textContent = aboutContent[l].card4.roleEn;
-          var card4Items = aboutCards[3].querySelectorAll('.about-plan-item');
+        }
+        
+        if (aboutSlide3 && aboutContent) {
+          /* Slide 3: 未来规划 */
+          var s3Title = aboutSlide3.querySelector('.about-slide-title');
+          var s3Items = aboutSlide3.querySelectorAll('.about-plan-item');
+          if (s3Title) s3Title.textContent = aboutContent[l].card4.title;
           aboutContent[l].card4.plans.forEach(function(plan, i) {
-            if (card4Items[i]) {
-              var h4 = card4Items[i].querySelector('h4');
-              var p = card4Items[i].querySelector('p');
-              if (h4) h4.textContent = plan.title;
+            if (s3Items[i]) {
+              var b = s3Items[i].querySelector('b');
+              var p = s3Items[i].querySelector('p');
+              if (b) b.textContent = plan.title;
               if (p) p.textContent = plan.desc;
             }
           });
@@ -645,6 +616,8 @@
           var tit = skillsHeader.querySelector('.section-title');
           if (tit) tit.textContent = skillsContent[l].title;
         }
+        var row1Pills = document.querySelectorAll('#skillRow1 .skill-pill');
+        row1Pills.forEach(function(pill, j) { pill.textContent = skillsContent[l].row1[j % skillsContent[l].row1.length]; });
         var row2Pills = document.querySelectorAll('#skillRow2 .skill-pill');
         row2Pills.forEach(function(pill, j) { pill.textContent = skillsContent[l].row2[j % skillsContent[l].row2.length]; });
         
@@ -654,10 +627,8 @@
           evalContent[l].items.forEach(function(item, i) {
             if (evalItems[i]) {
               var numEl = evalItems[i].querySelector('.skill-number');
-              var titleEl = evalItems[i].querySelector('h4');
               var descEl = evalItems[i].querySelector('p');
               if (numEl) numEl.textContent = item.num;
-              if (titleEl) titleEl.textContent = item.title;
               if (descEl) descEl.textContent = item.desc;
             }
           });

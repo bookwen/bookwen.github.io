@@ -535,6 +535,15 @@
       padding: 2rem 2.5rem;
     }
 
+    [data-theme="dark"] .main-card {
+      background: #1e1e23;
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.15),
+        0 16px 32px rgba(0, 0, 0, 0.2),
+        0 32px 64px rgba(0, 0, 0, 0.25);
+    }
+
     .card-container:hover .main-card {
       transform: translateY(-8px);
       box-shadow:
@@ -713,589 +722,265 @@
       50% { opacity: 0.5; transform: scale(0.8); }
     }
 
-    /* ===== 认识一下（about）：四卡片布局 ===== */
-    .about-grid-container {
-      display: grid;
+    /* ===== 认识一下（about）：卡片堆栈布局 ===== */
+    .about-main-wrapper {
+      max-width: 1100px;
       width: 100%;
-      max-width: 1000px;
       margin: 0 auto;
-      gap: 20px;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 220px);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 60px;
+      align-items: start;
     }
 
-    .about-grid-item {
+    @media (max-width: 850px) {
+      .about-main-wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    /* 左侧图片堆栈 - 正方形 */
+    .about-image-side {
       position: relative;
-      border-radius: 28px;
+      height: 400px;
+      width: 100%;
+    }
+
+    .about-img-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
       overflow: hidden;
-      cursor: pointer;
-      /* 透明玻璃质感 */
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
-                  inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
-      z-index: 10;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-origin: bottom center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      opacity: 0;
+      aspect-ratio: 1;
     }
 
-    [data-theme="dark"] .about-grid-item {
-      background: rgba(0, 0, 0, 0.2);
-      border-color: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
-                  inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-    }
-
-    .about-item-1 { grid-column: span 2; grid-row: span 2; }
-    .about-item-2 { grid-column: span 2; grid-row: span 1; }
-    .about-item-3 { grid-column: span 1; grid-row: span 1; }
-    .about-item-4 { grid-column: span 1; grid-row: span 1; }
-
-    .about-placeholder {
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none;
-    }
-
-    .about-card-bg {
-      position: absolute;
-      inset: 0;
-      /* 透明玻璃质感背景 */
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.6s var(--ease-out-expo);
-    }
-
-    [data-theme="dark"] .about-card-bg {
-      background: rgba(0, 0, 0, 0.15);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .about-grid-item:hover .about-card-bg {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    [data-theme="dark"] .about-grid-item:hover .about-card-bg {
-      background: rgba(0, 0, 0, 0.25);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    /* 卡片装饰图案 */
-    .about-item-1::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 60%;
-      height: 120%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .about-item-2::before {
-      content: '';
-      position: absolute;
-      bottom: -30%;
-      left: -20%;
-      width: 80%;
+    .about-img-card img {
+      width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
+      object-fit: contain;
+      background: #f5f5f5;
     }
 
-    .about-item-3::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 150%;
-      height: 150%;
-      background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 1;
+    [data-theme="dark"] .about-img-card img {
+      background: #1a1a1a;
     }
 
-    .about-item-4::before {
-      content: '';
-      position: absolute;
-      top: -30%;
-      left: -10%;
-      width: 70%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(249, 115, 22, 0.12) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
+    .about-img-card.active {
+      z-index: 100;
+      opacity: 1;
+      transform: scale(1) rotate(0);
     }
 
-    /* 卡片装饰图标 */
-    .about-item-1::after {
-      content: '👨‍💻';
-      position: absolute;
-      bottom: 10%;
-      right: 8%;
-      font-size: 4rem;
-      opacity: 0.15;
-      pointer-events: none;
-      z-index: 1;
+    .about-img-card.stack {
+      z-index: 50;
+      opacity: 0.2;
+      transform: scale(0.9) translateY(20px);
     }
 
-    .about-item-2::after {
-      content: '📊';
-      position: absolute;
-      bottom: 15%;
-      right: 10%;
-      font-size: 3rem;
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: 1;
+    @keyframes aboutBounceAway {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-80px) scale(1.02) rotate(3deg); opacity: 0.5; }
+      100% { transform: translateY(40px) scale(0.9); opacity: 0; }
     }
 
-    .about-item-3::after {
-      content: '🎯';
-      position: absolute;
-      top: 50%;
-      right: 5%;
-      transform: translateY(-50%);
-      font-size: 2.5rem;
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: 1;
+    .about-img-card.exit {
+      z-index: 110;
+      animation: aboutBounceAway 0.5s ease-in-out forwards;
     }
 
-    .about-item-4::after {
-      content: '🚀';
-      position: absolute;
-      bottom: 10%;
-      right: 5%;
-      font-size: 2.5rem;
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    [data-theme="dark"] .about-item-1::after,
-    [data-theme="dark"] .about-item-2::after,
-    [data-theme="dark"] .about-item-3::after,
-    [data-theme="dark"] .about-item-4::after {
-      opacity: 0.08;
-    }
-
-    /* 卡片悬浮上浮动效 */
-    .about-grid-item:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15),
-                  inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-    }
-
-    [data-theme="dark"] .about-grid-item:hover {
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35),
-                  inset 0 0 0 1px rgba(255, 255, 255, 0.12);
-    }
-
-    .about-card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      /* 玻璃质感图标 */
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      margin-right: 0.75rem;
-    }
-
-    [data-theme="dark"] .about-card-icon {
-      background: rgba(0, 0, 0, 0.3);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .about-card-title {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1a1a1a;
-      font-size: 1.25rem;
-      font-weight: 700;
-      z-index: 5;
-      transition: opacity 0.3s;
-    }
-
-    [data-theme="dark"] .about-card-title {
-      color: #ffffff;
-    }
-
-    .about-card-detail {
-      display: none;
-      padding: 2rem;
-      color: #1a1a1a;
+    /* 右侧内容区域 */
+    .about-content-side {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      height: 450px;
       position: relative;
-      z-index: 6;
+    }
+
+    .about-slider-container {
+      position: relative;
+      min-height: 350px;
+    }
+
+    .about-slide-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       opacity: 0;
-      transition: opacity 0.4s var(--ease-out-expo) 0.3s;
-      overflow-y: auto;
-      max-height: 100%;
-    }
-
-    [data-theme="dark"] .about-card-detail {
-      color: #ffffff;
-    }
-
-    .about-grid-item.active {
-      position: fixed !important;
-      z-index: 1000 !important;
-      cursor: default;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-      width: 900px !important;
-      height: auto !important;
-      min-height: 500px;
-      max-height: 90vh;
-    }
-
-    .about-grid-item.active .about-card-bg {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .about-grid-item.active .about-card-title { opacity: 0; }
-    .about-grid-item.active .about-card-detail { display: block; opacity: 1; }
-
-    #aboutOverlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.2);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
       pointer-events: none;
-      transition: opacity 0.6s var(--ease-out-expo);
-      z-index: 900;
     }
 
-    #aboutOverlay.show { opacity: 1; pointer-events: auto; }
-
-    /* 卡片内容样式 */
-    .about-detail-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+    .about-slide-item.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
-    .about-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #b0bdf5 0%, #d6b7f5 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-      flex-shrink: 0;
+    .about-slide-title {
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: var(--text-primary);
     }
 
-    .about-avatar-green { background: linear-gradient(135deg, #94f5d4 0%, #91f5d5 100%); box-shadow: 0 10px 30px rgba(151, 241, 211, 0.3); }
-    .about-avatar-pink { background: linear-gradient(135deg, #f4caf8 0%, #f5b2bb 100%); box-shadow: 0 10px 30px rgba(243, 210, 247, 0.3); }
-    .about-avatar-orange { background: linear-gradient(135deg, #d6a17c 0%, #ca7272 100%); box-shadow: 0 10px 30px rgba(245, 202, 171, 0.3); }
-
-    .about-role {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin: 0;
-      color: #1a1a1a;
+    .about-slide-paragraph {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      text-align: justify;
     }
 
-    [data-theme="dark"] .about-role {
-      color: #ffffff;
-    }
-
-    .about-role-en {
-      color: rgba(0,0,0,0.5);
-      margin: 0;
-      font-size: 0.875rem;
-    }
-
-    [data-theme="dark"] .about-role-en {
-      color: rgba(255,255,255,0.6);
-    }
-
-    .about-desc {
-      color: rgba(0,0,0,0.7);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-
-    [data-theme="dark"] .about-desc {
-      color: rgba(255,255,255,0.75);
-    }
-
-    .about-quote {
-      text-align: center;
-      color: rgba(0,0,0,0.5);
-      font-style: italic;
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-    }
-
-    [data-theme="dark"] .about-quote {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .about-tags {
+    /* 标签 */
+    .about-tag-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
+      gap: 10px;
+      margin-top: 15px;
     }
 
     .about-tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: #1a1a1a;
-      transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .about-tag {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.15);
-      color: #e8e8ec;
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .about-tag:hover {
-      background: rgba(0,0,0,0.08);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
 
-    [data-theme="dark"] .about-tag:hover {
-      background: rgba(255,255,255,0.12);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
+    .about-bg-blue { background: #eef2ff; color: #4338ca; }
+    .about-bg-green { background: #f0fdf4; color: #15803d; }
+    .about-bg-purple { background: #faf5ff; color: #7e22ce; }
+    .about-bg-orange { background: #fff7ed; color: #c2410c; }
+    .about-bg-pink { background: #fdf2f8; color: #be185d; }
+    .about-bg-cyan { background: #ecfeff; color: #0e7490; }
 
-    .about-info-box {
-      background: rgba(0,0,0,0.03);
-      border-radius: 16px;
-      padding: 1rem 1.5rem;
-      border: 1px solid rgba(0,0,0,0.08);
-    }
+    [data-theme="dark"] .about-bg-blue { background: rgba(67, 56, 202, 0.2); color: #a5b4fc; }
+    [data-theme="dark"] .about-bg-green { background: rgba(21, 128, 61, 0.2); color: #86efac; }
+    [data-theme="dark"] .about-bg-purple { background: rgba(126, 34, 206, 0.2); color: #c4b5fd; }
+    [data-theme="dark"] .about-bg-orange { background: rgba(194, 65, 12, 0.2); color: #fdba74; }
+    [data-theme="dark"] .about-bg-pink { background: rgba(190, 24, 93, 0.2); color: #f9a8d4; }
+    [data-theme="dark"] .about-bg-cyan { background: rgba(14, 116, 144, 0.2); color: #67e8f9; }
 
-    [data-theme="dark"] .about-info-box {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.1);
-    }
-
-    .about-info-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-
-    [data-theme="dark"] .about-info-item {
-      border-bottom-color: rgba(255,255,255,0.08);
-    }
-
-    .about-info-item:last-child { border-bottom: none; }
-
-    .about-info-label {
-      color: rgba(0,0,0,0.5);
-      font-size: 0.875rem;
-    }
-
-    [data-theme="dark"] .about-info-label {
-      color: rgba(255,255,255,0.6);
-    }
-
-    .about-info-value {
-      color: #1a1a1a;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    [data-theme="dark"] .about-info-value {
-      color: #e8e8ec;
-    }
-
-    .about-info-highlight {
-      color: #3b82f6;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    [data-theme="dark"] .about-info-highlight {
-      color: #60a5fa;
-    }
-
-    .about-dot-green {
-      width: 8px;
-      height: 8px;
-      background: #10b981;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .about-hobby-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .about-hobby-tag {
-      padding: 0.6rem;
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 12px;
-      font-size: 0.8rem;
-      text-align: center;
-      color: #1a1a1a;
-      transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .about-hobby-tag {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.1);
-      color: #e8e8ec;
-    }
-
-    .about-hobby-tag:hover {
-      background: rgba(0,0,0,0.08);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    [data-theme="dark"] .about-hobby-tag:hover {
-      background: rgba(255,255,255,0.12);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    .about-quote {
-      text-align: center;
-      color: rgba(0,0,0,0.5);
-      font-style: italic;
-      font-size: 0.85rem;
-      margin-top: 0.5rem;
-    }
-
-    [data-theme="dark"] .about-quote {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .about-plan-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+    /* 规划列表 */
+    .about-plan-box {
+      margin-bottom: 20px;
     }
 
     .about-plan-item {
+      margin-bottom: 15px;
+      border-left: 3px solid var(--border);
+      padding-left: 15px;
+    }
+
+    .about-plan-item b {
+      font-size: 16px;
+      display: block;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .about-plan-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+
+    /* 基本信息列表 */
+    .about-info-row {
       display: flex;
-      gap: 1rem;
-      padding: 1rem;
-      background: rgba(0,0,0,0.03);
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.06);
-      transition: all 0.3s ease;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 17px;
     }
 
-    [data-theme="dark"] .about-plan-item {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(255,255,255,0.1);
+    .about-info-row span:last-child {
+      font-weight: 700;
     }
 
-    .about-plan-item:hover {
-      background: rgba(0,0,0,0.05);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* 爱好栅格 */
+    .about-hobby-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
 
-    [data-theme="dark"] .about-plan-item:hover {
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    .about-hobby-card {
+      background: var(--tag-bg);
+      padding: 12px;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 15px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s;
     }
 
-    .about-plan-num {
-      width: 28px;
-      height: 28px;
+    .about-hobby-card:hover {
+      transform: scale(1.05);
+    }
+
+    /* 导航按钮 */
+    .about-nav-bar {
+      display: flex;
+      gap: 15px;
+      padding-top: 10px;
+    }
+
+    .about-nav-btn {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-      color: #1a1a1a;
+      transition: 0.3s;
+      color: var(--text-primary);
     }
 
-    [data-theme="dark"] .about-plan-num {
-      color: #ffffff;
+    .about-nav-btn:hover {
+      background: var(--text-primary);
+      color: var(--bg);
     }
 
-    .about-plan-num-1 { background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2)); }
-    .about-plan-num-2 { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2)); }
-    .about-plan-num-3 { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2)); }
-    .about-plan-num-4 { background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(239, 68, 68, 0.2)); }
-
-    .about-plan-item h4 {
-      margin: 0 0 0.25rem 0;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #1a1a1a;
+    .about-nav-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
     }
 
-    [data-theme="dark"] .about-plan-item h4 {
-      color: #ffffff;
-    }
-
-    .about-plan-item p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: rgba(0,0,0,0.6);
-      line-height: 1.5;
-    }
-
-    [data-theme="dark"] .about-plan-item p {
-      color: rgba(255,255,255,0.7);
-    }
-    }
-
-    .about-plan-item p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: rgba(0,0,0,0.6);
-      line-height: 1.5;
-    }
-
-    @media (max-width: 768px) {
-      .about-grid-container { display: flex; flex-direction: column; }
-      .about-grid-item { height: 180px; }
-      .about-grid-item.active { width: 95% !important; height: auto !important; min-height: 400px; }
-      .about-hobby-grid { grid-template-columns: repeat(2, 1fr); }
-      .about-plan-list { gap: 0.8rem; }
-      .about-plan-item { padding: 1rem; gap: 1rem; }
-      .about-plan-item h4 { font-size: 0.8rem; }
-      .about-plan-item p { font-size: 0.7rem; line-height: 1; }
+    @media (max-width: 850px) {
+      .about-content-side {
+        height: auto;
+      }
+      .about-slide-item {
+        position: relative;
+        display: none;
+      }
+      .about-slide-item.active {
+        display: block;
+      }
+      .about-hobby-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     /* ===== 获奖经历（awards）：轮播卡片 ===== */
@@ -2534,9 +2219,18 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     }
 
+    [data-theme="dark"] .edu-music-card {
+      background: #1e1e23;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
     .edu-music-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.18);
+    }
+
+    [data-theme="dark"] .edu-music-card:hover {
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
     }
 
     .edu-music-card.is-expanding {

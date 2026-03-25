@@ -67,130 +67,92 @@
   <!-- 首页（self-introduction）结束 -->
 
   <main class="content" id="main-content" role="main">
-    <!-- 认识一下（about）：四卡片 -->
+    <!-- 认识一下（about）：卡片堆栈布局 -->
     <section class="section about" id="about" aria-labelledby="about-title">
       <h2 class="section-title" id="about-title">认识一下</h2>
       <p class="section-subtitle">关于我</p>
       <div class="section-inner">
-        <div id="aboutOverlay"></div>
-        <div class="about-grid-container">
-          <div class="about-grid-item about-item-1" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开个人简介卡片">
-            <div class="about-card-bg"></div>
-            <div class="about-card-title">
-              <span class="about-card-icon" aria-hidden="true">👤</span>
-              个人简介
-            </div>
-            <div class="about-card-detail">
-              <div class="about-detail-header">
-                <div class="about-avatar">👨‍💻</div>
-                <div>
-                  <h3 class="about-role">测试工程师</h3>
-                  <p class="about-role-en">Software Test Engineer</p>
-                </div>
-              </div>
-              <p class="about-desc">拥有 <b>4 年</b>软件测试与实施经验，熟悉软件测试全流程，熟练掌握 Python 及 Postman、JMeter 等测试工具，具备自动化测试、接口测试与性能测试实战能力。</p>
-              <p class="about-desc">工作认真细致、责任心强，善于分析定位问题、优化流程，具备良好的团队协作与沟通能力，对新技术保持持续学习热情，能快速适应高强度工作节奏。</p>
-              <div class="about-tags">
-                <span class="about-tag">🔧 自动化测试</span>
-                <span class="about-tag">🌐 接口测试</span>
-                <span class="about-tag">⚡ 性能测试</span>
-                <span class="about-tag">🐍 Python</span>
-              </div>
-            </div>
+        <div class="about-main-wrapper">
+          <!-- 左侧图片堆栈 -->
+          <div class="about-image-side" id="aboutImageStack">
+            <div class="about-img-card active" id="aboutImg-0"><img src="static/img/me.jpg" alt="个人简介"></div>
+            <div class="about-img-card" id="aboutImg-1"><img src="static/img/info.jpg" alt="基本信息"></div>
+            <div class="about-img-card" id="aboutImg-2"><img src="static/img/happy.jpg" alt="兴趣爱好"></div>
+            <div class="about-img-card" id="aboutImg-3"><img src="static/img/furture.jpg" alt="未来规划"></div>
           </div>
-          <div class="about-grid-item about-item-2" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开基本信息卡片">
-            <div class="about-card-bg"></div>
-            <div class="about-card-title">
-              <span class="about-card-icon" aria-hidden="true">📋</span>
-              基本信息
+          <!-- 右侧内容区域 -->
+          <div class="about-content-side">
+            <div class="about-slider-container">
+              <!-- Slide 0: 个人简介 -->
+              <div class="about-slide-item active" id="aboutS-0">
+                <h2 class="about-slide-title">个人简介</h2>
+                <p class="about-slide-paragraph">拥有 4 年软件测试与实施经验，熟悉软件测试全流程，熟练掌握 Python 及 Postman、JMeter 等测试工具，具备自动化测试、接口测试与性能测试实战能力。</p>
+                <p class="about-slide-paragraph">工作认真细致、责任心强，善于分析定位问题、优化流程，具备良好的团队协作与沟通能力，对新技术保持持续学习热情，能快速适应高强度工作节奏。</p>
+                <div class="about-tag-group">
+                  <span class="about-tag about-bg-blue">Python</span>
+                  <span class="about-tag about-bg-green">Postman</span>
+                  <span class="about-tag about-bg-purple">JMeter</span>
+                  <span class="about-tag about-bg-orange">自动化测试</span>
+                </div>
+              </div>
+              <!-- Slide 1: 基本信息 -->
+              <div class="about-slide-item" id="aboutS-1">
+                <h2 class="about-slide-title">基本信息</h2>
+                <div class="about-info-row" data-key="workYears"><span>工作年限</span><span>4 年</span></div>
+                <div class="about-info-row" data-key="education"><span>学历情况</span><span>本科</span></div>
+                <div class="about-info-row" data-key="location"><span>所在城市</span><span>深圳</span></div>
+                <div class="about-info-row" data-key="phone"><span>手机号码</span><span>159xxxxxx64</span></div>
+                <div class="about-info-row" data-key="email"><span>邮箱地址</span><span>bookwenn@foxmail.com</span></div>
+              </div>
+              <!-- Slide 2: 兴趣爱好 -->
+              <div class="about-slide-item" id="aboutS-2">
+                <h2 class="about-slide-title">兴趣爱好</h2>
+                <div class="about-hobby-grid">
+                  <div class="about-hobby-card">🎵 听歌</div>
+                  <div class="about-hobby-card">🎮 游戏</div>
+                  <div class="about-hobby-card">⌨️ 写代码</div>
+                  <div class="about-hobby-card">🎤 唱歌</div>
+                  <div class="about-hobby-card">🏃 跑步</div>
+                  <div class="about-hobby-card">⚙️ DIY</div>
+                  <div class="about-hobby-card">🏸 羽毛球</div>
+                  <div class="about-hobby-card">🎾 网球</div>
+                  <div class="about-hobby-card">🥾 徒步</div>
+                  <div class="about-hobby-card">🌏 旅游</div>
+                  <div class="about-hobby-card">🏔️ 爬山</div>
+                  <div class="about-hobby-card">📚 学习</div>
+                </div>
+              </div>
+              <!-- Slide 3: 未来规划 -->
+              <div class="about-slide-item" id="aboutS-3">
+                <h2 class="about-slide-title">未来规划</h2>
+                <div class="about-plan-box">
+                  <div class="about-plan-item">
+                    <b>深耕软件测试领域</b>
+                    <p>熟练掌握功能测试、接口测试、自动化测试等核心技能，提升问题定位与分析能力。</p>
+                  </div>
+                  <div class="about-plan-item">
+                    <b>技术持续进阶</b>
+                    <p>持续学习 Python、Linux、测试工具等技术，向自动化测试与性能测试方向发展，提高测试效率与专业性。</p>
+                  </div>
+                  <div class="about-plan-item">
+                    <b>逐步积累项目管理经验</b>
+                    <p>争取成长为一名技术扎实、能独当一面的测试工程师，为职业晋升打下基础。</p>
+                  </div>
+                  <div class="about-plan-item">
+                    <b>保持持续学习习惯</b>
+                    <p>紧跟行业新技术、新流程，不断提升综合竞争力，实现长期稳定的职业发展。</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="about-card-detail">
-              <div class="about-detail-header">
-                <div class="about-avatar about-avatar-green">📊</div>
-                <div>
-                  <h3 class="about-role">基本信息</h3>
-                  <p class="about-role-en">Basic Information</p>
-                </div>
-              </div>
-              <div class="about-info-box">
-                <div class="about-info-item">
-                  <span class="about-info-label">💼 工作年限</span>
-                  <span class="about-info-value about-info-highlight">4 年</span>
-                </div>
-                <div class="about-info-item">
-                  <span class="about-info-label">🎓 学历</span>
-                  <span class="about-info-value">本科</span>
-                </div>
-                <div class="about-info-item">
-                  <span class="about-info-label">📍 所在城市</span>
-                  <span class="about-info-value"><span class="about-dot-green"></span>深圳</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="about-grid-item about-item-3" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开兴趣爱好卡片">
-            <div class="about-card-bg"></div>
-            <div class="about-card-title">
-              <span class="about-card-icon" aria-hidden="true">🎯</span>
-              兴趣爱好
-            </div>
-            <div class="about-card-detail">
-              <div class="about-detail-header">
-                <div class="about-avatar about-avatar-pink">🎨</div>
-                <div>
-                  <h3 class="about-role">兴趣爱好</h3>
-                  <p class="about-role-en">Hobbies & Interests</p>
-                </div>
-              </div>
-              <div class="about-hobby-grid">
-                <span class="about-hobby-tag">🎵 听歌</span>
-                <span class="about-hobby-tag">🎮 游戏</span>
-                <span class="about-hobby-tag">💻 写代码</span>
-                <span class="about-hobby-tag">🎤 唱歌</span>
-                <span class="about-hobby-tag">🏃 跑步</span>
-                <span class="about-hobby-tag">🔨 DIY</span>
-                <span class="about-hobby-tag">🏸 羽毛球</span>
-                <span class="about-hobby-tag">🎾 网球</span>
-                <span class="about-hobby-tag">🥾 徒步</span>
-                <span class="about-hobby-tag">✈️ 旅游</span>
-                <span class="about-hobby-tag">🧗 爬山</span>
-                <span class="about-hobby-tag">📚 学习</span>
-              </div>
-              <p class="about-quote">"保持好奇心，探索生活的无限可能"</p>
-            </div>
-          </div>
-          <div class="about-grid-item about-item-4" onclick="handleAboutExpand(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')handleAboutExpand(this)" aria-label="展开未来规划卡片">
-            <div class="about-card-bg"></div>
-            <div class="about-card-title">
-              <span class="about-card-icon" aria-hidden="true">🚀</span>
-              未来规划
-            </div>
-            <div class="about-card-detail">
-              <div class="about-detail-header">
-                <div class="about-avatar about-avatar-orange">🎯</div>
-                <div>
-                  <h3 class="about-role">未来规划</h3>
-                  <p class="about-role-en">Future Plans</p>
-                </div>
-              </div>
-              <div class="about-plan-list">
-                <div class="about-plan-item">
-                  <span class="about-plan-num about-plan-num-1">1</span>
-                  <div><h4>深耕测试领域</h4><p>熟练掌握功能测试、接口测试、自动化测试等核心技能，提升问题定位与分析能力。</p></div>
-                </div>
-                <div class="about-plan-item">
-                  <span class="about-plan-num about-plan-num-2">2</span>
-                  <div><h4>技术持续进阶</h4><p>持续学习 Python、Linux、测试工具等技术，向自动化测试与性能测试方向发展。</p></div>
-                </div>
-                <div class="about-plan-item">
-                  <span class="about-plan-num about-plan-num-3">3</span>
-                  <div><h4>职业成长目标</h4><p>逐步积累项目管理与团队协作经验，成长为技术扎实、能独当一面的测试工程师。</p></div>
-                </div>
-                <div class="about-plan-item">
-                  <span class="about-plan-num about-plan-num-4">4</span>
-                  <div><h4>长期发展规划</h4><p>保持持续学习习惯，紧跟行业新技术、新流程，不断提升综合竞争力，实现长期稳定职业发展。</p></div>
-                </div>
-              </div>
+            <!-- 导航按钮 -->
+            <div class="about-nav-bar">
+              <button class="about-nav-btn" onclick="aboutMove(-1)" aria-label="上一个">
+                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="about-nav-btn" onclick="aboutMove(1)" aria-label="下一个">
+                <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
             </div>
           </div>
         </div>
@@ -942,29 +904,31 @@
                 <div class="eval-item">
                   <div class="skill-number">01</div>
                   <div class="eval-content">
-                    <h4>精通多维度测试</h4>
-                    <p>具备功能测试、接口测试与性能测试综合能力，能独立输出高覆盖测试方案，有效保障产品质量。</p>
+                    <p>拥有4年软件测试与实施经验，熟悉软件测试全流程及各类测试方法，具备独立完成自动化测试脚本开发与维护的能力。</p>
                   </div>
                 </div>
                 <div class="eval-item">
                   <div class="skill-number">02</div>
                   <div class="eval-content">
-                    <h4>数据分析与工具驱动</h4>
-                    <p>熟练使用 Postman、JMeter 等工具分析接口响应与服务器指标，快速定位性能瓶颈与异常点。</p>
+                    <p>精通Python编程语言，熟练使用Postman、JMeter等主流测试工具，具备丰富的接口测试与性能测试实战经验。</p>
                   </div>
                 </div>
                 <div class="eval-item">
                   <div class="skill-number">03</div>
                   <div class="eval-content">
-                    <h4>自动化与效能提升</h4>
-                    <p>熟练掌握 Python 自动化测试框架，结合 Selenium、Appium 实现核心业务自动回归，提升测试效率 30%。</p>
+                    <p>具备较强的问题分析与解决能力，能够高效定位并修复软件缺陷，保障系统运行的稳定性与可靠性。</p>
                   </div>
                 </div>
                 <div class="eval-item">
                   <div class="skill-number">04</div>
                   <div class="eval-content">
-                    <h4>协作与沟通力</h4>
-                    <p>擅长与产品、研发团队高效协作，能精准推动问题修复与流程优化，确保项目高质量交付。</p>
+                    <p>工作态度认真细致，责任心强，善于发现潜在问题并提出优化方案，具备良好的团队协作与沟通能力。</p>
+                  </div>
+                </div>
+                <div class="eval-item">
+                  <div class="skill-number">05</div>
+                  <div class="eval-content">
+                    <p>对新技术保持高度敏感和学习热情，能够快速掌握并应用新的测试工具与技术，适应高强度工作节奏。</p>
                   </div>
                 </div>
               </div>
